@@ -28,4 +28,9 @@ public class SpellStats : MonoBehaviour
     {
         Debug.Log("BASE SpellStats EndBoot called");
     }
+
+    public virtual void CastHat(Vector2 mouseWorld)
+    {
+        Debug.Log("BASE SpellStats CastHat called");
+    }
 }

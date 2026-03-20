@@ -61,10 +61,6 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        {
-            bool wantsGrapple = Input.GetMouseButton(1);
-        }
-
         if (gloveSpells != null)
             gloveSpells.HandleInput();
         {
