@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5484985200253611666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5339171950177918926}
+  - component: {fileID: 366047017744391004}
+  m_Layer: 0
+  m_Name: Trespass
+  m_TagString: Spell
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5339171950177918926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484985200253611666}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 79.42478, y: -6.1885, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366047017744391004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484985200253611666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83edd5a6ab3dfe84e9ab940d6ad953bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OhmmTresspass
+  damage: 10
+  knockback: 0
+  freezeTarget: 0
+  maxCharge: 2
+  chargeRate: 1
+  teleportDistance: 10
+  moveSlowMultiplier: 0.1
+  teleportIndicatorPrefab: {fileID: 444358138108834557, guid: 9f992291609128d4484cdd173a739326, type: 3}
+  hitboxPrefab: {fileID: 3611493634371272518, guid: 4fb7078497a2f6e479d08261bc91c467, type: 3}
+  trailWidth: 0.73
+  trailLength: 10

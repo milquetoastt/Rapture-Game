@@ -568,7 +568,11 @@ MonoBehaviour:
     fireCooldown: 0.2
     windUp: 0.2
     spawnOffset: {x: 0, y: 0, z: 0}
-  currentSpell: 0
+  - spellPrefab: {fileID: 5484985200253611666, guid: e3f76a32efc994e4fa2630a5b2962adf, type: 3}
+    fireCooldown: 2
+    windUp: 0.1
+    spawnOffset: {x: 0, y: 0, z: 0}
+  currentSpell: 1
   firePoint: {fileID: 901540772}
 --- !u!1 &519420028
 GameObject:
@@ -901,7 +905,7 @@ Transform:
   m_GameObject: {fileID: 534371915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.0338, y: 9.04, z: 0.030270882}
+  m_LocalPosition: {x: 51.0338, y: 11.6, z: 0.030270882}
   m_LocalScale: {x: 22.755419, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1151,7 +1155,7 @@ MonoBehaviour:
   zoomedSize: 12
   zoomInSpeed: 1
   zoomOutSpeed: 10
-  gloveSpells: {fileID: 0}
+  gloveSpells: {fileID: 228418128}
   manaResource: {fileID: 671990931}
 --- !u!58 &671990928
 CircleCollider2D:
