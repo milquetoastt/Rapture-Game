@@ -22,11 +22,12 @@ public class CloudCart : SpellStats
         rb.linearVelocityY /= 2;
         gameObject.transform.SetParent(PlayerController.instance.transform);
         gameObject.transform.localPosition = new Vector3(0f, cloudOffset, 0f);
-        rb.gravityScale = 0;
+        
     }
 
     public override void HoldBoot(Vector2 direction)
     {
+        rb.gravityScale = 0;
         Vector2 vel = rb.linearVelocity;
 
         vel.y = Mathf.Lerp(vel.y, 0f, yDampSpeed * Time.fixedDeltaTime);

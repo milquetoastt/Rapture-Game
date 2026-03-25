@@ -35,7 +35,7 @@ public class GloveSpells : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
 
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
@@ -108,6 +108,9 @@ public class GloveSpells : MonoBehaviour
 
     public void ApplyRecoilFromMouse()
     {
+        //Debug.Log("rb: " + rb);
+        //Debug.Log("Camera.main: " + Camera.main);
+        //Debug.Log("spell null? " + (spells[currentSpell] == null));
         SpellData spell = spells[currentSpell];
 
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);

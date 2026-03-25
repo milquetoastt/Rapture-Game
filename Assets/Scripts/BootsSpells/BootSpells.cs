@@ -46,6 +46,7 @@ public class BootSpells : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.LeftShift) && proj != null)
         {
             proj.EndBoot(dir);
+            Destroy(proj);
         }
     }
 

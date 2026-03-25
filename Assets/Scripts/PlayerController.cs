@@ -48,6 +48,12 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+
+        if (currentPortal != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("doin a teleport");
+            currentPortal.TryTeleport();
+        }
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -80,6 +86,7 @@ public class PlayerController : MonoBehaviour
             );
         }
     }
+
     private void FixedUpdate()
     {
         float vx = rb.linearVelocity.x;
@@ -129,8 +136,18 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Health: " + health);
     }
 
-    void DamageBoost()
-    {
+    private Portal currentPortal;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        currentPortal = collision.gameObject.GetComponent<Portal>();
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Portal>() == currentPortal)
+        {
+            currentPortal = null;
+        }
     }
 }
