@@ -25,13 +25,13 @@ public class Portal : MonoBehaviour
         
 
         if (down)
-            PlayerController.instance.transform.position = playerLocation - new Vector2(0, -yDistance);
+            PlayerController.instance.transform.position = playerLocation + new Vector2(0, -yDistance);
         else if (up)
-            PlayerController.instance.transform.position = playerLocation - new Vector2(0, yDistance);
+            PlayerController.instance.transform.position = playerLocation + new Vector2(0, yDistance);
         else if (left)
-            PlayerController.instance.transform.position = playerLocation - new Vector2(-xDistance, 0);
+            PlayerController.instance.transform.position = playerLocation + new Vector2(-xDistance, 0);
         else
-            PlayerController.instance.transform.position = playerLocation - new Vector2(xDistance, 0);
+            PlayerController.instance.transform.position = playerLocation + new Vector2(xDistance, 0);
 
         PlayerController.instance.canInputMove = true;
 

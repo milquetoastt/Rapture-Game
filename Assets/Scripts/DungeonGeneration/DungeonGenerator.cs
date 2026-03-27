@@ -78,6 +78,15 @@ public class DungeonGenerator : MonoBehaviour
 
             bool success = baseRoom.AddRoomRandomly(newRoom);
 
+                                // hello instagram story i am writing you
+                                // a caption in my code.
+
+                                // i have played one (1) league of legends
+                                // game in the past week.
+                                // i am getting withdrawls.
+
+                                // insert 'i miss my wife, tails'
+                                // snapcube meme image.
             if (success)
             {
                 newRoom.UpdateWorldPosition();
@@ -162,7 +171,18 @@ public class DungeonGenerator : MonoBehaviour
         {
             if (room == startRoom) continue;
             if (room == farthestRoom) continue;
-            if (!room.IsLeaf()) continue;
+
+            bool hasLeft = room.leftRoom != null;
+            bool hasRight = room.rightRoom != null;
+            bool hasUp = room.upRoom != null;
+            bool hasDown = room.downRoom != null;
+
+            bool validTreasureShape =
+                !hasUp &&
+                !hasDown &&
+                (hasLeft || hasRight);
+
+            if (!validTreasureShape) continue;
 
             if (room.distanceFromStart > bestTreasureDistance)
             {
@@ -257,7 +277,7 @@ public class DungeonGenerator : MonoBehaviour
 
             if (prefabToSpawn == null)
             {
-                Debug.LogError($"No matching prefab for {oldRoom.roomType} at ({oldRoom.xPos}, {oldRoom.yPos})");
+                //Debug.Log($"No matching prefab for {oldRoom.roomType} at ({oldRoom.xPos}, {oldRoom.yPos})");
                 return;
             }
 

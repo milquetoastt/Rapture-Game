@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public enum RoomType
@@ -25,14 +27,92 @@ public class DungeonRoom : MonoBehaviour
     public RoomType roomType = RoomType.Combat;
     public int distanceFromStart = -1;
 
+    [Header("Encounter")]
+    public GameObject[] enemyPrefabs;
+    public Transform[] spawnPoints;
+    public Portal[] portals;
+    public bool encounterStarted = false;
+    public bool roomCleared = false;
+    private List<EnemyBase> aliveEnemies = new List<EnemyBase>();
+
+
     [Header("Exits")]
     public bool supportsUp;
     public bool supportsDown;
     public bool supportsLeft;
     public bool supportsRight;
+
+    public void PlayerEnteredRoom()
+    {
+        if (roomCleared)
+            return;
+
+        else if (!encounterStarted)
+        {
+            StartEncounter();
+        }
+    }
+
+    private void StartEncounter()
+    {
+        encounterStarted = true;
+        LockPortals();
+        SpawnEnemies();
+    }
+
+    void EndEncounter()
+    {
+        roomCleared = true;
+        UnlockPortals();
+    }
+
+    void LockPortals()
+    {
+        foreach (Portal portal in portals)
+        {
+            portal.Lock();
+        }
+    }
+
+    void UnlockPortals()
+    {
+        foreach(Portal portal in portals)
+        {
+            portal.Unlock();
+        }
+    }
+
+    void SpawnEnemies()
+    {
+        foreach(Transform place in spawnPoints)
+        {
+            // choose enemy randomly
+            GameObject enemyOBJ = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], place.transform);
+            EnemyBase enemy = enemyOBJ.GetComponent<EnemyBase>();
+
+            if(enemy != null)
+            {
+                enemy.myRoom = this;
+                aliveEnemies.Add(enemy);
+            }
+        }
+    }
+
+    public void EnemyDied(EnemyBase deadEnemy)
+    {
+        if (aliveEnemies.Contains(deadEnemy))
+        {
+            aliveEnemies.Remove(deadEnemy);
+        }
+
+        if (encounterStarted && aliveEnemies.Count == 0)
+        {
+            EndEncounter();
+        }
+    }
+
     private void OnDrawGizmos()
     {
-        // --- existing color logic ---
         switch (roomType)
         {
             case RoomType.Start:
@@ -49,149 +129,133 @@ public class DungeonRoom : MonoBehaviour
                 break;
         }
 
-        Gizmos.DrawCube(transform.position, new Vector3(4f, 3f, 0.2f));
+        Gizmos.DrawCube(transform.position, Vector3.one * 5);
 
-        // --- existing white connection lines ---
         Gizmos.color = Color.white;
-
         if (upRoom != null) Gizmos.DrawLine(transform.position, upRoom.transform.position);
         if (downRoom != null) Gizmos.DrawLine(transform.position, downRoom.transform.position);
         if (leftRoom != null) Gizmos.DrawLine(transform.position, leftRoom.transform.position);
         if (rightRoom != null) Gizmos.DrawLine(transform.position, rightRoom.transform.position);
-
-        // =========================
-        // NEW: REQUIRED EXITS DEBUG
-        // =========================
-
-        float offset = 2.5f;
-
-        // Use GREEN for "this exit is required"
-        Gizmos.color = Color.green;
-
-        if (upRoom != null)
-            Gizmos.DrawSphere(transform.position + Vector3.up * offset, 0.4f);
-
-        if (downRoom != null)
-            Gizmos.DrawSphere(transform.position + Vector3.down * offset, 0.4f);
-
-        if (leftRoom != null)
-            Gizmos.DrawSphere(transform.position + Vector3.left * offset, 0.4f);
-
-        if (rightRoom != null)
-            Gizmos.DrawSphere(transform.position + Vector3.right * offset, 0.4f);
-
-        // =========================
-        // OPTIONAL: PREFAB SUPPORT DEBUG
-        // =========================
-
-        float innerOffset = 1.5f;
-
-        // Use BLUE for "this prefab supports this exit"
-        Gizmos.color = Color.cyan;
-
-        if (supportsUp)
-            Gizmos.DrawCube(transform.position + Vector3.up * innerOffset, Vector3.one * 0.3f);
-
-        if (supportsDown)
-            Gizmos.DrawCube(transform.position + Vector3.down * innerOffset, Vector3.one * 0.3f);
-
-        if (supportsLeft)
-            Gizmos.DrawCube(transform.position + Vector3.left * innerOffset, Vector3.one * 0.3f);
-
-        if (supportsRight)
-            Gizmos.DrawCube(transform.position + Vector3.right * innerOffset, Vector3.one * 0.3f);
     }
 
-    public int ConnectionCount()
+    public void UpdateWorldPosition()
     {
-        int count = 0;
+        if (generator == null) return;
 
-        if (upRoom != null) count++;
-        if (downRoom != null) count++;
-        if (leftRoom != null) count++;
-        if (rightRoom != null) count++;
-
-        return count;
+        transform.position = new Vector3(
+            xPos * generator.roomSpacing.x,
+            yPos * generator.roomSpacing.y,
+            0f
+        );
     }
 
-    public bool IsLeaf()
+    public bool MatchesRequiredExits(bool needUp, bool needDown, bool needLeft, bool needRight)
     {
-        return ConnectionCount() == 1;
+        return
+            supportsUp == needUp &&
+            supportsDown == needDown &&
+            supportsLeft == needLeft &&
+            supportsRight == needRight;
+    }
+
+    private bool WouldMakeInvalidStartConnection(int dir)
+    {
+        if (generator == null) return false;
+
+        DungeonRoom startRoom = generator.GetStartRoom();
+        if (startRoom == null) return false;
+
+        int targetX = xPos;
+        int targetY = yPos;
+
+        if (dir == 0) targetY += 1;
+        else if (dir == 1) targetY -= 1;
+        else if (dir == 2) targetX -= 1;
+        else if (dir == 3) targetX += 1;
+
+        DungeonRoom existingRoom = generator.GetRoomAtPosition(targetX, targetY);
+
+        if (existingRoom == null) return false;
+
+        if (existingRoom != startRoom) return false;
+
+        bool isVerticalConnection = (dir == 0 || dir == 1);
+
+        return isVerticalConnection;
     }
 
     public bool AddRoomRandomly(DungeonRoom newRoom)
     {
+        if (firstRoom)
+        {
+            int firstDir = Random.Range(0, 2) == 0 ? 2 : 3;
+            int secondDir = firstDir == 2 ? 3 : 2;
+
+            if (TryAddRoomInDirection(newRoom, firstDir)) return true;
+            if (TryAddRoomInDirection(newRoom, secondDir)) return true;
+
+            return false;
+        }
+
         int randomDirection = Random.Range(0, 4);
 
         for (int i = 0; i < 4; i++)
         {
             int dir = (randomDirection + i) % 4;
 
-            if (dir == 0)
-            {
-                if (upRoom == null && generator.GetRoomAtPosition(xPos, yPos + 1) == null)
-                {
-                    upRoom = newRoom;
-                    newRoom.downRoom = this;
-                    newRoom.xPos = xPos;
-                    newRoom.yPos = yPos + 1;
-                    return true;
-                }
-            }
-            else if (dir == 1)
-            {
-                if (downRoom == null && generator.GetRoomAtPosition(xPos, yPos - 1) == null)
-                {
-                    downRoom = newRoom;
-                    newRoom.upRoom = this;
-                    newRoom.xPos = xPos;
-                    newRoom.yPos = yPos - 1;
-                    return true;
-                }
-            }
-            else if (dir == 2)
-            {
-                if (leftRoom == null && generator.GetRoomAtPosition(xPos - 1, yPos) == null)
-                {
-                    leftRoom = newRoom;
-                    newRoom.rightRoom = this;
-                    newRoom.xPos = xPos - 1;
-                    newRoom.yPos = yPos;
-                    return true;
-                }
-            }
-            else if (dir == 3)
-            {
-                if (rightRoom == null && generator.GetRoomAtPosition(xPos + 1, yPos) == null)
-                {
-                    rightRoom = newRoom;
-                    newRoom.leftRoom = this;
-                    newRoom.xPos = xPos + 1;
-                    newRoom.yPos = yPos;
-                    return true;
-                }
-            }
+            if (TryAddRoomInDirection(newRoom, dir)) return true;
         }
 
         return false;
     }
 
-    public bool MatchesRequiredExits(bool needUp, bool needDown, bool needLeft, bool needRight)
+    private bool TryAddRoomInDirection(DungeonRoom newRoom, int dir)
     {
-        if (supportsUp != needUp) return false;
-        if (supportsDown != needDown) return false;
-        if (supportsLeft != needLeft) return false;
-        if (supportsRight != needRight) return false;
+        if (dir == 0)
+        {
+            if (upRoom == null && generator.GetRoomAtPosition(xPos, yPos + 1) == null)
+            {
+                upRoom = newRoom;
+                newRoom.downRoom = this;
+                newRoom.xPos = xPos;
+                newRoom.yPos = yPos + 1;
+                return true;
+            }
+        }
+        else if (dir == 1)
+        {
+            if (downRoom == null && generator.GetRoomAtPosition(xPos, yPos - 1) == null)
+            {
+                downRoom = newRoom;
+                newRoom.upRoom = this;
+                newRoom.xPos = xPos;
+                newRoom.yPos = yPos - 1;
+                return true;
+            }
+        }
+        else if (dir == 2)
+        {
+            if (leftRoom == null && generator.GetRoomAtPosition(xPos - 1, yPos) == null)
+            {
+                leftRoom = newRoom;
+                newRoom.rightRoom = this;
+                newRoom.xPos = xPos - 1;
+                newRoom.yPos = yPos;
+                return true;
+            }
+        }
+        else if (dir == 3)
+        {
+            if (rightRoom == null && generator.GetRoomAtPosition(xPos + 1, yPos) == null)
+            {
+                rightRoom = newRoom;
+                newRoom.leftRoom = this;
+                newRoom.xPos = xPos + 1;
+                newRoom.yPos = yPos;
+                return true;
+            }
+        }
 
-        return true;
-    }
-
-    public void UpdateWorldPosition()
-    {
-        transform.position = new Vector3(
-            xPos * generator.roomSpacing.x,
-            yPos * generator.roomSpacing.y,
-            0f
-        );
+        return false;
     }
 }

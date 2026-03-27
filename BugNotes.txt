@@ -1,0 +1,14 @@
+--- BUGNOTES ---
+
+ ☆ = level of importance for gameplay loop (scale of 3)
+
+ ★ = done
+
+
+--- BUGNOTES ---
+
+☆ ☆ ☆  Surfing prefab doesn't switch sides with turning directions
+
+☆  cloudcart prefab sometimes remains, even if physics are good.
+
+☆ ☆ ☆ holding cloudcart for a very short time (tapping) sometimes turns off gravity forever

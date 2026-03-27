@@ -250,7 +250,7 @@ MonoBehaviour:
     fireCooldown: 0.1
     windUp: 0.1
     spawnOffset: {x: 0, y: 0, z: 0}
-  currentSpell: 2
+  currentSpell: 0
   firePoint: {fileID: 901540772}
 --- !u!1 &519420028
 GameObject:
@@ -920,7 +920,7 @@ MonoBehaviour:
     fireCooldown: 0
     windUp: 0
     spawnOffset: {x: 0, y: 0, z: 0}
-  currentSpell: 0
+  currentSpell: 1
   firePoint: {fileID: 671990925}
 --- !u!1001 &1186382279
 PrefabInstance:
@@ -933,6 +933,10 @@ PrefabInstance:
     - target: {fileID: 214980845438128835, guid: e06d3cbd15ee43b46adb30c42bfe25fa, type: 3}
       propertyPath: m_Name
       value: Goob Slimerton
+      objectReference: {fileID: 0}
+    - target: {fileID: 214980845438128835, guid: e06d3cbd15ee43b46adb30c42bfe25fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3720226334444877534, guid: e06d3cbd15ee43b46adb30c42bfe25fa, type: 3}
       propertyPath: moveSpeed
@@ -1174,21 +1178,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
   roomPrefab: {fileID: 7809755987342255911, guid: 8c0307fbac9a3be4297b25967a7de954, type: 3}
-  roomCount: 10
+  roomCount: 12
   maxAttempts: 200
-  roomSpacing: {x: 80, y: 80}
+  roomSpacing: {x: 66, y: 42}
   roomParent: {fileID: 0}
   rooms: []
   startRoomPrefab: {fileID: 7809755987342255911, guid: 1b039d52c58dfdf4989418d53d6425fd, type: 3}
   combatRoomPrefabs:
+  - {fileID: 7809755987342255911, guid: 21a97a667f4ef5a44b220b96ba21fdde, type: 3}
   - {fileID: 7809755987342255911, guid: 9e9b283bd7d9c734db598be855896f80, type: 3}
   - {fileID: 7809755987342255911, guid: f42c7e591f51e484384d7e822aefa54e, type: 3}
-  - {fileID: 7809755987342255911, guid: 90527f4ede8a1c640bbc7f07b7934b9f, type: 3}
-  - {fileID: 7809755987342255911, guid: c6ac8b1d00a03ef42bb693955c7a7252, type: 3}
-  - {fileID: 7809755987342255911, guid: 1137cff5af43e3c43819aa55241f1c14, type: 3}
   - {fileID: 7809755987342255911, guid: f6b6e4f2ae4300b4fb052ee936c5dc4a, type: 3}
-  treasureRoomPrefabs: []
-  bossRoomPrefabs: []
+  - {fileID: 7809755987342255911, guid: 90aa33b238cbb0846ab8b260b43f7fb2, type: 3}
+  - {fileID: 7809755987342255911, guid: 1137cff5af43e3c43819aa55241f1c14, type: 3}
+  - {fileID: 7809755987342255911, guid: aa427fc5c57504241b1ea7a2fd1adbb8, type: 3}
+  - {fileID: 7809755987342255911, guid: 90527f4ede8a1c640bbc7f07b7934b9f, type: 3}
+  - {fileID: 7809755987342255911, guid: 9389acdf911a48144b8d1ee5515de9c3, type: 3}
+  - {fileID: 7809755987342255911, guid: c85797903744ca848bf6480c5bb9a63e, type: 3}
+  - {fileID: 7809755987342255911, guid: c6ac8b1d00a03ef42bb693955c7a7252, type: 3}
+  - {fileID: 7809755987342255911, guid: 518a8f607ced3694290dd448a6a567f2, type: 3}
+  - {fileID: 7809755987342255911, guid: 5e8ec6718c8034749876670a2af15d50, type: 3}
+  - {fileID: 7809755987342255911, guid: 423660588eba4a7439beaab01c707dda, type: 3}
+  - {fileID: 7809755987342255911, guid: 0ad5ad533619839418aec8c780d52240, type: 3}
+  - {fileID: 7809755987342255911, guid: 21a97a667f4ef5a44b220b96ba21fdde, type: 3}
+  treasureRoomPrefabs:
+  - {fileID: 7809755987342255911, guid: 1f41c5d5681670445b22012014fb4368, type: 3}
+  - {fileID: 7809755987342255911, guid: 40f1585aa40a0cf4ba45d5694c3f964a, type: 3}
+  - {fileID: 7809755987342255911, guid: a4da28d65e3a5e1498ea690759c2c0c1, type: 3}
+  bossRoomPrefabs:
+  - {fileID: 7809755987342255911, guid: 6b1e2a2595622f140883882de24c3a84, type: 3}
 --- !u!4 &1949071816
 Transform:
   m_ObjectHideFlags: 0

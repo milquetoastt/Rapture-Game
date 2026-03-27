@@ -3135,6 +3135,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3101461262844196902, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: down
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101461262844196902, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
+      propertyPath: right
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -51,8 +51,8 @@ MonoBehaviour:
   up: 0
   left: 0
   right: 0
-  xDistance: 20
-  yDistance: 20
+  xDistance: 15
+  yDistance: 15
 --- !u!212 &6104329355549784829
 SpriteRenderer:
   serializedVersion: 2
