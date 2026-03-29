@@ -1,55 +1,94 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyBase : MonoBehaviour
 {
+    [Header("Stats")]
     public int hp = 30;
     public float stunResist = 0f;
     public DungeonRoom myRoom;
+    public bool stunned = false;
 
-    private void Awake()
-    {
-        
-    }
+    private Coroutine stunRoutine;
+    public Rigidbody2D rb;
 
-    private void Update()
+    protected virtual void Awake()
     {
-        if (hp <= 0)
-        {
-            Die();
-        }
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SpellStats spell = collision.gameObject.GetComponent<SpellStats>();
+        SpellStats spell = collision.GetComponent<SpellStats>();
         if (spell != null)
         {
-            TakeDamage(spell.damage);
-            if (spell.knockback < 0f)
-                ApplyKnockback();
-            if (spell.stunTarget)
-                ApplyStun();
+
+            TakeHit(spell.damage, spell.knockback, collision.transform.position);
+
+            if (spell.stunTime > 0f)
+            {
+                if (stunRoutine != null)
+                    StopCoroutine(stunRoutine);
+
+                stunRoutine = StartCoroutine(StunCoroutine(spell.stunTime));
+            }
         }
     }
 
-    public virtual void ApplyKnockback()
+    private IEnumerator StunCoroutine(float stunTime)
     {
-        Debug.Log("Called EnemyBase ApplyKnockback()");
+        stunned = true;
+        OnStunStart();
+
+        yield return new WaitForSeconds(stunTime);
+
+        stunned = false;
+        OnStunEnd();
+        stunRoutine = null;
     }
 
-    public virtual void ApplyStun()
+    protected virtual void OnStunStart()
     {
-        Debug.Log("Called EnemyBase ApplyStun()");
     }
-    private void TakeDamage(int damage)
+
+    protected virtual void OnStunEnd()
+    {
+    }
+
+    public virtual void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
     {
         hp -= damage;
 
+        if (knockbackForce > 0f)
+        {
+            Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
+            knockDir.y = 0f;
+            knockDir.Normalize();
+
+            ApplyKnockback(knockDir, knockbackForce);
+        }
+
+        if (hp <= 0)
+            Die();
     }
 
-    private void Die()
+    public virtual void ApplyKnockback(Vector2 direction, float force)
     {
-        myRoom.EnemyDied(this);
+        if (rb == null) return;
+
+        //rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        //rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    protected virtual void Die()
+    {
+        // keep commented during testing
+        if (myRoom != null)
+        {
+            myRoom.EnemyDied(this);
+        }
+
         Destroy(gameObject);
     }
 }

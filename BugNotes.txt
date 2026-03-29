@@ -12,3 +12,9 @@
 ☆  cloudcart prefab sometimes remains, even if physics are good.
 
 ☆ ☆ ☆ holding cloudcart for a very short time (tapping) sometimes turns off gravity forever
+
+☆ ☆ can double-click glove spell to double-cast
+
+☆ ☆ water bubble glove spell collision seems strange
+
+☆ visual of jetpack cone doesn't delete on short presses

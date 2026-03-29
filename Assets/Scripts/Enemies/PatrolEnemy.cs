@@ -9,9 +9,9 @@ public class PatrolEnemy : MonoBehaviour
     public Transform wallCheck;
     public Transform groundCheck;
     public float wallCheckDistance = 0.1f;
-    public float groundCheckRadius = 0.1f;
     public LayerMask groundLayer;
-    public bool canMove = true;
+    public bool stunned = false;
+    public bool doingSomethingElse;
 
     private Rigidbody2D rb;
 
@@ -22,6 +22,16 @@ public class PatrolEnemy : MonoBehaviour
 
     private void Update()
     {
+        if (doingSomethingElse)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
+        if (stunned)
+        {
+            return;
+        }
 
         bool wallAhead = Physics2D.Raycast(
             transform.position,
@@ -32,31 +42,18 @@ public class PatrolEnemy : MonoBehaviour
 
         bool groundAhead = Physics2D.OverlapCircle(
             groundCheck.position,
-            groundCheckRadius,
+            0.1f,
             groundLayer
         );
-        if (wallAhead)
-        {
-            Debug.Log("wall found!");
-        }
-        if (wallAhead || !groundAhead)
-        {
-            Debug.Log("wall: " + wallAhead + " | ground: " + groundAhead);
-            TurnAround();
-        }
 
-        if (canMove)
-        {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-            return;
-        }
+        if (wallAhead || !groundAhead)
+            TurnAround();
 
         rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
     }
 
     void TurnAround()
     {
-        Debug.Log("turned around");
         direction *= -1;
 
         Vector3 scale = transform.localScale;
@@ -76,7 +73,7 @@ public class PatrolEnemy : MonoBehaviour
         if (groundCheck != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
         }
     }
 }

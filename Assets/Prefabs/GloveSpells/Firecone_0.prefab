@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireCone
   damage: 10
-  knockback: 0
-  freezeTarget: 0
+  knockback: 9.7
+  stunTime: 0.8
   rb: {fileID: 5974837020190646119}
   duration: 0.4
   speed: 3
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellStats
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0
 --- !u!50 &5974837020190646119
 Rigidbody2D:
   serializedVersion: 5

@@ -4,7 +4,7 @@ public class SpellStats : MonoBehaviour
 {
     public int damage = 10;
     public float knockback = 0f;
-    public bool stunTarget = false;
+    public float stunTime = 0f;
 
     public virtual void Fire(Vector2 dir) {
         Debug.Log("BASE SpellStats Fire called");

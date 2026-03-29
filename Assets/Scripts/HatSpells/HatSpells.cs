@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 //TODO: eat cake :)
 
@@ -20,6 +21,8 @@ public class HatSpells : MonoBehaviour
     private float lastInputX = 1f;
     private float nextCastTime = 0f;
     public Transform firePoint;
+    public CooldownIndicatorUI hatCooldownUI;
+    
 
     void Update()
     {
@@ -51,18 +54,19 @@ public class HatSpells : MonoBehaviour
         StartCoroutine(CastAfterWindup(direction, mouseWorld, spells[currentSpell]));
     }
 
-    private IEnumerator CastAfterWindup(Vector2 direction, Vector2 mouseWorld, SpellDataH entry)
+    private IEnumerator CastAfterWindup(Vector2 direction, Vector2 mouseWorld, SpellDataH spell)
     {
         PlayerController.instance.isCasting = true;
-        yield return new WaitForSecondsRealtime(entry.windUp);
+        yield return new WaitForSecondsRealtime(spell.windUp);
 
-        Vector2 spawnPos = (Vector2)firePoint.position + (Vector2)entry.spawnOffset;
-        GameObject hatSpellCasting = Instantiate(entry.spellPrefab, spawnPos, Quaternion.identity);
+        Vector2 spawnPos = (Vector2)firePoint.position + (Vector2)spell.spawnOffset;
+        GameObject hatSpellCasting = Instantiate(spell.spellPrefab, spawnPos, Quaternion.identity);
 
         SpellStats proj = hatSpellCasting.GetComponent<SpellStats>();
         proj.CastHat(mouseWorld);
 
-        nextCastTime = Time.time + entry.fireCooldown;
+        nextCastTime = Time.time + spell.fireCooldown;
+        hatCooldownUI.StartCooldown(spell.fireCooldown);
         PlayerController.instance.isCasting = false;
     }
 }

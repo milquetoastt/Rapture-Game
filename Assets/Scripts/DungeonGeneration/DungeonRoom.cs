@@ -41,7 +41,15 @@ public class DungeonRoom : MonoBehaviour
     public bool supportsDown;
     public bool supportsLeft;
     public bool supportsRight;
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //Debug.Log("somthing");
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("playerin here");
+            PlayerEnteredRoom();
+        }
+    }
     public void PlayerEnteredRoom()
     {
         if (roomCleared)
@@ -55,6 +63,7 @@ public class DungeonRoom : MonoBehaviour
 
     private void StartEncounter()
     {
+        Debug.Log("start encounter");
         encounterStarted = true;
         LockPortals();
         SpawnEnemies();
@@ -84,13 +93,19 @@ public class DungeonRoom : MonoBehaviour
 
     void SpawnEnemies()
     {
-        foreach(Transform place in spawnPoints)
+        foreach (Transform place in spawnPoints)
         {
-            // choose enemy randomly
-            GameObject enemyOBJ = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], place.transform);
+            Debug.Log("hereinspawnenemies");
+
+            GameObject enemyOBJ = Instantiate(
+                enemyPrefabs[Random.Range(0, enemyPrefabs.Length)],
+                place.position,
+                Quaternion.identity
+            );
+
             EnemyBase enemy = enemyOBJ.GetComponent<EnemyBase>();
 
-            if(enemy != null)
+            if (enemy != null)
             {
                 enemy.myRoom = this;
                 aliveEnemies.Add(enemy);

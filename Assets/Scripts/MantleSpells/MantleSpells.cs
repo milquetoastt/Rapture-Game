@@ -21,6 +21,8 @@ public class MantleSpells : MonoBehaviour
     private float lastInputX = 1f;
     private float nextCastTime = 0f;
     public Transform firePoint;
+    public CooldownIndicatorUI mantleCooldownUI;
+    
 
     void Update()
     {
@@ -65,6 +67,7 @@ public class MantleSpells : MonoBehaviour
         proj.CastMantle(gameObject, direction);
         
         nextCastTime = Time.time + entry.fireCooldown;
-        
+        mantleCooldownUI.StartCooldown(spell.fireCooldown);
+
     }
 }

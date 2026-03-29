@@ -22,6 +22,9 @@ public class BootSpells : MonoBehaviour
     private float nextCastTime = 0f;
     public Transform firePoint;
 
+    public CooldownIndicatorUI bootCooldownUI;
+    
+
     void Update()
     {
         float inputX = Input.GetAxisRaw("Horizontal");
@@ -71,6 +74,7 @@ public class BootSpells : MonoBehaviour
         proj.CastBoot(direction);
         
         nextCastTime = Time.time + spell.fireCooldown;
+        bootCooldownUI.StartCooldown(spell.fireCooldown);
         PlayerController.instance.isCasting = false;
     }
 }

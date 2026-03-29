@@ -25,13 +25,15 @@ public class GloveSpells : MonoBehaviour
     private bool inPostFirePause;
 
     public Camera cam;
-    public Transform firePoint;        // empty child transform on player
+    public Transform firePoint;
 
     private float nextFireTime;
 
     private Rigidbody2D rb;
     public ManaResource manaResource;
     private bool gloveCastInProgress = false;
+
+    public CooldownIndicatorUI gloveCooldownUI;
 
     private void Awake()
     {
@@ -82,6 +84,7 @@ public class GloveSpells : MonoBehaviour
         if (matrixJustEnded && Time.time >= nextFireTime && manaResource.heldSeconds >= manaResource.maxHoldSeconds)
         {
             nextFireTime = Time.time + spell.fireCooldown;
+            gloveCooldownUI.StartCooldown(spell.fireCooldown);
             ShootAtMouse();
             ApplyRecoilFromMouse();
             EnterPostFirePause();
@@ -104,6 +107,7 @@ public class GloveSpells : MonoBehaviour
         EnterPostFirePause();
 
         nextFireTime = Time.time + spell.fireCooldown;
+        gloveCooldownUI.StartCooldown(spell.fireCooldown);
     }
 
     public void ApplyRecoilFromMouse()

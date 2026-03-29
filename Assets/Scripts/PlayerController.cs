@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Cinemachine;
+using static UnityEngine.Analytics.IAnalytic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,8 +20,10 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.1f;
     public bool isGrounded;
 
+    public bool canCast = true;
     public float jumpForce = 10f;
     public bool canInputMove = true;
+    public float upKnockback = 3f;
 
     public static PlayerController instance;
 
@@ -33,10 +36,20 @@ public class PlayerController : MonoBehaviour
 
     public GloveSpells gloveSpells;
     public ManaResource manaResource;
-    
+
+    [Header("ledges")]
+    public float dropThroughTime = 0.25f;
+    private bool isDroppingThrough = false;
+    private int playerLayer;
+    private int ledgeLayer;
+    private Collider2D playerCol;
+
 
     private void Awake()
     {
+        playerCol = GetComponent<Collider2D>();
+        playerLayer = gameObject.layer;
+        ledgeLayer = LayerMask.NameToLayer("Ledges");
         rb = GetComponent<Rigidbody2D>();
         instance = this;
 
@@ -48,7 +61,10 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isDroppingThrough)
+        {
+            StartCoroutine(DropThroughLedges());
+        }
         if (currentPortal != null && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("doin a teleport");
@@ -93,8 +109,7 @@ public class PlayerController : MonoBehaviour
 
         if (horizontalInput != 0)
         {
-            // Only apply force if we're trying to accelerate in a direction
-            // and we're not already at/over the input speed cap in that direction.
+
             bool pushingRightAllowed = horizontalInput > 0f && vx < maxInputSpeed;
             bool pushingLeftAllowed = horizontalInput < 0f && vx > -maxInputSpeed;
 
@@ -102,12 +117,10 @@ public class PlayerController : MonoBehaviour
             {
                 rb.AddForce(Vector2.right * horizontalInput * moveSpeed, ForceMode2D.Force);
             }
-            // If not allowed, we simply don't add more force.
-            // We do NOT clamp velocity, so outside forces can keep vx above the cap.
+
         }
         else if (isGrounded)
         {
-            // Manual friction (when no input)
             Vector2 velocity = rb.linearVelocity;
             velocity.x = Mathf.MoveTowards(
                 velocity.x,
@@ -140,6 +153,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        EnemyBullet hit = collision.GetComponent<EnemyBullet>();
+        if (hit != null)
+        {
+            Debug.Log("Player hit by something");
+            TakeHit(hit.damage, hit.knockbackForce, collision.transform.position);
+            if (hit.stunTime > 0)
+                StartCoroutine(StunCoroutine(hit.stunTime));
+            Destroy(hit.gameObject, .1f);
+        }
         currentPortal = collision.gameObject.GetComponent<Portal>();
     }
 
@@ -149,5 +171,50 @@ public class PlayerController : MonoBehaviour
         {
             currentPortal = null;
         }
+    }
+    public void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
+    {
+        health -= damage;
+        
+        Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * upKnockback, ForceMode2D.Impulse);
+
+    }
+
+    private IEnumerator StunCoroutine(float stunTime)
+    {
+        canInputMove = false;
+        canCast = false;
+        yield return new WaitForSeconds(stunTime);
+        canInputMove = true;
+        canCast = true;
+    }
+
+    private IEnumerator DropThroughLedges()
+    {
+        Collider2D ledgeCol = Physics2D.OverlapCircle(
+            groundCheck.position,
+            groundCheckRadius + 0.05f,
+            LayerMask.GetMask("Ledges")
+        );
+
+        if (ledgeCol == null)
+        {
+            Debug.Log("noledge collider");
+            yield break;
+        }
+
+        Debug.Log("ignoring collision between " + playerCol.name + " and " + ledgeCol.name);
+        isDroppingThrough = true;
+
+        Physics2D.IgnoreCollision(playerCol, ledgeCol, true);
+
+        yield return new WaitForSeconds(dropThroughTime);
+
+        Physics2D.IgnoreCollision(playerCol, ledgeCol, false);
+
+        isDroppingThrough = false;
     }
 }
