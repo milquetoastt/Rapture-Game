@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using Cinemachine;
-using static UnityEngine.Analytics.IAnalytic;
 
 public class PlayerController : MonoBehaviour
 {
     public int health = 100;
+    public int maxHealth = 100;
     public bool showSpeed = false;
     public bool isCasting = false;
     [Header("Move Settings")]
@@ -33,23 +33,22 @@ public class PlayerController : MonoBehaviour
     public float zoomedSize = 13f;
     public float zoomInSpeed = 8f;
     public float zoomOutSpeed = 5f;
-
     public GloveSpells gloveSpells;
     public ManaResource manaResource;
-
+    
+    [Header("experience")]
+    public int currentXp = 0;
+    public int currentLevel = 1;
+    public int xpForNextLevel = 6;
+    
     [Header("ledges")]
     public float dropThroughTime = 0.25f;
     private bool isDroppingThrough = false;
-    private int playerLayer;
-    private int ledgeLayer;
     private Collider2D playerCol;
-
 
     private void Awake()
     {
         playerCol = GetComponent<Collider2D>();
-        playerLayer = gameObject.layer;
-        ledgeLayer = LayerMask.NameToLayer("Ledges");
         rb = GetComponent<Rigidbody2D>();
         instance = this;
 
@@ -74,6 +73,11 @@ public class PlayerController : MonoBehaviour
         // -1 = left, +1 = right
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
+        if (currentXp >= xpForNextLevel)
+        {
+            
+        }
+        
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         if (showSpeed)
             Debug.Log(horizontalSpeed);
@@ -101,6 +105,25 @@ public class PlayerController : MonoBehaviour
                 Time.unscaledDeltaTime * speed
             );
         }
+    }
+
+    public void GainExperience(int experience)
+    {
+        currentXp += experience;
+        Debug.Log("new experience: " + experience);
+        Debug.Log("new experienceForNextLevel: " + xpForNextLevel);
+        
+        if (currentXp >= xpForNextLevel)
+        {
+            Level();
+        }
+    }
+    public void Level()
+    {
+        currentLevel++;
+        currentXp -= xpForNextLevel;
+        xpForNextLevel += 6 + (currentLevel - 1) * 3;
+        UIManager.instance.LevelUpSequence();
     }
 
     private void FixedUpdate()

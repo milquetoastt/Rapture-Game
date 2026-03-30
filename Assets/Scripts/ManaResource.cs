@@ -4,12 +4,12 @@ using Cinemachine;
 
 public class ManaResource : MonoBehaviour
 {
-    
+    public static ManaResource instance;
     public float slowTimeScale = .2f;
     public float maxHoldSeconds = 5f;
     public float timeScaleLerpSpeed = 12f;
     public float rechargeRate = 1f;
-
+    public bool allowTimeControl = true;
     public float heldSeconds;
     public bool isHolding;
     private float defaultFixedDeltaTime;
@@ -20,10 +20,17 @@ public class ManaResource : MonoBehaviour
     {
         //on start, remember real time
         defaultFixedDeltaTime = Time.fixedDeltaTime;
+        instance = this;
     }
 
     public bool UpdateSlowTime(bool wantsHold, bool canHold, bool canRecharge)
     {
+        if (!allowTimeControl)
+        {
+            isHolding = false;
+            wasHolding = false;
+            return false;
+        }
         //wants to hold, mana not empty, and allowed to hold (off cooldown)
         if (wantsHold && heldSeconds < maxHoldSeconds && canHold)
         {

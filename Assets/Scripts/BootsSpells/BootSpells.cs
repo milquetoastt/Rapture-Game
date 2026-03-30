@@ -27,6 +27,8 @@ public class BootSpells : MonoBehaviour
 
     void Update()
     {
+        if (UIManager.instance.gameIsPaused)
+            return;
         float inputX = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(inputX) > 0.01f)

@@ -8,6 +8,7 @@ public class EnemyBase : MonoBehaviour
     public float stunResist = 0f;
     public DungeonRoom myRoom;
     public bool stunned = false;
+    public int experience = 1;
 
     private Coroutine stunRoutine;
     public Rigidbody2D rb;
@@ -88,6 +89,7 @@ public class EnemyBase : MonoBehaviour
         {
             myRoom.EnemyDied(this);
         }
+        PlayerController.instance.GainExperience(experience);
 
         Destroy(gameObject);
     }

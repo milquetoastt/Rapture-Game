@@ -45,6 +45,8 @@ public class GloveSpells : MonoBehaviour
 
     public void HandleInput()
     {
+        if (UIManager.instance.gameIsPaused)
+            return;
         SpellData spell = spells[currentSpell];
 
         if (PlayerController.instance.isCasting && !gloveCastInProgress)
