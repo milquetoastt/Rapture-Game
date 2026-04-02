@@ -210,7 +210,7 @@ MonoBehaviour:
   wallCheckDistance: 2.66
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   stunned: 0
   doingSomethingElse: 0
 --- !u!114 &1983495986405495617
@@ -229,6 +229,7 @@ MonoBehaviour:
   stunResist: 0
   myRoom: {fileID: 0}
   stunned: 0
+  experience: 3
   rb: {fileID: 0}
   patrolEnemy: {fileID: 6049840256931048881}
   playerLayer:
@@ -239,7 +240,7 @@ MonoBehaviour:
   attackCooldown: 1
   abilityTimer: 0
   attackTimer: 1.5
-  windUp: 0.4
+  windUp: 1
 --- !u!61 &5358716872442283589
 BoxCollider2D:
   m_ObjectHideFlags: 0

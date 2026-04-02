@@ -3,7 +3,7 @@ using System.Collections;
 using Cinemachine;
 
 [System.Serializable]
-public class SpellData
+public class SpellDataG
 {
     public float recoil = 10f;
     public float fireCooldown = 1.5f;
@@ -15,7 +15,7 @@ public class SpellData
 public class GloveSpells : MonoBehaviour
 {
     [Header("Spell Settings")]
-    public SpellData[] spells;
+    public SpellDataG[] spells;
     public int currentSpell;
 
     [Header("Post-Fire Recovery")]
@@ -32,13 +32,14 @@ public class GloveSpells : MonoBehaviour
     private Rigidbody2D rb;
     public ManaResource manaResource;
     private bool gloveCastInProgress = false;
-
+    
+    public static GloveSpells instance;
     public CooldownIndicatorUI gloveCooldownUI;
 
     private void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
-
+        instance = this;
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
     }
@@ -47,7 +48,7 @@ public class GloveSpells : MonoBehaviour
     {
         if (UIManager.instance.gameIsPaused)
             return;
-        SpellData spell = spells[currentSpell];
+        SpellDataG spell = spells[currentSpell];
 
         if (PlayerController.instance.isCasting && !gloveCastInProgress)
             return;
@@ -98,7 +99,7 @@ public class GloveSpells : MonoBehaviour
         }
     }
 
-    private IEnumerator FireAfterWindup(SpellData spell, float heldTime)
+    private IEnumerator FireAfterWindup(SpellDataG spell, float heldTime)
     {
         float remainingWindUp = Mathf.Max(0f, spell.windUp - heldTime);
 
@@ -117,7 +118,7 @@ public class GloveSpells : MonoBehaviour
         //Debug.Log("rb: " + rb);
         //Debug.Log("Camera.main: " + Camera.main);
         //Debug.Log("spell null? " + (spells[currentSpell] == null));
-        SpellData spell = spells[currentSpell];
+        SpellDataG spell = spells[currentSpell];
 
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
@@ -133,7 +134,7 @@ public class GloveSpells : MonoBehaviour
 
     private void ShootAtMouse()
     {
-        SpellData spell = spells[currentSpell];
+        SpellDataG spell = spells[currentSpell];
 
         Debug.Log("Current spell index: " + currentSpell);
         Debug.Log("Projectile prefab: " + spell.projectilePrefab.name);
@@ -162,5 +163,10 @@ public class GloveSpells : MonoBehaviour
         PlayerController.instance.isCasting = false;
         inPostFirePause = true;
         postFireTimer = postFirePause;
+    }
+
+    public SpellDataG GetCurrentSpellData()
+    {
+        return spells[currentSpell];
     }
 }

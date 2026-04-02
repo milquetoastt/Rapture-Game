@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -15,7 +16,7 @@ public class BootSpells : MonoBehaviour
     public SpellDataB[] spells;
     public int currentSpell = 0;
     
-    private SpellStats proj;
+    public SpellStats proj;
     
 
     private float lastInputX = 1f;
@@ -23,7 +24,12 @@ public class BootSpells : MonoBehaviour
     public Transform firePoint;
 
     public CooldownIndicatorUI bootCooldownUI;
-    
+    public static BootSpells instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Update()
     {
@@ -78,5 +84,10 @@ public class BootSpells : MonoBehaviour
         nextCastTime = Time.time + spell.fireCooldown;
         bootCooldownUI.StartCooldown(spell.fireCooldown);
         PlayerController.instance.isCasting = false;
+    }
+    
+    public SpellDataB GetCurrentSpellData()
+    {
+        return spells[currentSpell];
     }
 }

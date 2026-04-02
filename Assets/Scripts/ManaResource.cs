@@ -23,6 +23,11 @@ public class ManaResource : MonoBehaviour
         instance = this;
     }
 
+    public float GetManaPercent()
+    {
+        return (maxHoldSeconds - heldSeconds) / maxHoldSeconds;
+    }
+    
     public bool UpdateSlowTime(bool wantsHold, bool canHold, bool canRecharge)
     {
         if (!allowTimeControl)

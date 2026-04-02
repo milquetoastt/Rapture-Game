@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using UnityEditor.Experimental.GraphView;
@@ -22,7 +23,13 @@ public class HatSpells : MonoBehaviour
     private float nextCastTime = 0f;
     public Transform firePoint;
     public CooldownIndicatorUI hatCooldownUI;
-    
+
+    public static HatSpells instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Update()
     {
@@ -70,5 +77,10 @@ public class HatSpells : MonoBehaviour
         nextCastTime = Time.time + spell.fireCooldown;
         hatCooldownUI.StartCooldown(spell.fireCooldown);
         PlayerController.instance.isCasting = false;
+    }
+    
+    public SpellDataH GetCurrentSpellData()
+    {
+        return spells[currentSpell];
     }
 }

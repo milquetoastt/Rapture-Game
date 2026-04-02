@@ -22,8 +22,12 @@ public class MantleSpells : MonoBehaviour
     private float nextCastTime = 0f;
     public Transform firePoint;
     public CooldownIndicatorUI mantleCooldownUI;
-    
+    public static MantleSpells instance;
 
+    void Awake()
+    {
+        instance = this;
+    }
     void Update()
     {
         if (UIManager.instance.gameIsPaused)
@@ -71,5 +75,10 @@ public class MantleSpells : MonoBehaviour
         nextCastTime = Time.time + entry.fireCooldown;
         mantleCooldownUI.StartCooldown(spell.fireCooldown);
 
+    }
+    
+    public SpellDataM GetCurrentSpellData()
+    {
+        return spells[currentSpell];
     }
 }

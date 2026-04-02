@@ -5,7 +5,7 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Stats")]
     public int hp = 30;
-    public float stunResist = 0f;
+    public bool canBeStunned=true;
     public DungeonRoom myRoom;
     public bool stunned = false;
     public int experience = 1;
@@ -39,6 +39,8 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator StunCoroutine(float stunTime)
     {
+        if (!canBeStunned)
+            yield break;
         stunned = true;
         OnStunStart();
 
