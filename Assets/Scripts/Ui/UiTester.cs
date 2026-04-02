@@ -3,6 +3,7 @@ using UnityEngine;
 public class UiTester : MonoBehaviour
 {
     public CooldownIndicatorUI testUI;
+    public CrystalBoss crystalguy;
 
     void Update()
     {
@@ -18,6 +19,11 @@ public class UiTester : MonoBehaviour
             
             //Time.timeScale = 0f;
             //Debug.Log(Time.timeScale);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            crystalguy.UseElectroBall();
         }
         
     }
