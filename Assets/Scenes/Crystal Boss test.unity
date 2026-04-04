@@ -1814,7 +1814,7 @@ PrefabInstance:
       objectReference: {fileID: 1628207946}
     - target: {fileID: 5151143389387951100, guid: 00e4fc41db50adc4ea7a256eec5b2fd0, type: 3}
       propertyPath: dropThroughTime
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5781434976988117388, guid: 00e4fc41db50adc4ea7a256eec5b2fd0, type: 3}
       propertyPath: hatCooldownUI
@@ -3994,6 +3994,18 @@ PrefabInstance:
     - target: {fileID: 2656602860546072210, guid: 81d216e438ee8934ca03c00b8b9d06b8, type: 3}
       propertyPath: m_Tiles.Array.data[23].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506170787359240701, guid: 81d216e438ee8934ca03c00b8b9d06b8, type: 3}
+      propertyPath: m_SideArc
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506170787359240701, guid: 81d216e438ee8934ca03c00b8b9d06b8, type: 3}
+      propertyPath: m_SurfaceArc
+      value: 130.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506170787359240701, guid: 81d216e438ee8934ca03c00b8b9d06b8, type: 3}
+      propertyPath: m_UseOneWayGrouping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3977702738936075287, guid: 81d216e438ee8934ca03c00b8b9d06b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6962,7 +6974,7 @@ Transform:
   m_GameObject: {fileID: 831281209667994604}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.82, z: 0}
+  m_LocalPosition: {x: 0, y: 2.87, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7077,10 +7089,12 @@ MonoBehaviour:
   ovalRadiusX: 7
   ovalRadiusY: 11.5
   tracker: {fileID: 2083403869085006684}
+  laserBeamPrefab: {fileID: 3134589866329416473, guid: a7a9888fcfb6ffc468f0936ae44679d6, type: 3}
+  laserBeamRotateSpeed: 24.8
   electroBallPrefab: {fileID: 8438065258541025753, guid: ef85626b9fea3cf45a83838e357c2efb, type: 3}
   electroBallSpeed: 4
   electroBallChargeTime: 2
-  electroBallGrowSpeed: 3
+  electroBallGrowSpeed: 1
 --- !u!1 &8262493377280100155
 GameObject:
   m_ObjectHideFlags: 0

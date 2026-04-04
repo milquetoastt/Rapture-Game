@@ -21,10 +21,7 @@ public class UiTester : MonoBehaviour
             //Debug.Log(Time.timeScale);
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            crystalguy.UseElectroBall();
-        }
+        
         
     }
 }
