@@ -15,7 +15,8 @@ public class Archer : EnemyBase
     public float attackTimer = 1.5f;
     public float windUp = 0.25f;
     private float nextAttackTime = 0f;
-
+    private bool hasFiredAtCurrentSighting = false;
+    
     private void Update()
     {
         patrolEnemy.stunned = stunned;
@@ -32,24 +33,38 @@ public class Archer : EnemyBase
 
         bool playerAhead = hit.collider != null && hit.collider.CompareTag("Player");
 
-        if (playerAhead && Time.time >= nextAttackTime && attackRoutine == null)
+        if (!playerAhead)
         {
-            attackRoutine = StartCoroutine(FireAfterWindup());
+            hasFiredAtCurrentSighting = false;
+        }
+
+        if (playerAhead && !hasFiredAtCurrentSighting && Time.time >= nextAttackTime && attackRoutine == null)
+        {
             patrolEnemy.doingSomethingElse = true;
+            attackRoutine = StartCoroutine(FireAfterWindup());
         }
     }
 
     private IEnumerator FireAfterWindup()
     {
-        yield return new WaitForSeconds(windUp);
+        try
+        {
+            yield return new WaitForSeconds(windUp);
 
-        GameObject arrowObj = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        Arrow arrow = arrowObj.GetComponent<Arrow>();
-        arrow.direction = patrolEnemy.direction;
+            GameObject arrowObj = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+            Arrow arrow = arrowObj.GetComponent<Arrow>();
 
-        attackRoutine = null;
-        patrolEnemy.doingSomethingElse = false;
-        nextAttackTime = Time.time + attackCooldown;
+            if (arrow != null)
+                arrow.direction = patrolEnemy.direction;
+
+            hasFiredAtCurrentSighting = true;
+            nextAttackTime = Time.time + attackCooldown;
+        }
+        finally
+        {
+            attackRoutine = null;
+            patrolEnemy.doingSomethingElse = false;
+        }
     }
 
     protected override void OnStunStart()

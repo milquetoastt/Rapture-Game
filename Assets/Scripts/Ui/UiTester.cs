@@ -21,7 +21,10 @@ public class UiTester : MonoBehaviour
             //Debug.Log(Time.timeScale);
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            UIManager.instance.WardrobeSequence(0);
+        }
         
     }
 }

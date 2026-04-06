@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spell
   - EnemyBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - UI
   - Player
   - Ledges
-  - 
-  - 
+  - Enemy
+  - EnemyBullet
   - 
   - 
   - 

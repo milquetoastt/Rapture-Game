@@ -364,7 +364,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 175
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   distanceFromStart: -1
   enemyPrefabs:
   - {fileID: 5939110688914369939, guid: 03a2a1d751181b04b86b4d5aaec1c523, type: 3}
+  - {fileID: 3778892591722695944, guid: 3d532cf8cba71a94cb4182703c3bb9ed, type: 3}
   spawnPoints:
   - {fileID: 1753631051164620793}
   - {fileID: 2570793552598838145}

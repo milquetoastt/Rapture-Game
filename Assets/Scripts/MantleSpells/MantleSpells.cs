@@ -10,6 +10,7 @@ public class SpellDataM
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
     public Vector3 spawnOffset;
+    
 }
 
 public class MantleSpells : MonoBehaviour
@@ -24,9 +25,37 @@ public class MantleSpells : MonoBehaviour
     public CooldownIndicatorUI mantleCooldownUI;
     public static MantleSpells instance;
 
+    [SerializeField] private bool[] unlockedSpells;
+    public bool IsSpellUnlocked(int index)
+    {
+        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
+        Debug.Log("spells length: " + spells.Length);
+        return unlockedSpells[index];
+    }
+    public void UnlockSpell(int index)
+    {
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+        {
+            Debug.LogWarning("mantle Invalid spell index: " + index);
+            return;
+        }
+
+        unlockedSpells[index] = true;
+    }
+    public void SwapSpells(int i)
+    {
+        if (unlockedSpells[i] == false)
+            return;
+        currentSpell = i;
+    }
     void Awake()
     {
         instance = this;
+        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
+            unlockedSpells = new bool[spells.Length];
+
+        if (spells.Length > 0)
+            UnlockSpell(0);
     }
     void Update()
     {

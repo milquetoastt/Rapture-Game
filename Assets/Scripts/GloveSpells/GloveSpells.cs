@@ -36,12 +36,44 @@ public class GloveSpells : MonoBehaviour
     public static GloveSpells instance;
     public CooldownIndicatorUI gloveCooldownUI;
 
+    [SerializeField] private bool[] unlockedSpells;
+    public bool IsSpellUnlocked(int index)
+    {
+        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
+        Debug.Log("spells length: " + spells.Length);
+        return unlockedSpells[index];
+    }
+    public void UnlockSpell(int index)
+    {
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+        {
+            Debug.LogWarning("Invalid spell index: " + index);
+            return;
+        }
+
+        unlockedSpells[index] = true;
+    }
+
+    public void SwapSpells(int i)
+    {
+        if (unlockedSpells[i] == false)
+            return;
+        currentSpell = i;
+    }
+
     private void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
         instance = this;
+
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
+
+        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
+            unlockedSpells = new bool[spells.Length];
+
+        if (spells.Length > 0)
+            UnlockSpell(0);
     }
 
     public void HandleInput()

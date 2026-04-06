@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7002005885375138990}
   - component: {fileID: 3130023082506815221}
   - component: {fileID: 8268707672394658971}
-  - component: {fileID: 3906852278225567349}
   - component: {fileID: 2837792459529799427}
   m_Layer: 0
   m_Name: Lightning Bolt
@@ -50,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LightningBolt
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0
   rb: {fileID: 2837792459529799427}
   duration: 0.2
 --- !u!212 &3130023082506815221
@@ -158,21 +157,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3906852278225567349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5997699938792701978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fafae6be1ec4b743969e74ff50e724a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellStats
-  damage: 10
-  knockback: 0
-  freezeTarget: 0
 --- !u!50 &2837792459529799427
 Rigidbody2D:
   serializedVersion: 5

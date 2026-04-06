@@ -68,20 +68,10 @@ public class EnemyBase : MonoBehaviour
             Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
             knockDir.y = 0f;
             knockDir.Normalize();
-
-            ApplyKnockback(knockDir, knockbackForce);
         }
 
         if (hp <= 0)
             Die();
-    }
-
-    public virtual void ApplyKnockback(Vector2 direction, float force)
-    {
-        if (rb == null) return;
-
-        //rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        //rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
     protected virtual void Die()

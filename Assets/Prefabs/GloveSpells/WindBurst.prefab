@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5865571146564761283}
   - component: {fileID: 6769950837956683163}
   - component: {fileID: 9171992595669644399}
-  - component: {fileID: 4749189541035139585}
   - component: {fileID: 7189550963224802204}
   - component: {fileID: 7916248611221765747}
   m_Layer: 0
@@ -109,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0.5
   rb: {fileID: 7916248611221765747}
   duration: 0.78
   startSpeed: 68.9
@@ -147,21 +146,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4749189541035139585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5479827974953399587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fafae6be1ec4b743969e74ff50e724a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SharedSpellStats
-  damage: 10
-  knockback: 0
-  freezeTarget: 0
 --- !u!61 &7189550963224802204
 BoxCollider2D:
   m_ObjectHideFlags: 0

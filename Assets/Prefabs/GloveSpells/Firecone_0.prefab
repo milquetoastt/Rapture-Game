@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1624028338065706646}
   - component: {fileID: 3185073567903871643}
   - component: {fileID: 683490404707646206}
-  - component: {fileID: 4440166129668914442}
   - component: {fileID: 5974837020190646119}
   m_Layer: 0
   m_Name: Firecone_0
@@ -186,21 +185,6 @@ MonoBehaviour:
   rb: {fileID: 5974837020190646119}
   duration: 0.4
   speed: 3
---- !u!114 &4440166129668914442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3914694173713708554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fafae6be1ec4b743969e74ff50e724a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellStats
-  damage: 10
-  knockback: 0
-  stunTime: 0
 --- !u!50 &5974837020190646119
 Rigidbody2D:
   serializedVersion: 5

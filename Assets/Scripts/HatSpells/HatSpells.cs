@@ -25,10 +25,37 @@ public class HatSpells : MonoBehaviour
     public CooldownIndicatorUI hatCooldownUI;
 
     public static HatSpells instance;
+    [SerializeField] private bool[] unlockedSpells;
+    public bool IsSpellUnlocked(int index)
+    {
+        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
+        Debug.Log("spells length: " + spells.Length);
+        return unlockedSpells[index];
+    }
+    public void UnlockSpell(int index)
+    {
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+        {
+            Debug.LogWarning("hat Invalid spell index: " + index);
+            return;
+        }
 
+        unlockedSpells[index] = true;
+    }
+    public void SwapSpells(int i)
+    {
+        if (unlockedSpells[i] == false)
+            return;
+        currentSpell = i;
+    }
     private void Awake()
     {
         instance = this;
+        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
+            unlockedSpells = new bool[spells.Length];
+
+        if (spells.Length > 0)
+            UnlockSpell(0);
     }
 
     void Update()

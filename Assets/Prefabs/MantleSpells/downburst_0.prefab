@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Downburst
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 1
   rb: {fileID: 0}
   duration: 1
   speed: 0.5

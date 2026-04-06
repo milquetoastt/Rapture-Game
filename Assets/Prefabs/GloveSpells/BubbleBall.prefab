@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 898004857125203220}
   - component: {fileID: 6268871375188960625}
   - component: {fileID: 2063687817561203946}
-  - component: {fileID: 8817226029597506377}
   - component: {fileID: 5720781934923157642}
   - component: {fileID: 2106163567429587426}
   m_Layer: 0
@@ -109,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BubbleBall
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0.5
   rb: {fileID: 5720781934923157642}
   duration: 10
   launchForce: 17.38
@@ -117,21 +116,6 @@ MonoBehaviour:
   maxDroplets: 3
   dropletRange: 30
   dropletLaunchForce: 15
---- !u!114 &8817226029597506377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664156795286459248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fafae6be1ec4b743969e74ff50e724a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellStats
-  damage: 10
-  knockback: 0
-  freezeTarget: 0
 --- !u!50 &5720781934923157642
 Rigidbody2D:
   serializedVersion: 5

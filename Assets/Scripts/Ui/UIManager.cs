@@ -3,47 +3,26 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
-[System.Serializable]
-public class UpgradeData
-{
-    public string upgradeName;
-    public string description;
-    public Sprite icon;
-    public UpgradeCategory category;
-    public UpgradeEffect effect;
-    public int amount;
-}
-[System.Serializable]
-public enum UpgradeCategory
-{
-    Player,
-    Glove,
-    Mantle,
-    Hat,
-    Boots
-}
-[System.Serializable]
-public enum UpgradeEffect
-{
-    MaxHealthUp,
-    DoubleJump,
-    JumpForceUp,
-
-    GloveDamageUp,
-    GloveCooldownDown,
-
-    HatDamageUp,
-    HatCooldownDown,
-
-    MantleDamageUp,
-    MantleCooldownDown,
-
-    BootsDamageUp,
-    BootsCooldownDown
-}
 public class UIManager : MonoBehaviour
 {
+    [Header("wardrobe")] 
+    public GameObject wardrobeUI;
+
+    public GameObject gloveUI;
+    public GameObject[] gloveButtons;
+    
+    public GameObject mantleUI;
+    public GameObject[] mantleButtons;
+    
+    public GameObject hatUI;
+    public GameObject[] hatButtons;
+    
+    public GameObject bootUI;
+    public GameObject[] bootButtons;
+    
+    [Header("level-up")]
     public static UIManager instance;
     public TextMeshProUGUI slot1Description;
     public bool gameIsPaused = false;
@@ -63,20 +42,116 @@ public class UIManager : MonoBehaviour
     public float spell1BuffAmount;
     public float spell2BuffAmount;
     public float playerBuffAmount;
-    
-    
     //public List<UpgradeData> spellUpgrades = new List<UpgradeData>();
-
-    private UpgradeData slot1Upgrade;
-    private UpgradeData slot2Upgrade;
-    private UpgradeData slot3Upgrade;
     public GameObject levelUpHUD;
+    
 
     public void Awake()
     {
         instance = this;
         
         levelUpHUD.SetActive(false);
+        wardrobeUI.SetActive(false);
+        gloveUI.SetActive(false);
+        mantleUI.SetActive(false);
+        hatUI.SetActive(false);
+        bootUI.SetActive(false);
+    }
+
+    public void WardrobeSequence(int which)
+    {
+        wardrobeUI.SetActive(true);
+        Time.timeScale = 0;
+        gameIsPaused = true;
+        ManaResource.instance.allowTimeControl = false;
+
+        switch (which)
+        {
+            case 0:
+                gloveUI.SetActive(true);
+                break;
+            case 1:
+                mantleUI.SetActive(true);
+                break;
+            case 2:
+                hatUI.SetActive(true);
+                break;
+            case 3:
+                bootUI.SetActive(true);
+                break;
+        }
+
+        BlockLocked(which);
+    }
+
+    private void BlockLocked(int which)
+    {
+        switch (which)
+        {
+            case 0:
+                HandleSpellUI(gloveButtons, which);
+                break;
+            case 1:
+                HandleSpellUI(mantleButtons, which);
+                break;
+            case 2:
+                HandleSpellUI(hatButtons, which);
+                break;
+            case 3:
+                HandleSpellUI(bootButtons, which);
+                break;
+        }
+    }
+    
+    private void HandleSpellUI(GameObject[] buttons, int which)
+    {
+        Debug.Log("buttons length: " + buttons.Length + ", which: " + which);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            bool unlocked = false;
+
+            switch (which)
+            {
+                case 0:
+                    unlocked = GloveSpells.instance.IsSpellUnlocked(i);
+                    break;
+                case 1:
+                    unlocked = MantleSpells.instance.IsSpellUnlocked(i);
+                    break;
+                case 2:
+                    unlocked = HatSpells.instance.IsSpellUnlocked(i);
+                    break;
+                case 3:
+                    unlocked = BootSpells.instance.IsSpellUnlocked(i);
+                    break;
+            }
+            
+            Debug.Log("button " + i + " unlocked = " + unlocked);
+            
+            Button btn = buttons[i].GetComponent<Button>();
+            if (btn != null)
+                btn.interactable = unlocked;
+
+            Image img = buttons[i].GetComponent<Image>();
+            if (img != null)
+            {
+                Color c = img.color;
+                c.a = unlocked ? 1f : 0.4f;
+                img.color = c;
+            }
+        }
+    }
+
+    public void CloseWardrobe()
+    {
+        wardrobeUI.SetActive(false);
+        gloveUI.SetActive(false);
+        mantleUI.SetActive(false);
+        hatUI.SetActive(false);
+        bootUI.SetActive(false);
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        ManaResource.instance.allowTimeControl = true;
     }
 
     public void LevelUpSequence()
@@ -97,7 +172,7 @@ public class UIManager : MonoBehaviour
         if (whichBuffType == 0)
         {
             // 10% of max health + something between 0 and currentlevel*3
-            int playerBuffAmount = (PlayerController.instance.maxHealth / 10 + Random.Range(0, PlayerController.instance.currentLevel) * 3);
+            playerBuffAmount = (PlayerController.instance.maxHealth / 10 + Random.Range(0, PlayerController.instance.currentLevel) * 3);
             int lowest = PlayerController.instance.maxHealth / 10;
             int highest = PlayerController.instance.maxHealth / 10 + PlayerController.instance.currentLevel * 3;
             slot1Description.text = "Gain " + playerBuffAmount +"("+lowest+" - "+ highest + ") max health.";

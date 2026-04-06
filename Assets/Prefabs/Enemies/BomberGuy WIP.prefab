@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2437406722044403667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.247, y: -0.58, z: 0}
+  m_LocalPosition: {x: 0.955, y: -0.459, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 7587440723843219914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 122.3, y: 0.7, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.7082, y: 3.7082, z: 3.7082}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7958145072870871325}
@@ -163,15 +163,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BomberGuy
   hp: 30
-  stunResist: 0
+  canBeStunned: 1
   myRoom: {fileID: 0}
+  stunned: 0
+  experience: 1
+  rb: {fileID: 0}
   patrol: {fileID: 6765167570213771139}
-  attackTimer: 2.5
   bomb: {fileID: 4009397895350434786, guid: f978d46483da6d147b6769d3750b08e9, type: 3}
   throwPoint: {fileID: 6718623268591451902}
-  bombGravityScale: 1
+  attackCooldown: 2
+  windUp: 0.5
   arcHeight: 3
-  flightTime: 2
+  bombGravityScale: 1
 --- !u!50 &5031737673192963191
 Rigidbody2D:
   serializedVersion: 5
@@ -180,7 +183,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7587440723843219914}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -195,9 +198,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &8581359492440990896
 BoxCollider2D:

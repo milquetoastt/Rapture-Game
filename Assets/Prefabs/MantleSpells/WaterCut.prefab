@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaterCut
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0.6
   offset: {x: 2, y: 0, z: 0}
   force: 24.2
   sidewaysForce: 12

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4859895752225363826}
   - component: {fileID: 4990094669347150278}
   - component: {fileID: 6643064996422490687}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: arrowPrefab
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3570734455885836123}
   - component: {fileID: 5487023823701671592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,8 +153,8 @@ Transform:
   m_GameObject: {fileID: 8409017605769039779}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.175, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.594, y: 0, z: 0}
+  m_LocalScale: {x: 2.419888, y: 2.419888, z: 2.419888}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3330030339272870614}
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6461a2b9cf7c12144909430d92df0773, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class CrystalLaser : MonoBehaviour
 {
     private CrystalBoss crystalGuy;
     public GameObject indicator;
     public GameObject laser;
+    public Action OnFinished;
 
     [Header("angles")]
     public float startAngleDeg;
@@ -19,6 +21,7 @@ public class CrystalLaser : MonoBehaviour
     public bool waiting = false;
     private bool startedReturn = false;
     public float pauseTime = 1f;
+    public int timesStopped = 0;
 
 
     public void Initialize(CrystalBoss owner, float startAngle, float targetAngle)
@@ -63,7 +66,14 @@ public class CrystalLaser : MonoBehaviour
         if ((Mathf.Abs(Mathf.DeltaAngle(currentAngleDeg, targetAngleDeg)) < 0.01f && !waiting && !startedReturn) ||
             Mathf.Abs(Mathf.DeltaAngle(currentAngleDeg, startAngleDeg)) < 0.01f && !waiting && startedReturn)
         {
-            StartCoroutine(WaitForLaser());
+            timesStopped++;
+            if (timesStopped >= 3)
+            {
+                OnFinished?.Invoke();
+                Destroy(gameObject,pauseTime);
+            }
+            else
+                StartCoroutine(WaitForLaser());
         }
         
     }
@@ -88,7 +98,7 @@ public class CrystalLaser : MonoBehaviour
             Mathf.Sin(angleRad) * crystalGuy.ovalRadiusY,
             0f
         );
-        Debug.Log(offset);
+        //Debug.Log(offset);
         transform.position = offset;
 
         Vector3 awayFromBoss = (offset - crystalGuy.transform.position).normalized;

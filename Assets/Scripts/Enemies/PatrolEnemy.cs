@@ -20,7 +20,7 @@ public class PatrolEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (doingSomethingElse)
         {
@@ -30,11 +30,12 @@ public class PatrolEnemy : MonoBehaviour
 
         if (stunned)
         {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
 
         bool wallAhead = Physics2D.Raycast(
-            transform.position,
+            wallCheck.position,
             Vector2.right * direction,
             wallCheckDistance,
             groundLayer

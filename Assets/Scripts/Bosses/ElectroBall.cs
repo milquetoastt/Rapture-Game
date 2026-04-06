@@ -6,6 +6,7 @@ public class ElectroBall : MonoBehaviour
 {
     
     public CrystalBoss crystalGuy;
+    public CrystalController crystalController;
     public Rigidbody2D rb;
     private float electroBallSpeed;
     
@@ -13,6 +14,10 @@ public class ElectroBall : MonoBehaviour
     public bool chargingUp = true;
     public float chargeTime;
     public float growSpeed;
+    public bool hasLaunched = false;
+    
+    //https://particularreality.substack.com/p/coding-conventions-and-unity-best
+    public Action OnLaunched;
 
     public void Start()
     {
@@ -45,7 +50,10 @@ public class ElectroBall : MonoBehaviour
 
     private void LaunchBall()
     {
+        //tell crystalController that it can fire the next shot
+        OnLaunched?.Invoke();
         Vector3 direction = (PlayerController.instance.transform.position - crystalGuy.firePoint).normalized;
         rb.linearVelocity = direction * electroBallSpeed;
+        
     }
 }

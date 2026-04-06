@@ -25,10 +25,37 @@ public class BootSpells : MonoBehaviour
 
     public CooldownIndicatorUI bootCooldownUI;
     public static BootSpells instance;
+    [SerializeField] private bool[] unlockedSpells;
+    public bool IsSpellUnlocked(int index)
+    {
+        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
+        Debug.Log("spells length: " + spells.Length);
+        return unlockedSpells[index];
+    }
+    public void UnlockSpell(int index)
+    {
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+        {
+            Debug.LogWarning("boots Invalid spell index: " + index);
+            return;
+        }
 
+        unlockedSpells[index] = true;
+    }
+    public void SwapSpells(int i)
+    {
+        if (unlockedSpells[i] == false)
+            return;
+        currentSpell = i;
+    }
     private void Awake()
     {
         instance = this;
+        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
+            unlockedSpells = new bool[spells.Length];
+
+        if (spells.Length > 0)
+            UnlockSpell(0);
     }
 
     void Update()
@@ -58,6 +85,10 @@ public class BootSpells : MonoBehaviour
         {
             proj.EndBoot(dir);
             Destroy(proj);
+
+            SpellDataB spell = spells[currentSpell];
+            nextCastTime = Time.time + spell.fireCooldown;
+            bootCooldownUI.StartCooldown(spell.fireCooldown);
         }
     }
 
@@ -65,6 +96,8 @@ public class BootSpells : MonoBehaviour
     public void CastBoots(Vector2 direction)
     {
         if (Time.time < nextCastTime) return;
+        if (proj != null) return; // prevents overlapping casts
+
         StartCoroutine(CastAfterWindup(direction));
     }
 
@@ -72,17 +105,14 @@ public class BootSpells : MonoBehaviour
     {
         PlayerController.instance.isCasting = true;
         SpellDataB spell = spells[currentSpell];
-        //pre-cast movement would go here if there is any idk i'm writing this before i've even started the first boots spell
 
         yield return new WaitForSecondsRealtime(spell.windUp);
+
         Vector2 spawnPos = firePoint.transform.position + spell.spawnOffset;
-        GameObject bootSpellCasting = Instantiate(spell.spellPrefab,spawnPos, Quaternion.identity);
-        
+        GameObject bootSpellCasting = Instantiate(spell.spellPrefab, spawnPos, Quaternion.identity);
+
         proj = bootSpellCasting.GetComponent<SpellStats>();
         proj.CastBoot(direction);
-        
-        nextCastTime = Time.time + spell.fireCooldown;
-        bootCooldownUI.StartCooldown(spell.fireCooldown);
         PlayerController.instance.isCasting = false;
     }
     

@@ -326,12 +326,12 @@ MonoBehaviour:
     fireCooldown: 1.5
     windUp: 0.34
     spawnOffset: {x: 0, y: 2.8, z: 0}
-  - spellPrefab: {fileID: 6901905324446158329, guid: 213bb9f9b830b4348a2f22d0ebe8ae2b, type: 3}
-    fireCooldown: 2.2
-    windUp: 0.25
-    spawnOffset: {x: 0, y: 0, z: 0}
   - spellPrefab: {fileID: 2965463002188847194, guid: f5e1b8c6bb9a9484093d379064c886c6, type: 3}
     fireCooldown: 1.9
+    windUp: 0.25
+    spawnOffset: {x: 0, y: 0, z: 0}
+  - spellPrefab: {fileID: 6901905324446158329, guid: 213bb9f9b830b4348a2f22d0ebe8ae2b, type: 3}
+    fireCooldown: 2.2
     windUp: 0.25
     spawnOffset: {x: 0, y: 0, z: 0}
   - spellPrefab: {fileID: 946602126484483413, guid: be7a427940233874ca55e9535fc3f85a, type: 3}
@@ -417,6 +417,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BootSpells
   spells:
+  - spellPrefab: {fileID: 8852214320488372244, guid: 7957fd0f35b52f246961a9934c235f7c, type: 3}
+    fireCooldown: 0.5
+    windUp: 0.3
+    spawnOffset: {x: 0, y: 0, z: 0}
   - spellPrefab: {fileID: 6654714619607340153, guid: fc9bf926901ebb64486c6b21e8e25fb1, type: 3}
     fireCooldown: 0.5
     windUp: 0.2
@@ -425,15 +429,12 @@ MonoBehaviour:
     fireCooldown: 2
     windUp: 0.1
     spawnOffset: {x: 0, y: 0, z: 0}
-  - spellPrefab: {fileID: 8852214320488372244, guid: 7957fd0f35b52f246961a9934c235f7c, type: 3}
-    fireCooldown: 0.5
-    windUp: 0.3
-    spawnOffset: {x: 0, y: 0, z: 0}
   - spellPrefab: {fileID: 7216594197776988504, guid: d4968a16997de694a95a4dff924efca9, type: 3}
     fireCooldown: 0.5
     windUp: 0.1
     spawnOffset: {x: 0, y: 0, z: 0}
   currentSpell: 0
+  proj: {fileID: 0}
   firePoint: {fileID: 2925792116259583604}
   bootCooldownUI: {fileID: 0}
 --- !u!1 &7207329716782128687
@@ -517,16 +518,16 @@ MonoBehaviour:
     projectilePrefab: {fileID: 5479827974953399587, guid: 163c1f8df0d67294da7640b3f34fc68d, type: 3}
     spawnOffset: 1
     windUp: 0.25
-  - recoil: 0
-    fireCooldown: 0.3
-    projectilePrefab: {fileID: 5997699938792701978, guid: 167bb001de8ed8b4196c21b847517ea1, type: 3}
-    spawnOffset: 10
-    windUp: 0.1
   - recoil: 45
     fireCooldown: 2
     projectilePrefab: {fileID: 3914694173713708554, guid: 8b093467dc1681e4da4c5e07b69d5130, type: 3}
     spawnOffset: 5
     windUp: 0.5
+  - recoil: 0
+    fireCooldown: 0.3
+    projectilePrefab: {fileID: 5997699938792701978, guid: 167bb001de8ed8b4196c21b847517ea1, type: 3}
+    spawnOffset: 10
+    windUp: 0.1
   - recoil: 30
     fireCooldown: 2
     projectilePrefab: {fileID: 664156795286459248, guid: f49dc49b646fa9240a9c5f212f8179b5, type: 3}
