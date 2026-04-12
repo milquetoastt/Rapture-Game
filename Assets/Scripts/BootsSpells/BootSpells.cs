@@ -5,6 +5,7 @@ using System.Collections;
 [System.Serializable]
 public class SpellDataB
 {
+    public string name;
     public GameObject spellPrefab;
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
@@ -42,8 +43,17 @@ public class BootSpells : MonoBehaviour
 
         unlockedSpells[index] = true;
     }
-    public void SwapSpells(int i)
+    public void SwapSpellsFromUI(int i)
     {
+        SwapSpells(i, false);
+    }
+    public void SwapSpells(int i, bool fromChest = false)
+    {
+        if (fromChest)
+        {
+            currentSpell = i;
+            return;
+        }
         if (unlockedSpells[i] == false)
             return;
         currentSpell = i;
@@ -116,8 +126,12 @@ public class BootSpells : MonoBehaviour
         PlayerController.instance.isCasting = false;
     }
     
-    public SpellDataB GetCurrentSpellData()
+    public SpellDataB GetCurrentSpellData(int i = -1)
     {
+        if (i != -1)
+        {
+            return spells[i];
+        }
         return spells[currentSpell];
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SpellStats : MonoBehaviour
 {
+
     public int damage = 10;
     public float knockback = 0f;
     public float stunTime = .5f;

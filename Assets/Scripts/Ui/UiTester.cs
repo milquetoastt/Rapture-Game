@@ -9,22 +9,41 @@ public class UiTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            PlayerController.instance.GainExperience(3);
+            //PlayerController.instance.GainExperience(3);
         }
-        if (Input.GetKeyDown(KeyCode.P)) 
+
+        if (Input.GetKeyDown(KeyCode.P))
         {
             //PlayerController.instance.GainExperience(3);
-            
-            UIManager.instance.CloseLevelUp();
-            
+
+            //UIManager.instance.CloseLevelUp();
+
             //Time.timeScale = 0f;
             //Debug.Log(Time.timeScale);
         }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            UIManager.instance.WardrobeSequence(0);
+            //UIManager.instance.WardrobeSequence(0);
         }
-        
-    }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GloveSpells.instance.UnlockSpell(1);
+            GloveSpells.instance.UnlockSpell(2);
+            GloveSpells.instance.UnlockSpell(3);
+            
+            MantleSpells.instance.UnlockSpell(1);
+            MantleSpells.instance.UnlockSpell(2);
+            MantleSpells.instance.UnlockSpell(3);
+            
+            BootSpells.instance.UnlockSpell(1);
+            BootSpells.instance.UnlockSpell(2);
+            BootSpells.instance.UnlockSpell(3);
+            
+            HatSpells.instance.UnlockSpell(1);
+            HatSpells.instance.UnlockSpell(2);
+            HatSpells.instance.UnlockSpell(3);
+        }
+}
 }

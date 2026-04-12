@@ -447,6 +447,7 @@ Transform:
   - {fileID: 6367332575852792779}
   - {fileID: 5467874689464861518}
   - {fileID: 7303434505774533270}
+  - {fileID: 7856737604660089167}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7809755987342255911
@@ -471,6 +472,11 @@ MonoBehaviour:
   rightRoom: {fileID: 0}
   roomType: 2
   distanceFromStart: -1
+  enemyPrefabs: []
+  spawnPoints: []
+  portals: []
+  encounterStarted: 0
+  roomCleared: 0
   supportsUp: 0
   supportsDown: 0
   supportsLeft: 1
@@ -489,7 +495,7 @@ GameObject:
   - component: {fileID: 6024585625768984533}
   - component: {fileID: 82977979561271627}
   - component: {fileID: 4374993039743256935}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3019,6 +3025,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
   m_PrefabInstance: {fileID: 4767468722919109465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5117423676912799467
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3977702738936075287}
+    m_Modifications:
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120343242619882483, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+      propertyPath: m_Name
+      value: treasure chest closed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+--- !u!4 &7856737604660089167 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3029797203510583204, guid: 0db0104f22849ae44977402d8f0fe357, type: 3}
+  m_PrefabInstance: {fileID: 5117423676912799467}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5878877266720422876
 PrefabInstance:

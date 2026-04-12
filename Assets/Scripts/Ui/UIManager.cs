@@ -7,6 +7,17 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("spell drop")]
+    public GameObject spellDropHUD;
+    public SpellDrop currentSpellDrop;
+    public TextMeshProUGUI currentSpellName;
+    public TextMeshProUGUI newSpellName;
+    public TextMeshProUGUI currentSpellCooldown;
+    public TextMeshProUGUI newSpellCooldown;
+    public TextMeshProUGUI newSpellDamage;
+    public TextMeshProUGUI currentSpellDamage;
+    
+    
     [Header("wardrobe")] 
     public GameObject wardrobeUI;
 
@@ -56,6 +67,7 @@ public class UIManager : MonoBehaviour
         mantleUI.SetActive(false);
         hatUI.SetActive(false);
         bootUI.SetActive(false);
+        spellDropHUD.SetActive(false);
     }
 
     public void WardrobeSequence(int which)
@@ -388,6 +400,139 @@ public class UIManager : MonoBehaviour
     {
         levelUpHUD.SetActive(false);
         
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        ManaResource.instance.allowTimeControl = true;
+    }
+
+    public void SpellDropSequence()
+    {
+        Time.timeScale = 0;
+        gameIsPaused = true;
+        ManaResource.instance.allowTimeControl = false;
+        switch (currentSpellDrop.typeSpell)
+        {
+            case 0: // gloves
+            {
+                SpellDataG currentData = GloveSpells.instance.GetCurrentSpellData();
+                SpellDataG rolledData = GloveSpells.instance.GetCurrentSpellData(currentSpellDrop.whichSpell);
+
+                currentSpellName.text = currentData.name;
+                newSpellName.text = rolledData.name;
+
+                currentSpellCooldown.text = "Spell cooldown is " + currentData.fireCooldown.ToString("0.##");
+                newSpellCooldown.text = "Spell cooldown is " + rolledData.fireCooldown.ToString("0.##");
+
+                SpellStats stats = currentData.projectilePrefab.GetComponent<SpellStats>();
+                SpellStats newStats = rolledData.projectilePrefab.GetComponent<SpellStats>();
+                
+                currentSpellDamage.text = "Spell damage is " + stats.damage.ToString();
+                newSpellDamage.text ="Spell damage is " +  newStats.damage.ToString();
+                break;
+            }
+
+            case 1: // mantle
+            {
+                SpellDataM currentData = MantleSpells.instance.GetCurrentSpellData();
+                SpellDataM rolledData = MantleSpells.instance.GetCurrentSpellData(currentSpellDrop.whichSpell);
+
+                currentSpellName.text = currentData.name;
+                newSpellName.text = rolledData.name;
+
+                currentSpellCooldown.text = "Spell cooldown is " + currentData.fireCooldown.ToString("0.##");
+                newSpellCooldown.text = "Spell cooldown is " + rolledData.fireCooldown.ToString("0.##");
+
+                SpellStats stats = currentData.spellPrefab.GetComponent<SpellStats>();
+                SpellStats newStats = rolledData.spellPrefab.GetComponent<SpellStats>();
+                currentSpellDamage.text = "Spell damage is " + stats.damage.ToString();
+                newSpellDamage.text = "Spell damage is " + newStats.damage.ToString();
+                break;
+            }
+
+            case 2: // boots
+            {
+                SpellDataB currentData = BootSpells.instance.GetCurrentSpellData();
+                SpellDataB rolledData = BootSpells.instance.GetCurrentSpellData(currentSpellDrop.whichSpell);
+
+                currentSpellName.text = currentData.name;
+                newSpellName.text = rolledData.name;
+
+                currentSpellCooldown.text = "Spell cooldown is " + currentData.fireCooldown.ToString("0.##");
+                newSpellCooldown.text = "Spell cooldown is " + rolledData.fireCooldown.ToString("0.##");
+                
+                SpellStats stats = currentData.spellPrefab.GetComponent<SpellStats>();
+                SpellStats newStats = rolledData.spellPrefab.GetComponent<SpellStats>();
+                currentSpellDamage.text = "Spell damage is " + stats.damage.ToString();
+                newSpellDamage.text = "Spell damage is " + newStats.damage.ToString();
+                break;
+            }
+
+            case 3: // hat
+            {
+                SpellDataH currentData = HatSpells.instance.GetCurrentSpellData();
+                SpellDataH rolledData = HatSpells.instance.GetCurrentSpellData(currentSpellDrop.whichSpell);
+
+                currentSpellName.text = currentData.name;
+                newSpellName.text = rolledData.name;
+
+                currentSpellCooldown.text = "Spell cooldown is " + currentData.fireCooldown.ToString("0.##");
+                newSpellCooldown.text = "Spell cooldown is " + rolledData.fireCooldown.ToString("0.##");
+                break;
+            }
+        }
+        
+        spellDropHUD.SetActive(true);
+    }
+
+    public void SwapWithDropped()
+    {
+        if (currentSpellDrop == null)
+            return;
+
+        int oldSpellIndex = 0;
+        int newSpellIndex = currentSpellDrop.whichSpell;
+
+        switch (currentSpellDrop.typeSpell)
+        {
+            case 0: // gloves
+            {
+                oldSpellIndex = GloveSpells.instance.currentSpell;
+                GloveSpells.instance.SwapSpells(newSpellIndex, true);
+                currentSpellDrop.whichSpell = oldSpellIndex;
+                break;
+            }
+
+            case 1: // mantle
+            {
+                oldSpellIndex = MantleSpells.instance.currentSpell;
+                MantleSpells.instance.SwapSpells(newSpellIndex, true);
+                currentSpellDrop.whichSpell = oldSpellIndex;
+                break;
+            }
+
+            case 2: // boots
+            {
+                oldSpellIndex = BootSpells.instance.currentSpell;
+                BootSpells.instance.SwapSpells(newSpellIndex, true);
+                currentSpellDrop.whichSpell = oldSpellIndex;
+                break;
+            }
+
+            case 3: // hat
+            {
+                oldSpellIndex = HatSpells.instance.currentSpell;
+                HatSpells.instance.SwapSpells(newSpellIndex, true);
+                currentSpellDrop.whichSpell = oldSpellIndex;
+                break;
+            }
+        }
+
+        CloseDropped();
+    }   
+
+    public void CloseDropped()
+    {
+        spellDropHUD.SetActive(false);
         Time.timeScale = 1;
         gameIsPaused = false;
         ManaResource.instance.allowTimeControl = true;

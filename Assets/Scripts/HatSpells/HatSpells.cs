@@ -8,6 +8,7 @@ using UnityEditor.Experimental.GraphView;
 [System.Serializable]
 public class SpellDataH
 {
+    public string name;
     public GameObject spellPrefab;
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
@@ -42,8 +43,17 @@ public class HatSpells : MonoBehaviour
 
         unlockedSpells[index] = true;
     }
-    public void SwapSpells(int i)
+    public void SwapSpellsFromUI(int i)
     {
+        SwapSpells(i, false);
+    }
+    public void SwapSpells(int i, bool fromChest = false)
+    {
+        if (fromChest)
+        {
+            currentSpell = i;
+            return;
+        }
         if (unlockedSpells[i] == false)
             return;
         currentSpell = i;
@@ -106,8 +116,12 @@ public class HatSpells : MonoBehaviour
         PlayerController.instance.isCasting = false;
     }
     
-    public SpellDataH GetCurrentSpellData()
+    public SpellDataH GetCurrentSpellData(int i = -1)
     {
+        if (i != -1)
+        {
+            return spells[i];
+        }
         return spells[currentSpell];
     }
 }

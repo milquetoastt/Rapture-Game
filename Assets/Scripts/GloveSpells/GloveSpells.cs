@@ -5,6 +5,7 @@ using Cinemachine;
 [System.Serializable]
 public class SpellDataG
 {
+    public string name;
     public float recoil = 10f;
     public float fireCooldown = 1.5f;
     public GameObject projectilePrefab;
@@ -54,8 +55,18 @@ public class GloveSpells : MonoBehaviour
         unlockedSpells[index] = true;
     }
 
-    public void SwapSpells(int i)
+    public void SwapSpellsFromUI(int i)
     {
+        //didn't know UI buttons could only handle one parameter :(
+        SwapSpells(i, false);
+    }
+    public void SwapSpells(int i, bool fromChest = false)
+    {
+        if (fromChest)
+        {
+            currentSpell = i;
+            return;
+        }
         if (unlockedSpells[i] == false)
             return;
         currentSpell = i;
@@ -197,8 +208,12 @@ public class GloveSpells : MonoBehaviour
         postFireTimer = postFirePause;
     }
 
-    public SpellDataG GetCurrentSpellData()
+    public SpellDataG GetCurrentSpellData(int i = -1)
     {
+        if (i != -1)
+        {
+            return spells[i];
+        }
         return spells[currentSpell];
     }
 }

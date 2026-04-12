@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1331222235
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -108,8 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WillOWisp
   damage: 10
   knockback: 0
-  freezeTarget: 0
-  moveSpeed: 3
+  stunTime: 0
+  rb: {fileID: 0}
+  speed: 8
   lifeTime: 4
 --- !u!50 &-7521803249917217624
 Rigidbody2D:

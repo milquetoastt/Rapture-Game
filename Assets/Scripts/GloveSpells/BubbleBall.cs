@@ -17,7 +17,10 @@ public class BubbleBall : SpellStats
 
     void Awake()
     {
-        if (!rb) rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        Collider2D projectileCollider = GetComponent<Collider2D>();
+        Collider2D playerCollider = PlayerController.instance.GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(projectileCollider, playerCollider);
     }
 
     public override void Fire(Vector2 direction)

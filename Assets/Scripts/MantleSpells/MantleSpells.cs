@@ -6,6 +6,7 @@ using System.Collections;
 [System.Serializable]
 public class SpellDataM
 {
+    public string name;
     public GameObject spellPrefab;
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
@@ -42,8 +43,17 @@ public class MantleSpells : MonoBehaviour
 
         unlockedSpells[index] = true;
     }
-    public void SwapSpells(int i)
+    public void SwapSpellsFromUI(int i)
     {
+        SwapSpells(i, false);
+    }
+    public void SwapSpells(int i, bool fromChest = false)
+    {
+        if (fromChest)
+        {
+            currentSpell = i;
+            return;
+        }
         if (unlockedSpells[i] == false)
             return;
         currentSpell = i;
@@ -106,8 +116,12 @@ public class MantleSpells : MonoBehaviour
 
     }
     
-    public SpellDataM GetCurrentSpellData()
+    public SpellDataM GetCurrentSpellData(int i = -1)
     {
+        if (i != -1)
+        {
+            return spells[i];
+        }
         return spells[currentSpell];
     }
 }

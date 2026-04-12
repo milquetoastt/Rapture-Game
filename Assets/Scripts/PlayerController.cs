@@ -69,6 +69,22 @@ public class PlayerController : MonoBehaviour
             Debug.Log("doin a teleport");
             currentPortal.TryTeleport();
         }
+        if (currentChest != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("opening a chest ! ooo what's it gonna be");
+            currentChest.OpenChest();
+        }
+        
+        if (currentSpellDrop != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("looka spellDrop");
+            currentSpellDrop.Decide();
+        }
+        if (currentWardrobe != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("wardrobe time");
+            currentWardrobe.OpenWardrobe();
+        }
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -173,6 +189,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private Portal currentPortal;
+    private TreasureChest currentChest;
+    private SpellDrop currentSpellDrop;
+    private Wardrobe currentWardrobe;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -186,6 +205,9 @@ public class PlayerController : MonoBehaviour
             Destroy(hit.gameObject, .1f);
         }
         currentPortal = collision.gameObject.GetComponent<Portal>();
+        currentChest = collision.gameObject.GetComponent<TreasureChest>();
+        currentSpellDrop = collision.gameObject.GetComponent<SpellDrop>();
+        currentWardrobe = collision.gameObject.GetComponent<Wardrobe>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -193,6 +215,20 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.GetComponent<Portal>() == currentPortal)
         {
             currentPortal = null;
+        }
+
+        if (collision.gameObject.GetComponent<TreasureChest>() == currentChest)
+        {
+            currentChest = null;
+        }
+        
+        if (collision.gameObject.GetComponent<SpellDrop>() == currentSpellDrop)
+        {
+            currentSpellDrop = null;
+        }
+        if (collision.gameObject.GetComponent<Wardrobe>() == currentWardrobe)
+        {
+            currentWardrobe = null;
         }
     }
     public void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
@@ -228,7 +264,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("noledge collider");
             yield break;
         }
-
+        
         Debug.Log("ignoring collision between " + playerCol.name + " and " + ledgeCol.name);
         isDroppingThrough = true;
 

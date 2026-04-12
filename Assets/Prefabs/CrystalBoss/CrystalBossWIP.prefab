@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dd52b63825d4347ac3a11a3fbc1d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalBoss
-  hp: 100
+  hp: 300
   canBeStunned: 1
   myRoom: {fileID: 0}
   stunned: 0
