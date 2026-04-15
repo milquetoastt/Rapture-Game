@@ -120,7 +120,7 @@ MonoBehaviour:
   hoverDamping: 3.7
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!50 &7253938819913265110
 Rigidbody2D:
   serializedVersion: 5

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OhmmTresspass : SpellStats
+public class OhmsTresspass : SpellStats
 {
     private Rigidbody2D rb;
     private float charge = 0f;
@@ -10,7 +10,7 @@ public class OhmmTresspass : SpellStats
     public float teleportDistance = 10f;
     public float moveSlowMultiplier = 0.3f;
 
-    [Header("Indicator")]
+    [Header("indicator")]
     public GameObject teleportIndicatorPrefab;
     private GameObject teleportIndicatorInstance;
 
