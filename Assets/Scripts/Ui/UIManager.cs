@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("deathsequence")]
+    public float slowDuration = 1f;
+    public GameObject deathPanel;
+
     [Header("spell drop")]
     public GameObject spellDropHUD;
     public SpellDrop currentSpellDrop;
@@ -69,7 +73,36 @@ public class UIManager : MonoBehaviour
         bootUI.SetActive(false);
         spellDropHUD.SetActive(false);
     }
+    public void DieSequence()
+    {
+        StartCoroutine(DeathSequence());
+    }
 
+    private IEnumerator DeathSequence()
+    {
+        ManaResource.instance.allowTimeControl = false;
+        float startScale = Time.timeScale;
+        float timer = 0f;
+
+        while (timer < slowDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = timer / slowDuration;
+
+            Time.timeScale = Mathf.Lerp(startScale, 0, t);
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+            yield return null;
+        }
+
+        Time.timeScale = 0;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        yield return new WaitForSecondsRealtime(0.35f);
+
+        deathPanel.SetActive(true);
+
+    }
     public void WardrobeSequence(int which)
     {
         wardrobeUI.SetActive(true);

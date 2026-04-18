@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0eb5f4a2df5bb4dbaf73f73ff67bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightningBolt
-  damage: 10
+  damage: 7
   knockback: 0
   stunTime: 0
   rb: {fileID: 2837792459529799427}
-  duration: 0.2
+  duration: 0.1
 --- !u!212 &3130023082506815221
 SpriteRenderer:
   serializedVersion: 2

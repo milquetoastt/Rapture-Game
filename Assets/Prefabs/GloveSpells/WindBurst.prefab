@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   knockback: 0
-  stunTime: 0.5
+  stunTime: 0.3
   rb: {fileID: 7916248611221765747}
   duration: 0.78
   startSpeed: 68.9

@@ -143,6 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallLightning
   damage: 10
   knockback: 0
-  stunTime: 0
+  stunTime: 0.8
   moveSpeed: 6
-  moveDuration: 1.7
+  moveDuration: 2

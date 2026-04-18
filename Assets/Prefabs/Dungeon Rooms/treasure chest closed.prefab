@@ -154,5 +154,5 @@ MonoBehaviour:
   spellPrefab: {fileID: 1516482643825385638, guid: 8dceca5f232d0764fa88839a8514359c, type: 3}
   typeSpell: 0
   whichSpell: 0
-  force: 0
+  force: 10
   rolled: 0

@@ -45,5 +45,10 @@ public class UiTester : MonoBehaviour
             HatSpells.instance.UnlockSpell(2);
             HatSpells.instance.UnlockSpell(3);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameDataManager.instance.ResetSave();
+        }
 }
 }

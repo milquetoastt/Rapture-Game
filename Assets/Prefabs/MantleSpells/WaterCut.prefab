@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cadb97e286ed274394c46e4d201113a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterCut
-  damage: 10
+  damage: 25
   knockback: 0
-  stunTime: 0.6
+  stunTime: 1.2
   offset: {x: 2, y: 0, z: 0}
   force: 24.2
   sidewaysForce: 12

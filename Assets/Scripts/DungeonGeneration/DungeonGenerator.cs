@@ -252,10 +252,10 @@ public class DungeonGenerator : MonoBehaviour
         bool needLeft = room.leftRoom != null;
         bool needRight = room.rightRoom != null;
 
-        Debug.Log($"Selecting prefab for room at ({room.xPos}, {room.yPos}) type {room.roomType} needs U:{room.upRoom != null} D:{room.downRoom != null} L:{room.leftRoom != null} R:{room.rightRoom != null}");
+        //Debug.Log($"Selecting prefab for room at ({room.xPos}, {room.yPos}) type {room.roomType} needs U:{room.upRoom != null} D:{room.downRoom != null} L:{room.leftRoom != null} R:{room.rightRoom != null}");
         for (int i = 0; i < pool.Length; i++)
         {
-            Debug.Log($"Checking prefab {pool[i].name} supports U:{pool[i].supportsUp} D:{pool[i].supportsDown} L:{pool[i].supportsLeft} R:{pool[i].supportsRight}");
+            //Debug.Log($"Checking prefab {pool[i].name} supports U:{pool[i].supportsUp} D:{pool[i].supportsDown} L:{pool[i].supportsLeft} R:{pool[i].supportsRight}");
             if (pool[i].MatchesRequiredExits(needUp, needDown, needLeft, needRight))
             {
                 return pool[i];

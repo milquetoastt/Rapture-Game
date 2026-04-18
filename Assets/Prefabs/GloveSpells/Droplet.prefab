@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fafae6be1ec4b743969e74ff50e724a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellStats
-  damage: 10
+  damage: 5
   knockback: 0
-  stunTime: 0
+  stunTime: 0.1
 --- !u!212 &2647882053851675350
 SpriteRenderer:
   serializedVersion: 2

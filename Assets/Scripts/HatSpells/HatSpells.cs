@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 
 //TODO: eat cake :)
 
@@ -27,21 +26,36 @@ public class HatSpells : MonoBehaviour
 
     public static HatSpells instance;
     [SerializeField] private bool[] unlockedSpells;
+    private void Start()
+    {
+        LoadFromSave();
+    }
+
+    private void LoadFromSave()
+    {
+        SaveData data = GameDataManager.instance.CurrentSave;
+
+        unlockedSpells = data.hatUnlocked;
+        currentSpell = data.currentHatSpell;
+    }
     public bool IsSpellUnlocked(int index)
     {
-        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
-        Debug.Log("spells length: " + spells.Length);
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+            return false;
+
         return unlockedSpells[index];
     }
     public void UnlockSpell(int index)
     {
         if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
         {
-            Debug.LogWarning("hat Invalid spell index: " + index);
+            Debug.LogWarning("invalid spell index: " + index);
             return;
         }
 
         unlockedSpells[index] = true;
+        GameDataManager.instance.CurrentSave.gloveUnlocked = unlockedSpells;
+        GameDataManager.instance.SaveGame();
     }
     public void SwapSpellsFromUI(int i)
     {
@@ -49,23 +63,19 @@ public class HatSpells : MonoBehaviour
     }
     public void SwapSpells(int i, bool fromChest = false)
     {
-        if (fromChest)
-        {
-            currentSpell = i;
+        if (i < 0 || i >= spells.Length)
             return;
-        }
-        if (unlockedSpells[i] == false)
+
+        if (!fromChest && !unlockedSpells[i])
             return;
+
         currentSpell = i;
+        GameDataManager.instance.CurrentSave.currentMantleSpell = currentSpell;
+        GameDataManager.instance.SaveGame();
     }
     private void Awake()
     {
         instance = this;
-        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
-            unlockedSpells = new bool[spells.Length];
-
-        if (spells.Length > 0)
-            UnlockSpell(0);
     }
 
     void Update()

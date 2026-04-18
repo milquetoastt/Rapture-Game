@@ -37,22 +37,38 @@ public class GloveSpells : MonoBehaviour
     public static GloveSpells instance;
     public CooldownIndicatorUI gloveCooldownUI;
 
+    private void Start()
+    {
+        LoadFromSave();
+    }
+
+    private void LoadFromSave()
+    {
+        SaveData data = GameDataManager.instance.CurrentSave;
+
+        unlockedSpells = data.gloveUnlocked;
+        currentSpell = data.currentGloveSpell;
+    }
+
     [SerializeField] private bool[] unlockedSpells;
     public bool IsSpellUnlocked(int index)
     {
-        Debug.Log("unlockedSpells length: " + unlockedSpells.Length);
-        Debug.Log("spells length: " + spells.Length);
+        if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
+            return false;
+
         return unlockedSpells[index];
     }
     public void UnlockSpell(int index)
     {
         if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
         {
-            Debug.LogWarning("Invalid spell index: " + index);
+            Debug.LogWarning("invalid spell index: " + index);
             return;
         }
 
         unlockedSpells[index] = true;
+        GameDataManager.instance.CurrentSave.gloveUnlocked = unlockedSpells;
+        GameDataManager.instance.SaveGame();
     }
 
     public void SwapSpellsFromUI(int i)
@@ -62,14 +78,15 @@ public class GloveSpells : MonoBehaviour
     }
     public void SwapSpells(int i, bool fromChest = false)
     {
-        if (fromChest)
-        {
-            currentSpell = i;
+        if (i < 0 || i >= spells.Length)
             return;
-        }
-        if (unlockedSpells[i] == false)
+
+        if (!fromChest && !unlockedSpells[i])
             return;
+
         currentSpell = i;
+        GameDataManager.instance.CurrentSave.currentGloveSpell = currentSpell;
+        GameDataManager.instance.SaveGame();
     }
 
     private void Awake()
@@ -79,12 +96,6 @@ public class GloveSpells : MonoBehaviour
 
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
-
-        if (unlockedSpells == null || unlockedSpells.Length != spells.Length)
-            unlockedSpells = new bool[spells.Length];
-
-        if (spells.Length > 0)
-            UnlockSpell(0);
     }
 
     public void HandleInput()

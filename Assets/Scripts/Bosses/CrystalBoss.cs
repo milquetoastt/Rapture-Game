@@ -7,6 +7,12 @@ public class CrystalBoss : EnemyBase
 {
     private int maxHP;
 
+    [Header("spellDrop")]
+    public GameObject spellPrefab;
+    public int typeSpell;
+    public int whichSpell;
+    public float force;
+    
     [Header("tracking")]
     public Vector3 firePoint;
     public float ovalRadiusX;
@@ -45,6 +51,44 @@ public class CrystalBoss : EnemyBase
         base.Awake();
         canBeStunned = false;
         maxHP = hp;
+    }
+    
+    protected override void Die()
+    {
+        if (currentState == BossState.Dead) 
+            return;
+        currentState = BossState.Dead;
+        
+        Debug.Log("crystal boss defeated!");
+        StopAllCoroutines();
+        GetComponent<Collider2D>().enabled = false;
+
+        StartCoroutine(BossDeathSequence());
+    }
+    
+    private IEnumerator BossDeathSequence()
+    {
+        if (myRoom != null)
+        {
+            myRoom.EnemyDied(this);
+        }
+        PlayerController.instance.GainExperience(experience);
+        // play animation here
+        yield return new WaitForSeconds(1f);
+        
+        //took it from treasurechest
+        //typeSpell 0=gloves,1=mantle,2=boots,3=hat
+        typeSpell = Random.Range(0, 4);
+        //whichSpell 0=wind,1=lightning,2=fire,3=water
+        whichSpell = Random.Range(0, 4);
+        Vector3 position = transform.position + new Vector3(0,2,0);
+        GameObject spawned = Instantiate(spellPrefab, position, Quaternion.identity);
+        Rigidbody2D rb = spawned.GetComponent<Rigidbody2D>();
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);   
+        SpellDrop pickup = spawned.GetComponent<SpellDrop>();
+        pickup.SetSpell(typeSpell, whichSpell);
+
+        Destroy(gameObject);
     }
 
     private void Start()

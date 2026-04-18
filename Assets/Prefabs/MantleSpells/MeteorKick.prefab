@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be43490f553d5e49bcb8e9f21c007e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Meteor
-  damage: 10
+  damage: 35
   knockback: 0
-  stunTime: 1.3
+  stunTime: 1
   upForce: 20
   fallingHorizontalSpeed: 30
   fallingVerticalSpeed: 50

@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab907875a8d29e4784fedf7af33ba98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireCone
-  damage: 10
+  damage: 25
   knockback: 9.7
   stunTime: 0.8
   rb: {fileID: 5974837020190646119}

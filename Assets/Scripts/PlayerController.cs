@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private bool isDroppingThrough = false;
     private Collider2D playerCol;
 
+    public float slowDuration = 2f;
+    public GameObject deathPanel;
     private void Awake()
     {
         playerCol = GetComponent<Collider2D>();
@@ -182,12 +184,6 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
-    public void Hurt(int damage)
-    {
-        health -= damage;
-        Debug.Log("Health: " + health);
-    }
-
     private Portal currentPortal;
     private TreasureChest currentChest;
     private SpellDrop currentSpellDrop;
@@ -234,12 +230,28 @@ public class PlayerController : MonoBehaviour
     public void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
     {
         health -= damage;
-        
+        if (health <= 0)
+        {
+            Die();
+        }
         Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
         rb.AddForce(Vector2.up * upKnockback, ForceMode2D.Impulse);
 
+    }
+
+    public void Die()
+    {
+        canInputMove = false;
+        canCast = false;
+        UIManager.instance.DieSequence();
+    }
+
+    public void ResetTimeScale()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
     }
 
     private IEnumerator StunCoroutine(float stunTime)

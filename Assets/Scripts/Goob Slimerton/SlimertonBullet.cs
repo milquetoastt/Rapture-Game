@@ -21,7 +21,6 @@ public class SlimertonBullet : MonoBehaviour
         PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.Hurt(damage);
             Destroy(this.gameObject);
         }
     }
