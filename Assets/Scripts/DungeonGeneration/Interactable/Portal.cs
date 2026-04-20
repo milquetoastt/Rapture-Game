@@ -10,6 +10,7 @@ public class Portal : MonoBehaviour
     public bool up;
     public bool left;
     public bool right;
+    // technically this right boolean is totally unnecessary but it's weird if the default is right so it's gonna stay
 
     [Header("distance to teleport?")]
     public float xDistance;
@@ -23,7 +24,6 @@ public class Portal : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         Vector2 playerLocation = PlayerController.instance.transform.position;
         
-
         if (down)
             PlayerController.instance.transform.position = playerLocation + new Vector2(0, -yDistance);
         else if (up)

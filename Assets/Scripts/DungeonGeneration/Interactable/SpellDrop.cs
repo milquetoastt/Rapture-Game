@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpellDrop : MonoBehaviour
+public class SpellDrop : Interactable
 {   
     public int typeSpell;
     public int whichSpell;
@@ -17,7 +17,7 @@ public class SpellDrop : MonoBehaviour
         whichSpell = which;
     }
     
-    public void Decide()
+    public override void Interact()
     {
         UIManager.instance.currentSpellDrop = this;
         UIManager.instance.SpellDropSequence();

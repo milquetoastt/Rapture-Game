@@ -112,7 +112,8 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.35f);
 
-        deathPanel.SetActive(true);
+        PanelSlideUI slide = deathPanel.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
 
     }
 
@@ -128,9 +129,8 @@ public class UIManager : MonoBehaviour
     public void WardrobeSequence(int which)
     {
         wardrobeUI.SetActive(true);
-        Time.timeScale = 0;
-        gameIsPaused = true;
-        ManaResource.instance.allowTimeControl = false;
+        PanelSlideUI slide = wardrobeUI.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
 
         switch (which)
         {
@@ -172,7 +172,7 @@ public class UIManager : MonoBehaviour
     
     private void HandleSpellUI(GameObject[] buttons, int which)
     {
-        Debug.Log("buttons length: " + buttons.Length + ", which: " + which);
+        //Debug.Log("buttons length: " + buttons.Length + ", which: " + which);
         for (int i = 0; i < buttons.Length; i++)
         {
             bool unlocked = false;
@@ -193,7 +193,7 @@ public class UIManager : MonoBehaviour
                     break;
             }
             
-            Debug.Log("button " + i + " unlocked = " + unlocked);
+            //Debug.Log("button " + i + " unlocked = " + unlocked);
             
             Button btn = buttons[i].GetComponent<Button>();
             if (btn != null)
@@ -216,9 +216,8 @@ public class UIManager : MonoBehaviour
         mantleUI.SetActive(false);
         hatUI.SetActive(false);
         bootUI.SetActive(false);
-        Time.timeScale = 1;
-        gameIsPaused = false;
-        ManaResource.instance.allowTimeControl = true;
+        PanelSlideUI slide = wardrobeUI.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
     }
 
     public void HitJuice()
@@ -248,10 +247,9 @@ public class UIManager : MonoBehaviour
     }
     public void LevelUpSequence()
     {
-        Time.timeScale = 0;
-        gameIsPaused = true;
-        ManaResource.instance.allowTimeControl = false;
         levelUpHUD.SetActive(true);
+        PanelSlideUI slide = levelUpHUD.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
         RollHealthBuffData();
         
         RollSpellBuffData();
@@ -479,17 +477,15 @@ public class UIManager : MonoBehaviour
     public void CloseLevelUp()
     {
         levelUpHUD.SetActive(false);
-        
-        Time.timeScale = 1;
-        gameIsPaused = false;
-        ManaResource.instance.allowTimeControl = true;
+        PanelSlideUI slide = levelUpHUD.GetComponent<PanelSlideUI>();
+        slide.SlideOut();
     }
 
     public void SpellDropSequence()
     {
-        Time.timeScale = 0;
-        gameIsPaused = true;
-        ManaResource.instance.allowTimeControl = false;
+        spellDropHUD.SetActive(true);
+        PanelSlideUI slide = spellDropHUD.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
         switch (currentSpellDrop.typeSpell)
         {
             case 0: // gloves
@@ -561,7 +557,7 @@ public class UIManager : MonoBehaviour
             }
         }
         
-        spellDropHUD.SetActive(true);
+        
     }
 
     public void SwapWithDropped()
@@ -613,8 +609,7 @@ public class UIManager : MonoBehaviour
     public void CloseDropped()
     {
         spellDropHUD.SetActive(false);
-        Time.timeScale = 1;
-        gameIsPaused = false;
-        ManaResource.instance.allowTimeControl = true;
+        PanelSlideUI slide = spellDropHUD.GetComponent<PanelSlideUI>();
+        slide.SlideOut();
     }
 }

@@ -14,6 +14,8 @@ public class SaveData
     public int currentHatSpell;
     public int currentBootSpell;
 
+    public bool firstTimeExitGate = true;
+
     public string gloveKey = "test";
     public string mantleKey = "test";
     public string bootKey = "test";

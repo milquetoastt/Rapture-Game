@@ -4,6 +4,7 @@ public class UiTester : MonoBehaviour
 {
     public CooldownIndicatorUI testUI;
     public CrystalBoss crystalguy;
+    public PanelSlideUI panelSlideUI;
 
     void Update()
     {
@@ -49,6 +50,17 @@ public class UiTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             GameDataManager.instance.ResetSave();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            panelSlideUI.SlideIn();
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            panelSlideUI.SlideOut();
         }
 }
 }

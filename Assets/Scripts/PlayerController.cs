@@ -78,35 +78,15 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(DropThroughLedges());
         }
-        if (currentPortal != null && Input.GetKeyDown(KeyCode.E))
+        if (currentInteractable != null && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("doin a teleport");
-            currentPortal.TryTeleport();
-        }
-        if (currentChest != null && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("opening a chest ! ooo what's it gonna be");
-            currentChest.OpenChest();
-        }
-        
-        if (currentSpellDrop != null && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("looka spellDrop");
-            currentSpellDrop.Decide();
-        }
-        if (currentWardrobe != null && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("wardrobe time");
-            currentWardrobe.OpenWardrobe();
+            Debug.Log("great optimization good job cheve very smart");
+            currentInteractable.Interact();
         }
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (currentXp >= xpForNextLevel)
-        {
-            
-        }
         
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         if (showSpeed)
@@ -195,11 +175,8 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
-
-    private Portal currentPortal;
-    private TreasureChest currentChest;
-    private SpellDrop currentSpellDrop;
-    private Wardrobe currentWardrobe;
+    
+    private Interactable currentInteractable;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -212,31 +189,14 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(StunCoroutine(hit.stunTime));
             Destroy(hit.gameObject, .1f);
         }
-        currentPortal = collision.gameObject.GetComponent<Portal>();
-        currentChest = collision.gameObject.GetComponent<TreasureChest>();
-        currentSpellDrop = collision.gameObject.GetComponent<SpellDrop>();
-        currentWardrobe = collision.gameObject.GetComponent<Wardrobe>();
+        currentInteractable = collision.gameObject.GetComponent<Interactable>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Portal>() == currentPortal)
+        if (collision.gameObject.GetComponent<Portal>() == currentInteractable)
         {
-            currentPortal = null;
-        }
-
-        if (collision.gameObject.GetComponent<TreasureChest>() == currentChest)
-        {
-            currentChest = null;
-        }
-        
-        if (collision.gameObject.GetComponent<SpellDrop>() == currentSpellDrop)
-        {
-            currentSpellDrop = null;
-        }
-        if (collision.gameObject.GetComponent<Wardrobe>() == currentWardrobe)
-        {
-            currentWardrobe = null;
+            currentInteractable = null;
         }
     }
     public void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)

@@ -55,6 +55,8 @@ public static class SaveManager
         data.hatUnlocked[0] = true;
         data.bootUnlocked[0] = true;
 
+        data.firstTimeExitGate = true;
+
         data.currentGloveSpell = 0;
         data.currentMantleSpell = 0;
         data.currentHatSpell = 0;

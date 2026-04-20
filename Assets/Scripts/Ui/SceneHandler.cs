@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class SceneHandler : MonoBehaviour
 {
@@ -12,19 +13,40 @@ public class SceneHandler : MonoBehaviour
         instance = this;
     }
 
-    public void LoadScene(string sceneName)
+    public void DoPanel(GameObject panel)
     {
-        StartCoroutine(LoadSceneAsync(sceneName));
+        panel.SetActive(true);
+        PanelSlideUI panelScript = panel.GetComponent<PanelSlideUI>();
+        panelScript.SlideIn();
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+    public void LoadScene(string sceneName, bool byIndexA = false)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(LoadSceneAsync(sceneName, byIndexA));
+    }
 
-        while (!operation.isDone)
+    private IEnumerator LoadSceneAsync(string sceneName, bool byIndex = false)
+    {
+        if (byIndex)
         {
-            yield return null;
+            int currentIndex = SceneManager.GetActiveScene().buildIndex;
+            AsyncOperation operation = SceneManager.LoadSceneAsync(currentIndex++);
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
         }
+
+        else
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
+        }
+        
     }
 
     public void QuitGame()
