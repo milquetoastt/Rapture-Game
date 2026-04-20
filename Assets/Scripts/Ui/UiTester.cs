@@ -49,23 +49,23 @@ public class UiTester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameDataManager.instance.ResetSave();
+            //GameDataManager.instance.ResetSave();
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            panelSlideUI.SlideIn();
+            //panelSlideUI.SlideIn();
             
         }
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            panelSlideUI.SlideOut();
+           // panelSlideUI.SlideOut();
         }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            //PlayerController.instance.Level();
+            PlayerController.instance.Level();
             
         }
     }
