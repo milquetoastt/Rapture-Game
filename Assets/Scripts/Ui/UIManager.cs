@@ -129,6 +129,10 @@ public class UIManager : MonoBehaviour
     public void WardrobeSequence(int which)
     {
         wardrobeUI.SetActive(true);
+        gloveUI.SetActive(false);
+        mantleUI.SetActive(false);
+        hatUI.SetActive(false);
+        bootUI.SetActive(false);
         PanelSlideUI slide = wardrobeUI.GetComponent<PanelSlideUI>();
         slide.SlideIn();
 
@@ -202,22 +206,24 @@ public class UIManager : MonoBehaviour
             Image img = buttons[i].GetComponent<Image>();
             if (img != null)
             {
-                Color c = img.color;
-                c.a = unlocked ? 1f : 0.4f;
-                img.color = c;
+                if (unlocked)
+                {
+                    img.color = new Color(1f, 1f, 1f, 0.7f);
+                    
+                }
+                else
+                {
+                    img.color = Color.red;
+                }
             }
         }
     }
 
     public void CloseWardrobe()
     {
-        wardrobeUI.SetActive(false);
-        gloveUI.SetActive(false);
-        mantleUI.SetActive(false);
-        hatUI.SetActive(false);
-        bootUI.SetActive(false);
         PanelSlideUI slide = wardrobeUI.GetComponent<PanelSlideUI>();
-        slide.SlideIn();
+        slide.SlideOut();
+        
     }
 
     public void HitJuice()

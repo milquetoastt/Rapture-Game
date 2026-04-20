@@ -15,6 +15,8 @@ public class SceneHandler : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        instance = this;
         Time.timeScale = 1;
         if(UIManager.instance != null) UIManager.instance.gameIsPaused = false;
         if(ManaResource.instance != null) ManaResource.instance.allowTimeControl = true;
