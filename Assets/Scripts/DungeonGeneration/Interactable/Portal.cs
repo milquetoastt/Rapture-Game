@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : Interactable
 {
     [Header("stats")]
     public bool unlocked = true;
@@ -37,7 +37,7 @@ public class Portal : MonoBehaviour
 
     }
 
-    public void TryTeleport()
+    public override void Interact()
     {
         if (unlocked)
             DoTeleport();

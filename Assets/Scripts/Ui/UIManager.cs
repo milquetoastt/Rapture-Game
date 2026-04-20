@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("seamstress")]
+    public bool seamstressHasUnlockedASpell;
+    public GameObject seamstressUI;
+    public Button[] buttons;
+    
     [Header("hit juice")]
     public float hitJuiceDuration = .2f;
     public float shakeDuration;
@@ -16,6 +21,9 @@ public class UIManager : MonoBehaviour
     [Header("deathsequence")]
     public float slowDuration = 1f;
     public GameObject deathPanel;
+
+    [Header("exit gate")]
+    public GameObject exitGateUI;
 
     [Header("spell drop")]
     public GameObject spellDropHUD;
@@ -77,6 +85,7 @@ public class UIManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
         
+        seamstressUI.SetActive(false);
         levelUpHUD.SetActive(false);
         wardrobeUI.SetActive(false);
         gloveUI.SetActive(false);
@@ -84,7 +93,95 @@ public class UIManager : MonoBehaviour
         hatUI.SetActive(false);
         bootUI.SetActive(false);
         spellDropHUD.SetActive(false);
+        exitGateUI.SetActive(false);
     }
+
+    public void SeamstressSequence(bool hasUnlockedASpell)
+    {
+        seamstressUI.SetActive(true);
+        PanelSlideUI slide = seamstressUI.GetComponent<PanelSlideUI>();
+        seamstressHasUnlockedASpell = hasUnlockedASpell;
+        bool[] currentUnlocked = new bool[]
+        {
+            GloveSpells.instance.IsSpellUnlocked(GloveSpells.instance.currentSpell),
+            MantleSpells.instance.IsSpellUnlocked(MantleSpells.instance.currentSpell),
+            BootSpells.instance.IsSpellUnlocked(BootSpells.instance.currentSpell),
+            HatSpells.instance.IsSpellUnlocked(HatSpells.instance.currentSpell)
+        };
+
+        for (int i = 0; i < currentUnlocked.Length; i++)
+        {
+            TextMeshProUGUI text = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
+            switch (i)
+            {
+                case 0:
+                    text.text = GloveSpells.instance.GetCurrentSpellData().name;
+                    break;
+
+                case 1:
+                    text.text = MantleSpells.instance.GetCurrentSpellData().name;
+                    break;
+
+                case 2:
+                    text.text = BootSpells.instance.GetCurrentSpellData().name;
+                    break;
+
+                case 3:
+                    text.text = HatSpells.instance.GetCurrentSpellData().name;
+                    break;
+            }
+            //if current is unlocked, gray out buttons[i], uninteractable
+            if (currentUnlocked[i])
+            {
+                TextMeshProUGUI textUnlockedFlag = text.GetComponentInChildren<TextMeshProUGUI>();
+                textUnlockedFlag.enabled = true;
+                buttons[i].interactable = false;
+                buttons[i].image.color = Color.gray2;
+            }
+            //if not unlocked, show buttons[i] as interactable
+            else if (!currentUnlocked[i])
+            {
+                buttons[i].interactable = true;
+                buttons[i].image.color = Color.white;
+            }
+        }
+        slide.SlideIn();
+        
+    }
+
+    public void SeamstressUnlock(int which)
+    {
+        if (seamstressHasUnlockedASpell)
+            return;
+        else
+        {
+            switch  (which)
+            {
+                //gloves mantle boots hat
+                case 0:
+                    GloveSpells.instance.UnlockSpell(GloveSpells.instance.currentSpell);
+                    break;
+                case 1:
+                    MantleSpells.instance.UnlockSpell(MantleSpells.instance.currentSpell);
+                    break;
+                case 2:
+                    BootSpells.instance.UnlockSpell(BootSpells.instance.currentSpell);
+                    break;
+                case 3:
+                    HatSpells.instance.UnlockSpell(HatSpells.instance.currentSpell);
+                    break;
+            }
+            seamstressHasUnlockedASpell = true;
+            FindObjectOfType<Seamstress>().hasUnlockedASpell = true;
+        }
+    }
+
+    public void CloseSeamstress()
+    {
+        PanelSlideUI slide = seamstressUI.GetComponent<PanelSlideUI>();
+        slide.SlideOut();
+    }
+
     public void DieSequence()
     {
         StartCoroutine(DeathSequence());
@@ -126,6 +223,21 @@ public class UIManager : MonoBehaviour
     {
         SceneHandler.instance.QuitGame();
     }
+
+    public void ExitGateSequence()
+    {
+        exitGateUI.SetActive(true);
+        PanelSlideUI slide = exitGateUI.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
+    }
+
+    public void DoExitGate()
+    {
+        Debug.Log("Slideout");
+        exitGateUI.GetComponent<PanelSlideUI>().SlideOut();
+        SceneHandler.instance.LoadSceneByIndex();
+    }
+
     public void WardrobeSequence(int which)
     {
         wardrobeUI.SetActive(true);
@@ -251,6 +363,7 @@ public class UIManager : MonoBehaviour
         ManaResource.instance.allowTimeControl = true;
         
     }
+
     public void LevelUpSequence()
     {
         levelUpHUD.SetActive(true);
@@ -482,7 +595,6 @@ public class UIManager : MonoBehaviour
 
     public void CloseLevelUp()
     {
-        levelUpHUD.SetActive(false);
         PanelSlideUI slide = levelUpHUD.GetComponent<PanelSlideUI>();
         slide.SlideOut();
     }
@@ -614,7 +726,6 @@ public class UIManager : MonoBehaviour
 
     public void CloseDropped()
     {
-        spellDropHUD.SetActive(false);
         PanelSlideUI slide = spellDropHUD.GetComponent<PanelSlideUI>();
         slide.SlideOut();
     }

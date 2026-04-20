@@ -62,5 +62,11 @@ public class UiTester : MonoBehaviour
         {
             panelSlideUI.SlideOut();
         }
-}
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //PlayerController.instance.Level();
+            
+        }
+    }
 }

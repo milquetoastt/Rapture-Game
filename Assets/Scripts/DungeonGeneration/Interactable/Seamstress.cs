@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Seamstress : Interactable
 {
-    public GameObject panel;
+    public bool hasUnlockedASpell = false;
+
     public override void Interact()
     {
-        SceneHandler.instance.DoPanel(panel);
-        
+        UIManager.instance.SeamstressSequence(hasUnlockedASpell);
+        //hasUnlockedASpell = true;
     }
 }

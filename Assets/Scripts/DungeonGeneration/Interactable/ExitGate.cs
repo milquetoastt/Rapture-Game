@@ -4,7 +4,7 @@ using UnityEngine;
 public class ExitGate : Interactable
 {
     public bool firstTime = false;
-    public GameObject panelSlideUI;
+
     private void Start()
     {
         SaveData data = GameDataManager.instance.CurrentSave;
@@ -14,16 +14,8 @@ public class ExitGate : Interactable
     public override void Interact()
     {
         if (firstTime)
-            SceneHandler.instance.DoPanel(panelSlideUI);
+            UIManager.instance.ExitGateSequence();
         else
-            DoExitGate();
-    }
-
-    public void DoExitGate()
-    {
-        Debug.Log("Slideout");
-        panelSlideUI.GetComponent<PanelSlideUI>().SlideOut();
-        SceneHandler.instance.LoadSceneByIndex();
-        
+            UIManager.instance.DoExitGate();
     }
 }
