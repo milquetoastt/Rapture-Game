@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
 
     public void DoSceneChange(string sceneName)
     {
-        SceneHandler.instance.LoadScene(sceneName);
+        SceneHandler.instance.LoadSceneByName(sceneName);
     }
 
     public void DoExitGame()

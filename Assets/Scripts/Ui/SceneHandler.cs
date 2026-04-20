@@ -10,7 +10,14 @@ public class SceneHandler : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Time.timeScale = 1;
+        if(UIManager.instance != null) UIManager.instance.gameIsPaused = false;
+        if(ManaResource.instance != null) ManaResource.instance.allowTimeControl = true;
     }
 
     public void DoPanel(GameObject panel)
@@ -20,21 +27,28 @@ public class SceneHandler : MonoBehaviour
         panelScript.SlideIn();
     }
 
-    public void LoadScene(string sceneName, bool byIndexA = false)
+    public void LoadSceneByIndex(GameObject panel = null)
     {
-        StartCoroutine(LoadSceneAsync(sceneName, byIndexA));
+        if(panel != null)
+            panel.GetComponent<PanelSlideUI>().SlideOut();
+        StartCoroutine(LoadSceneAsync("buh", true));
     }
 
+    public void LoadSceneByName(string sceneName)
+    {
+        StartCoroutine(LoadSceneAsync(sceneName));
+    }
     private IEnumerator LoadSceneAsync(string sceneName, bool byIndex = false)
     {
         if (byIndex)
         {
             int currentIndex = SceneManager.GetActiveScene().buildIndex;
-            AsyncOperation operation = SceneManager.LoadSceneAsync(currentIndex++);
+            AsyncOperation operation = SceneManager.LoadSceneAsync(currentIndex + 1);
             while (!operation.isDone)
             {
                 yield return null;
             }
+
         }
 
         else

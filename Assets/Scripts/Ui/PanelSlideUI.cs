@@ -43,12 +43,13 @@ public class PanelSlideUI : MonoBehaviour
             yield return null;
         }
         
-        Time.timeScale = 1;
         
         if (slidingOut && UIManager.instance != null)
         {
+            Time.timeScale = 1;
             UIManager.instance.gameIsPaused = false;
             ManaResource.instance.allowTimeControl = true;
+            panel.gameObject.SetActive(false);
         }
         panel.anchoredPosition = end;
     }

@@ -109,7 +109,6 @@ public class GloveSpells : MonoBehaviour
 
         bool wantsHold = Input.GetMouseButton(0);
 
-        // Minimum fix: only claim casting when this glove cast actually begins
         if (wantsHold && !gloveCastInProgress && !inPostFirePause && Time.time >= nextFireTime)
         {
             gloveCastInProgress = true;
@@ -196,10 +195,8 @@ public class GloveSpells : MonoBehaviour
 
         Debug.Log("Current spell index: " + currentSpell);
         Debug.Log("Projectile prefab: " + spell.projectilePrefab.name);
-        Vector3 mouseScreen = Input.mousePosition;
-
-        // Convert mouse to world point (important in 2D)
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(mouseScreen);
+        
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
 
         Vector2 dir = (mouseWorld - firePoint.position);

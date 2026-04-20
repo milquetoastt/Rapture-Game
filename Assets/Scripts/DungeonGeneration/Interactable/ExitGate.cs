@@ -21,6 +21,9 @@ public class ExitGate : Interactable
 
     public void DoExitGate()
     {
-        SceneHandler.instance.LoadScene("shoutout evan kice great prof", true);
+        Debug.Log("Slideout");
+        panelSlideUI.GetComponent<PanelSlideUI>().SlideOut();
+        SceneHandler.instance.LoadSceneByIndex();
+        
     }
 }

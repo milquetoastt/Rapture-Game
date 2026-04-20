@@ -28,7 +28,30 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
         vcam = GetComponent<CinemachineVirtualCamera>();
         framing = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
 
+        if (mainCam == null)
+        {
+            Debug.Log("finding camera");
+            mainCam = Camera.main;
+        }
+
+        if (player == null && PlayerController.instance != null)
+        {
+            Debug.Log("finding player");
+            player = PlayerController.instance.transform;
+        }
+
         if (!mainCam) mainCam = Camera.main;
+    }
+    
+    void Start()
+    {
+        if (vcam == null)
+            vcam = GetComponent<CinemachineVirtualCamera>();
+
+        if (vcam.Follow == null && PlayerController.instance != null)
+        {
+            vcam.Follow = PlayerController.instance.transform;
+        }
     }
 
     void LateUpdate()
