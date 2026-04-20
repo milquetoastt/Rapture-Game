@@ -5,7 +5,6 @@ public class PatrolEnemy : MonoBehaviour
     public float moveSpeed = 2f;
     public int direction = 1;
 
-    [Header("Checks")]
     public Transform wallCheck;
     public Transform groundCheck;
     public float wallCheckDistance = 0.1f;

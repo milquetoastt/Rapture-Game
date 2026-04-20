@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8853394126861431886}
   - component: {fileID: 198874480853622343}
   - component: {fileID: 407099105015882306}
-  - component: {fileID: 3461658909250515620}
+  - component: {fileID: -140813137345102646}
   m_Layer: 0
   m_Name: ElectroBall
   m_TagString: EnemyBullet
@@ -106,11 +106,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add6490ea173e8240ad3a5730a52f163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElectroBall
-  crystalGuy: {fileID: 3839839985345696711, guid: af84566b4e2e4624e9856ea007228fd3, type: 3}
-  rb: {fileID: 0}
+  damage: 35
+  knockbackForce: 7
+  stunTime: 1
+  crystalGuy: {fileID: 0}
+  crystalController: {fileID: 0}
+  rb: {fileID: 407099105015882306}
   chargingUp: 1
   chargeTime: 0
   growSpeed: 0
+  hasLaunched: 0
+  col: {fileID: -140813137345102646}
 --- !u!50 &407099105015882306
 Rigidbody2D:
   serializedVersion: 5
@@ -138,8 +144,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &3461658909250515620
-BoxCollider2D:
+--- !u!58 &-140813137345102646
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -173,14 +179,4 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5

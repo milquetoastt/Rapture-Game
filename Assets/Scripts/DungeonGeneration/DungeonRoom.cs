@@ -95,13 +95,28 @@ public class DungeonRoom : MonoBehaviour
     {
         foreach (Transform place in spawnPoints)
         {
-            Debug.Log("hereinspawnenemies");
+            GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
 
             GameObject enemyOBJ = Instantiate(
-                enemyPrefabs[Random.Range(0, enemyPrefabs.Length)],
+                prefabToSpawn,
                 place.position,
                 Quaternion.identity
             );
+
+            if (roomType != RoomType.Boss)
+            {
+                Transform feet = enemyOBJ.transform.Find("Feet");
+
+                if (feet != null)
+                {
+                    Vector3 offset = enemyOBJ.transform.position - feet.position;
+                    enemyOBJ.transform.position = place.position + offset;
+                }
+                else
+                {
+                    Debug.LogWarning("there's an enemy with no feet :( how can it walk???");
+                }
+            }
 
             EnemyBase enemy = enemyOBJ.GetComponent<EnemyBase>();
 

@@ -5,7 +5,7 @@ public class BomberGuy : EnemyBase
 {
 
     public PatrolEnemy patrol;
-
+    public WindupRing ring;
     [Header("attack")]
     public GameObject bomb;
     public Transform throwPoint;
@@ -20,6 +20,10 @@ public class BomberGuy : EnemyBase
     private Coroutine attackRoutine;
     private float nextAttackTime;
 
+    private void Awake()
+    {
+        windUp = Random.Range(windUp-.25f, windUp+.25f);
+    }
     private void Update()
     {
         if (PlayerController.instance == null)
@@ -48,23 +52,25 @@ public class BomberGuy : EnemyBase
         patrol.doingSomethingElse = true;
 
         //FacePlayer();
-
+        ring.Begin(windUp);
         yield return new WaitForSeconds(windUp);
 
         if (stunned)
         {
             attackRoutine = null;
             patrol.doingSomethingElse = false;
+            ring.End();
             yield break;
+            
         }
 
         //FacePlayer();
         ThrowBombAtPlayer();
 
         nextAttackTime = Time.time + attackCooldown;
-
+        
         attackRoutine = null;
-
+        
         yield return new WaitForSeconds(.5f);
         patrol.doingSomethingElse = false;
     }
@@ -81,6 +87,8 @@ public class BomberGuy : EnemyBase
         Collider2D bombCol = spawnedBomb.GetComponent<Collider2D>();
         Collider2D playerCol = PlayerController.instance.GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(bombCol, playerCol);
+        
+        ring.End();
         
         Rigidbody2D rb = spawnedBomb.GetComponent<Rigidbody2D>();
         rb.gravityScale = bombGravityScale;
@@ -120,6 +128,7 @@ public class BomberGuy : EnemyBase
             StopCoroutine(attackRoutine);
             attackRoutine = null;
             nextAttackTime = Time.time + attackCooldown;
+            ring.End();
         }
     }
 }

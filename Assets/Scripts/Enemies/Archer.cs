@@ -7,6 +7,7 @@ public class Archer : EnemyBase
     public LayerMask playerLayer;
     public float lengthOfSight;
     public GameObject arrowPrefab;
+    public WindupRing ring;
 
     [Header("Attack Stuff")]
     public float attackCooldown;
@@ -49,6 +50,7 @@ public class Archer : EnemyBase
     {
         try
         {
+            ring.Begin(windUp);
             yield return new WaitForSeconds(windUp);
 
             GameObject arrowObj = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
@@ -62,6 +64,7 @@ public class Archer : EnemyBase
         }
         finally
         {
+            ring.End();
             attackRoutine = null;
             patrolEnemy.doingSomethingElse = false;
         }
@@ -74,7 +77,7 @@ public class Archer : EnemyBase
             StopCoroutine(attackRoutine);
             attackRoutine = null;
         }
-
+        ring.End();
         patrolEnemy.doingSomethingElse = false;
         patrolEnemy.stunned = true;
     }

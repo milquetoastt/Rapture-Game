@@ -36,7 +36,7 @@ public class GloveSpells : MonoBehaviour
     
     public static GloveSpells instance;
     public CooldownIndicatorUI gloveCooldownUI;
-
+    public WindupRing ring;
     private void Start()
     {
         LoadFromSave();
@@ -114,6 +114,8 @@ public class GloveSpells : MonoBehaviour
         {
             gloveCastInProgress = true;
             PlayerController.instance.isCasting = true;
+
+            ring.Begin(spell.windUp);
         }
 
         if (inPostFirePause)
@@ -140,6 +142,7 @@ public class GloveSpells : MonoBehaviour
 
         if (matrixJustEnded && Time.time >= nextFireTime && manaResource.heldSeconds >= manaResource.maxHoldSeconds)
         {
+            ring.End();
             nextFireTime = Time.time + spell.fireCooldown;
             gloveCooldownUI.StartCooldown(spell.fireCooldown);
             ShootAtMouse();
@@ -159,6 +162,7 @@ public class GloveSpells : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(remainingWindUp);
 
+        ring.End();
         ShootAtMouse();
         ApplyRecoilFromMouse();
         EnterPostFirePause();

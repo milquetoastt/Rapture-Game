@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class MainMenuUI : MonoBehaviour
+public class SceneHandler : MonoBehaviour
 {
+    public static SceneHandler instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void LoadScene(string sceneName)
     {
@@ -22,6 +29,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void QuitGame()
     {
+        //GameDataManager.instance.SaveGame();
         Debug.Log("quitting game...");
         Application.Quit();
     }

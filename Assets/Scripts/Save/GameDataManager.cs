@@ -7,6 +7,11 @@ public class GameDataManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
         DontDestroyOnLoad(gameObject);
         CurrentSave = SaveManager.LoadGame();
@@ -21,10 +26,5 @@ public class GameDataManager : MonoBehaviour
     {
         SaveManager.DeleteSave();
         CurrentSave = SaveManager.LoadGame();
-    }
-
-    public void OnApplicationQuit()
-    {
-        SaveGame();
     }
 }

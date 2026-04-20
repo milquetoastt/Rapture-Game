@@ -2,11 +2,17 @@ using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("hit juice")]
+    public float hitJuiceDuration = .2f;
+    public float shakeDuration;
+    public float shakeMagnitude;
+    
     [Header("deathsequence")]
     public float slowDuration = 1f;
     public GameObject deathPanel;
@@ -63,7 +69,13 @@ public class UIManager : MonoBehaviour
 
     public void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
+        DontDestroyOnLoad(gameObject);
         
         levelUpHUD.SetActive(false);
         wardrobeUI.SetActive(false);
@@ -102,6 +114,16 @@ public class UIManager : MonoBehaviour
 
         deathPanel.SetActive(true);
 
+    }
+
+    public void DoSceneChange(string sceneName)
+    {
+        SceneHandler.instance.LoadScene(sceneName);
+    }
+
+    public void DoExitGame()
+    {
+        SceneHandler.instance.QuitGame();
     }
     public void WardrobeSequence(int which)
     {
@@ -199,6 +221,31 @@ public class UIManager : MonoBehaviour
         ManaResource.instance.allowTimeControl = true;
     }
 
+    public void HitJuice()
+    {
+        if (!gameIsPaused)
+        {
+            gameIsPaused = true;
+            StartCoroutine(HitJuiceCoroutine());
+        }
+    }
+
+    private IEnumerator HitJuiceCoroutine()
+    {
+        Time.timeScale = 0;
+        ManaResource.instance.allowTimeControl = false;
+        
+        float pauseEndTime = Time.realtimeSinceStartup + hitJuiceDuration;
+        while (Time.realtimeSinceStartup < pauseEndTime)
+        {
+            yield return 0;
+        }
+        FindObjectOfType<CinemachineMouseOffset2DD>().ShakeCamera(shakeDuration, shakeMagnitude);
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        ManaResource.instance.allowTimeControl = true;
+        
+    }
     public void LevelUpSequence()
     {
         Time.timeScale = 0;

@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class EnemyBase : MonoBehaviour
 {
-    [Header("Stats")]
+    [Header("stats")]
     public int hp = 30;
     public bool canBeStunned=true;
     public DungeonRoom myRoom;
     public bool stunned = false;
     public int experience = 1;
+    
 
     private Coroutine stunRoutine;
     public Rigidbody2D rb;
@@ -22,10 +24,19 @@ public class EnemyBase : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         SpellStats spell = collision.GetComponent<SpellStats>();
+        
         if (spell != null)
         {
-
             TakeHit(spell.damage, spell.knockback, collision.transform.position);
+            //if hit by rain or jetpack, ignore the hit juice
+            CloudRain rain = collision.GetComponent<CloudRain>();
+            Jetpack jetpack = collision.GetComponent<Jetpack>();
+            if (rain != null|| jetpack != null)
+            {
+                Debug.Log("hit by rain");
+            }
+            else
+                UIManager.instance.HitJuice();
 
             if (spell.stunTime > 0f)
             {
@@ -34,8 +45,10 @@ public class EnemyBase : MonoBehaviour
 
                 stunRoutine = StartCoroutine(StunCoroutine(spell.stunTime));
             }
+            
         }
     }
+
 
     private IEnumerator StunCoroutine(float stunTime)
     {

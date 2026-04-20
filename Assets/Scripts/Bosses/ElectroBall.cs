@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 
-public class ElectroBall : MonoBehaviour
+public class ElectroBall : EnemyBullet
 {
     
     public CrystalBoss crystalGuy;
@@ -15,6 +15,8 @@ public class ElectroBall : MonoBehaviour
     public float chargeTime;
     public float growSpeed;
     public bool hasLaunched = false;
+
+    public Collider2D col;
     
     //https://particularreality.substack.com/p/coding-conventions-and-unity-best
     public Action OnLaunched;
@@ -22,6 +24,7 @@ public class ElectroBall : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        col.enabled = false;
         transform.parent = crystalGuy.tracker;
         growSpeed = crystalGuy.electroBallGrowSpeed;
         electroBallSpeed = crystalGuy.electroBallSpeed;
@@ -43,6 +46,7 @@ public class ElectroBall : MonoBehaviour
     {
         chargingUp = true;
         yield return new WaitForSeconds(chargeTime);
+        col.enabled = true;
         chargingUp = false;
         transform.parent = null;
         LaunchBall();

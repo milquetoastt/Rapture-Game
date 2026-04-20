@@ -25,6 +25,8 @@ public class MantleSpells : MonoBehaviour
     public Transform firePoint;
     public CooldownIndicatorUI mantleCooldownUI;
     public static MantleSpells instance;
+    
+    public WindupRing ring;
 
     [SerializeField] private bool[] unlockedSpells;
     private void Start()
@@ -107,6 +109,7 @@ public class MantleSpells : MonoBehaviour
 
     private IEnumerator CastAfterWindup(Vector2 direction, SpellDataM entry)
     {
+        
         PlayerController.instance.isCasting = true;
         SpellDataM spell = spells[currentSpell];
         //pre-cast movement
@@ -115,13 +118,16 @@ public class MantleSpells : MonoBehaviour
             Rigidbody2D rbP = PlayerController.instance.GetComponent<Rigidbody2D>();
             rbP.linearVelocity = (rbP.linearVelocity/2);
         }
+
+        ring.Begin(entry.windUp);
+        
         yield return new WaitForSecondsRealtime(entry.windUp);
         Vector2 spawnPos = firePoint.transform.position + spell.spawnOffset;
         GameObject mantleSpellCasting = Instantiate(spell.spellPrefab,spawnPos, Quaternion.identity);
-        
         SpellStats proj = mantleSpellCasting.GetComponent<SpellStats>();
         proj.CastMantle(gameObject, direction);
         
+        ring.End();
         nextCastTime = Time.time + entry.fireCooldown;
         mantleCooldownUI.StartCooldown(spell.fireCooldown);
 

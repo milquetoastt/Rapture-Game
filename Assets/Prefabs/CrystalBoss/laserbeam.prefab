@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6281758483974679921}
   - component: {fileID: 8136311341856614279}
+  - component: {fileID: 2119129390605797755}
   m_Layer: 0
   m_Name: laserbeam
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9234103cbbff2fd4687c67ab08efa5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalLaser
+  damage: 20
+  knockbackForce: 2
+  stunTime: 0.1
   indicator: {fileID: 7050832524030953934}
   laser: {fileID: 4057493321451152086}
+  col: {fileID: 2119129390605797755}
   startAngleDeg: 0
   targetAngleDeg: 0
   currentAngleDeg: 0
@@ -56,6 +61,53 @@ MonoBehaviour:
   returning: 0
   waiting: 0
   pauseTime: 1
+  timesStopped: 0
+--- !u!61 &2119129390605797755
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134589866329416473}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 20.37, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.1875, y: 0.125, z: 0, w: 0.125}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 1}
+    newSize: {x: 14.79, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 40.6, y: 2.47}
+  m_EdgeRadius: 0
 --- !u!1 &4057493321451152086
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1306023102624710845}
   - component: {fileID: 3577048763463854502}
-  - component: {fileID: 5050787453263230206}
   - component: {fileID: 240171408045265705}
   m_Layer: 0
   m_Name: crystalLaserIndicator
@@ -240,52 +291,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &5050787453263230206
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050832524030953934}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &240171408045265705
 Rigidbody2D:
   serializedVersion: 5

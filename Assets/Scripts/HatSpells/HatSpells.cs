@@ -25,6 +25,7 @@ public class HatSpells : MonoBehaviour
     public CooldownIndicatorUI hatCooldownUI;
 
     public static HatSpells instance;
+    public WindupRing ring;
     [SerializeField] private bool[] unlockedSpells;
     private void Start()
     {
@@ -113,8 +114,9 @@ public class HatSpells : MonoBehaviour
     private IEnumerator CastAfterWindup(Vector2 direction, Vector2 mouseWorld, SpellDataH spell)
     {
         PlayerController.instance.isCasting = true;
+        ring.Begin(spell.windUp);
         yield return new WaitForSecondsRealtime(spell.windUp);
-
+        ring.End();
         Vector2 spawnPos = (Vector2)firePoint.position + (Vector2)spell.spawnOffset;
         GameObject hatSpellCasting = Instantiate(spell.spellPrefab, spawnPos, Quaternion.identity);
 

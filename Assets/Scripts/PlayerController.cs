@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 100;
     public bool showSpeed = false;
     public bool isCasting = false;
-    [Header("Move Settings")]
+    public SpriteRenderer sr;
+    [Header("move settings")]
     public float moveSpeed = 5f;
     public float groundFriction = 20f;
     public float maxInputSpeed = 8f;
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController instance;
 
-    [Header("Camera Things")]
+    [Header("camera things")]
     public CinemachineVirtualCamera vcam;
     public float normalSize = 15f;
     public float zoomedSize = 13f;
@@ -46,16 +47,27 @@ public class PlayerController : MonoBehaviour
     private bool isDroppingThrough = false;
     private Collider2D playerCol;
 
+    [Header("death and dying")]
     public float slowDuration = 2f;
     public GameObject deathPanel;
+    public bool canTakeDamage = true;
+    
+    [Header("i-frames")]
+    public float invincibilityDuration = 0.4f;
+    private bool isInvincible = false;
+    
     private void Awake()
     {
+        
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         playerCol = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
-        instance = this;
-
-        if (gloveSpells == null)
-            gloveSpells = GetComponent<GloveSpells>();
 
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
@@ -104,7 +116,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-
+ 
         if (gloveSpells != null)
             gloveSpells.HandleInput();
         {
@@ -229,16 +241,35 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
     {
+        if (isInvincible)
+            return;
         health -= damage;
         if (health <= 0)
         {
             Die();
         }
+        StartCoroutine(InvincibilityCoroutine());
         Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
         rb.AddForce(Vector2.up * upKnockback, ForceMode2D.Impulse);
+    }
 
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        float flashInterval = 0.08f;
+        float timer = 0f;
+        while (timer < invincibilityDuration)
+        {
+            sr.enabled = !sr.enabled;
+
+            yield return new WaitForSecondsRealtime(flashInterval);
+            timer += flashInterval;
+        }
+
+        sr.enabled = true;
+        isInvincible = false;
     }
 
     public void Die()

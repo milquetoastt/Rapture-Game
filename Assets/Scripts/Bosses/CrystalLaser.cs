@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class CrystalLaser : MonoBehaviour
+public class CrystalLaser : EnemyBullet
 {
     private CrystalBoss crystalGuy;
     public GameObject indicator;
     public GameObject laser;
+    public Collider2D col;
     public Action OnFinished;
 
     [Header("angles")]
@@ -34,6 +35,7 @@ public class CrystalLaser : MonoBehaviour
         UpdateLaserTransform();
         indicator.SetActive(true);
         laser.SetActive(false);
+        col.enabled = false;
         StartCoroutine(FiringMyLazor());
     }
 
@@ -41,6 +43,7 @@ public class CrystalLaser : MonoBehaviour
     {
         yield return new WaitForSeconds(pauseTime);
         laser.SetActive(true);
+        col.enabled = true;
         charging = false;
     }
 
@@ -61,13 +64,12 @@ public class CrystalLaser : MonoBehaviour
             currentAngleDeg = Mathf.MoveTowardsAngle(currentAngleDeg, startAngleDeg, rotateSpeed * Time.deltaTime);
             UpdateLaserTransform();
         }
-
-        // done //TODO: this if will break. make sure it fits all scenarios where it reaches the end
+        
         if ((Mathf.Abs(Mathf.DeltaAngle(currentAngleDeg, targetAngleDeg)) < 0.01f && !waiting && !startedReturn) ||
             Mathf.Abs(Mathf.DeltaAngle(currentAngleDeg, startAngleDeg)) < 0.01f && !waiting && startedReturn)
         {
             timesStopped++;
-            if (timesStopped >= 3)
+            if (timesStopped >= 2)
             {
                 OnFinished?.Invoke();
                 Destroy(gameObject,pauseTime);

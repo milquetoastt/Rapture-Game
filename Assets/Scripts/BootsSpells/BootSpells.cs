@@ -26,6 +26,7 @@ public class BootSpells : MonoBehaviour
 
     public CooldownIndicatorUI bootCooldownUI;
     public static BootSpells instance;
+    public WindupRing ring;
     [SerializeField] private bool[] unlockedSpells;
 
     private void Start()
@@ -106,10 +107,11 @@ public class BootSpells : MonoBehaviour
         {
             proj.EndBoot(dir);
             Destroy(proj);
-
+            ring.End();
             SpellDataB spell = spells[currentSpell];
             nextCastTime = Time.time + spell.fireCooldown;
             bootCooldownUI.StartCooldown(spell.fireCooldown);
+            
         }
     }
 
@@ -117,7 +119,7 @@ public class BootSpells : MonoBehaviour
     public void CastBoots(Vector2 direction)
     {
         if (Time.time < nextCastTime) return;
-        if (proj != null) return; // prevents overlapping casts
+        if (proj != null) return;
 
         StartCoroutine(CastAfterWindup(direction));
     }
@@ -127,6 +129,7 @@ public class BootSpells : MonoBehaviour
         PlayerController.instance.isCasting = true;
         SpellDataB spell = spells[currentSpell];
 
+        ring.Begin(spell.windUp);
         yield return new WaitForSecondsRealtime(spell.windUp);
 
         Vector2 spawnPos = firePoint.transform.position + spell.spawnOffset;
