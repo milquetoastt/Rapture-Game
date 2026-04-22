@@ -7,6 +7,11 @@ public class Goob : EnemyBase
     public float knockbackForce = 6;
     public float stunTime = .8f;
     public bool tutorial = false;
+
+    public override void DoDamageMult(float mult)
+    {
+        damage = Mathf.RoundToInt(damage * mult);
+    }
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);

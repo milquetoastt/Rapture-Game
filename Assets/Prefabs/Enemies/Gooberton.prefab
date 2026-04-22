@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goob
   hp: 50
-  canBeStunned: 1
+  canBeStunned: 0
   myRoom: {fileID: 0}
   stunned: 0
   experience: 1
@@ -213,6 +213,7 @@ MonoBehaviour:
   damage: 10
   knockbackForce: 6
   stunTime: 0.9
+  tutorial: 0
 --- !u!114 &2144565028113701638
 MonoBehaviour:
   m_ObjectHideFlags: 0

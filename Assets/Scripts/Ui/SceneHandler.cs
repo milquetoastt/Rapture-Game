@@ -34,11 +34,11 @@ public class SceneHandler : MonoBehaviour
         panelScript.SlideIn();
     }
 
-    public void LoadSceneByIndex(GameObject panel = null)
+    public void LoadSceneByIndex(GameObject panel = null, int currentDungeon = -1)
     {
         if(panel != null)
             panel.GetComponent<PanelSlideUI>().SlideOut();
-        StartCoroutine(LoadSceneAsync("buh", true));
+        StartCoroutine(LoadSceneAsync("buh", true, currentDungeon));
     }
 
     public void LoadSceneByName(string sceneName)
@@ -61,19 +61,31 @@ public class SceneHandler : MonoBehaviour
 
         LoadSceneByName("MainMenu");
     }
-    private IEnumerator LoadSceneAsync(string sceneName, bool byIndex = false)
+    private IEnumerator LoadSceneAsync(string sceneName, bool byIndex = false, int currentDungeon = -1)
     {
         if (byIndex)
         {
-            int currentIndex = SceneManager.GetActiveScene().buildIndex;
+            int currentIndex = -1;
+
+            if (currentDungeon != -1)
+            {
+                currentIndex = currentDungeon;
+            }
+            else if (PlayerController.instance != null)
+            {
+                currentIndex = PlayerController.instance.currentDungeonLayer;
+            }
+            else
+            {
+                currentIndex = SceneManager.GetActiveScene().buildIndex;
+            }
+
             AsyncOperation operation = SceneManager.LoadSceneAsync(currentIndex + 1);
             while (!operation.isDone)
             {
                 yield return null;
             }
-
         }
-
         else
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
@@ -83,7 +95,6 @@ public class SceneHandler : MonoBehaviour
                 yield return null;
             }
         }
-        
     }
 
     public void QuitGame()

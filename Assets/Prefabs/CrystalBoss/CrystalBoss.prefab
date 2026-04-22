@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4176331114739724931}
   - component: {fileID: 3348651176147622294}
   m_Layer: 0
-  m_Name: CrystalBossWIP
+  m_Name: CrystalBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

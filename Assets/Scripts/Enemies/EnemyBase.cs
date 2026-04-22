@@ -105,4 +105,17 @@ public class EnemyBase : MonoBehaviour
 
         Destroy(gameObject);
     }
+    
+    public virtual void ApplyDungeonScaling(float hpMult, float damageMult, float expMult)
+    {
+        hp = Mathf.RoundToInt(hp * hpMult);
+        //TODO damage mult here
+        DoDamageMult(damageMult);
+        experience = Mathf.RoundToInt(experience * expMult);
+    }
+
+    public virtual void DoDamageMult(float damageMult)
+    {
+        Debug.Log("called base do damage mult");
+    }
 }

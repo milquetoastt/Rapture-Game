@@ -441,7 +441,6 @@ MonoBehaviour:
     spawnOffset: {x: 0, y: 0, z: 0}
   currentSpell: 0
   firePoint: {fileID: 2925792116259583604}
-  mantleCooldownUI: {fileID: 0}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
 --- !u!1 &5148980153023852217
@@ -543,7 +542,6 @@ MonoBehaviour:
   currentSpell: 0
   proj: {fileID: 0}
   firePoint: {fileID: 2925792116259583604}
-  bootCooldownUI: {fileID: 0}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
 --- !u!1 &7207329716782128687
@@ -723,7 +721,6 @@ MonoBehaviour:
   cam: {fileID: 0}
   firePoint: {fileID: 1338707709925297225}
   manaResource: {fileID: 7231996908703183172}
-  gloveCooldownUI: {fileID: 0}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
 --- !u!1 &9057747805802746491
@@ -788,6 +785,5 @@ MonoBehaviour:
     spawnOffset: {x: 0, y: 0, z: 0}
   currentSpell: 0
   firePoint: {fileID: 1338707709925297225}
-  hatCooldownUI: {fileID: 0}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 

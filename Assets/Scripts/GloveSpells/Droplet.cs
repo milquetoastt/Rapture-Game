@@ -29,7 +29,7 @@ public class Droplet : MonoBehaviour
             Debug.Log("Droplet collided with spell");
         }
 
-        else
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
         }

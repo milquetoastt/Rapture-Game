@@ -15,11 +15,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutoriel.unity
     guid: eec2d95284fb07e4aa4ae07d6a94d757
   - enabled: 1
-    path: Assets/Scenes/Dungeon Gen.unity
-    guid: dd88bfdcab593bf4b9e40b0283249494
-  - enabled: 1
     path: Assets/Scenes/In-BetweenDungeons.unity
     guid: 71923d4e5ab07654bbfbb1fec78d0f59
+  - enabled: 1
+    path: Assets/Scenes/Dungeon1.unity
+    guid: dd88bfdcab593bf4b9e40b0283249494
+  - enabled: 1
+    path: Assets/Scenes/Dungeon2.unity
+    guid: 330cf5e3eb7076747a2a5048a43cb83f
+  - enabled: 1
+    path: Assets/Scenes/Dungeon3.unity
+    guid: f2f959178c71e6540a9aa85bf8eb1666
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

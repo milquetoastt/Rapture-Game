@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private Rigidbody2D rb;
 
+    public int currentDungeonLayer = 0;
     public LayerMask groundLayer;
     public Transform groundCheck;
     public float groundCheckRadius = 0.1f;
@@ -47,11 +48,6 @@ public class PlayerController : MonoBehaviour
     public float dropThroughTime = 0.25f;
     private bool isDroppingThrough = false;
     private Collider2D playerCol;
-
-    [Header("death and dying")]
-    public float slowDuration = 2f;
-    public GameObject deathPanel;
-    public bool canTakeDamage = true;
     
     [Header("i-frames")]
     public float invincibilityDuration = 0.4f;
@@ -79,7 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.instance.PauseSequence();
         }
-        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isDroppingThrough)
+        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isDroppingThrough && canInputMove)
         {
             StartCoroutine(DropThroughLedges());
         }
@@ -241,6 +237,7 @@ public class PlayerController : MonoBehaviour
     {
         canInputMove = false;
         canCast = false;
+        isInvincible = true;
         UIManager.instance.DieSequence();
     }
 
@@ -296,6 +293,7 @@ public class PlayerController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         transform.position = Vector3.zero;
+        vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
     }
     
     private void OnDestroy()

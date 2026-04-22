@@ -12,7 +12,9 @@ public class Arrow : EnemyBullet
     {
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocityX = moveSpeed * direction;
-        
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * direction;
+        transform.localScale = scale;
     }
 
     // Update is called once per frame

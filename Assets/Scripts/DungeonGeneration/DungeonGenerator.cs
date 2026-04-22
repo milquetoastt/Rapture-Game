@@ -3,25 +3,32 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    [Header("Generation")]
+    [Header("generation")]
     public DungeonRoom roomPrefab;
     public int roomCount = 12;
 
     public int maxAttempts = 200;
 
-    [Header("Layout")]
+    [Header("layout")]
     public Vector2 roomSpacing = new Vector2(10f, 6f);
 
-    [Header("Hierarchy")]
+    [Header("hierarchy")]
     public Transform roomParent;
 
     public List<DungeonRoom> rooms = new List<DungeonRoom>();
 
-    [Header("Room Prefabs")]
+    [Header("room prefabs")]
     public DungeonRoom startRoomPrefab;
     public DungeonRoom[] combatRoomPrefabs;
     public DungeonRoom[] treasureRoomPrefabs;
     public DungeonRoom[] bossRoomPrefabs;
+    
+    [Header("enemy pools")]
+    public GameObject[] combatEnemyPrefabs;
+    public GameObject[] bossEnemyPrefabs;
+    public float hpMult = 1;
+    public float damageMult = 1;
+    public float expMult = 1;
 
     private void Start()
     {
@@ -36,6 +43,7 @@ public class DungeonGenerator : MonoBehaviour
         CalculateDistances();
         AssignSpecialRooms();
         ReplaceRoomPrefabs();
+        AssignRoomEncounters();
     }
 
     [ContextMenu("Clear Dungeon")]
@@ -262,7 +270,7 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("No matching prefab found for room at (" + room.xPos + ", " + room.yPos + ")");
+        //Debug.LogWarning("No matching prefab found for room at (" + room.xPos + ", " + room.yPos + ")");
         return null;
     }
 
@@ -316,5 +324,29 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         rooms = newRooms;
+    }
+    private void AssignRoomEncounters()
+    {
+        foreach (DungeonRoom room in rooms)
+        {
+            switch (room.roomType)
+            {
+                case RoomType.Start:
+                    room.assignedEnemyPrefabs = null;
+                    break;
+
+                case RoomType.Boss:
+                    room.assignedEnemyPrefabs = bossEnemyPrefabs;
+                    break;
+
+                default:
+                    room.assignedEnemyPrefabs = combatEnemyPrefabs;
+                    break;
+            }
+
+            room.enemyHpMultiplier = hpMult;
+            room.enemyDamageMultiplier = damageMult;
+            room.enemyExpMultiplier = expMult;
+        }
     }
 }

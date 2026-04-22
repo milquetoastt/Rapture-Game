@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 176976700}
   - component: {fileID: 176976699}
   m_Layer: 5
-  m_Name: Startgame (1)
+  m_Name: Start tutoriel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2426,7 +2426,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Dungeon Gen
+          m_StringArgument: Dungeon1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1977285357

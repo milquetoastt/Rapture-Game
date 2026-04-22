@@ -27,20 +27,25 @@ public class DungeonRoom : MonoBehaviour
     public RoomType roomType = RoomType.Combat;
     public int distanceFromStart = -1;
 
-    [Header("Encounter")]
-    public GameObject[] enemyPrefabs;
+    [Header("encounter")]
     public Transform[] spawnPoints;
     public Portal[] portals;
     public bool encounterStarted = false;
     public bool roomCleared = false;
     private List<EnemyBase> aliveEnemies = new List<EnemyBase>();
+    
+    [Header("dont touch these >:(")]
+    public GameObject[] assignedEnemyPrefabs;
+    public float enemyHpMultiplier = 1f; 
+    public float enemyDamageMultiplier = 1f; 
+    public float enemyExpMultiplier = 1f;
 
-
-    [Header("Exits")]
+    [Header("exits")]
     public bool supportsUp;
     public bool supportsDown;
     public bool supportsLeft;
     public bool supportsRight;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("somthing");
@@ -95,7 +100,7 @@ public class DungeonRoom : MonoBehaviour
     {
         foreach (Transform place in spawnPoints)
         {
-            GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            GameObject prefabToSpawn = assignedEnemyPrefabs[Random.Range(0, assignedEnemyPrefabs.Length)];
 
             GameObject enemyOBJ = Instantiate(
                 prefabToSpawn,
@@ -124,6 +129,7 @@ public class DungeonRoom : MonoBehaviour
             {
                 enemy.myRoom = this;
                 aliveEnemies.Add(enemy);
+                enemy.ApplyDungeonScaling(enemyHpMultiplier, enemyDamageMultiplier, enemyExpMultiplier);
             }
         }
     }

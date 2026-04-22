@@ -218,7 +218,7 @@ public class UIManager : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         yield return new WaitForSecondsRealtime(0.35f);
-
+        deathPanel.SetActive(true);
         PanelSlideUI slide = deathPanel.GetComponent<PanelSlideUI>();
         slide.SlideIn();
 
@@ -241,12 +241,22 @@ public class UIManager : MonoBehaviour
         slide.SlideIn();
     }
 
-    public void DoExitGate()
+    public void DoExitGate(bool goToNextDungeonLayer = false)
     {
         SaveData data = GameDataManager.instance.CurrentSave;
-        if(data.firstTimeExitGate)
+        if (data.firstTimeExitGate)
             exitGateUI.GetComponent<PanelSlideUI>().SlideOut();
-        SceneHandler.instance.LoadSceneByIndex();
+
+        if (goToNextDungeonLayer)
+        {
+            int nextDungeonSceneIndex = PlayerController.instance.currentDungeonLayer + 2;
+            SceneHandler.instance.LoadSceneByIndex(null, nextDungeonSceneIndex);
+        }
+        else
+        {
+            PlayerController.instance.currentDungeonLayer++;
+            SceneHandler.instance.LoadSceneByName("In-BetweenDungeons");
+        }
     }
 
     public void WardrobeSequence(int which)

@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class Dungeon : MonoBehaviour
+using UnityEditor;
+public class DungeonTool : EditorWindow
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

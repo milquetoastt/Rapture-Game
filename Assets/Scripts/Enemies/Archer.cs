@@ -70,6 +70,7 @@ public class Archer : EnemyBase
 
             GameObject arrowObj = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             Arrow arrow = arrowObj.GetComponent<Arrow>();
+            
 
             if (arrow != null)
                 arrow.direction = fireDirection;
@@ -119,5 +120,11 @@ public class Archer : EnemyBase
     {
         if (patrolEnemy != null)
             patrolEnemy.stunned = false;
+    }
+
+    public override void DoDamageMult(float mult)
+    {
+        Arrow arrow = arrowPrefab.GetComponent<Arrow>();
+        arrow.damage = Mathf.RoundToInt(arrow.damage * mult);
     }
 }

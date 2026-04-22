@@ -32,19 +32,23 @@ public class BubbleBall : SpellStats
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        dir = collision.GetContact(0).normal;
-        Debug.Log("BubbleBall Collided");
-        Destroy(gameObject);
-        for (int i = 0; i < maxDroplets; i++)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Ledges"))
         {
-            float angleOffset = Random.Range(-dropletRange, dropletRange);
-            float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            float finalAngle = baseAngle + angleOffset;
-            Vector2 newDir = new Vector2(Mathf.Cos(finalAngle * Mathf.Deg2Rad),  Mathf.Sin(finalAngle * Mathf.Deg2Rad));
-            GameObject droplet = Instantiate(dropletsPrefab, transform.position, Quaternion.identity);
-            Rigidbody2D dropletRb = droplet.GetComponent<Rigidbody2D>();
+            dir = collision.GetContact(0).normal;
+            Debug.Log("BubbleBall Collided");
+            Destroy(gameObject);
+            for (int i = 0; i < maxDroplets; i++)
+            {
+                float angleOffset = Random.Range(-dropletRange, dropletRange);
+                float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                float finalAngle = baseAngle + angleOffset;
+                Vector2 newDir = new Vector2(Mathf.Cos(finalAngle * Mathf.Deg2Rad),
+                    Mathf.Sin(finalAngle * Mathf.Deg2Rad));
+                GameObject droplet = Instantiate(dropletsPrefab, transform.position, Quaternion.identity);
+                Rigidbody2D dropletRb = droplet.GetComponent<Rigidbody2D>();
 
-            dropletRb.AddForce(newDir * dropletLaunchForce, ForceMode2D.Impulse);
+                dropletRb.AddForce(newDir * dropletLaunchForce, ForceMode2D.Impulse);
+            }
         }
     }
 }

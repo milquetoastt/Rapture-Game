@@ -159,4 +159,12 @@ public class BomberGuy : EnemyBase
         if (patrol != null)
             patrol.stunned = false;
     }
+
+    public override void DoDamageMult(float mult)
+    {
+        BombProjectile bomba = bomb.GetComponent<BombProjectile>();
+        GameObject explosion = bomba.explosionPrefab;
+        EnemyBullet plosion = explosion.GetComponent<EnemyBullet>();
+        plosion.damage = Mathf.RoundToInt(plosion.damage * mult);
+    }
 }

@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellStats
   damage: 5
   knockback: 0
-  stunTime: 0.1
+  stunTime: 0
 --- !u!212 &2647882053851675350
 SpriteRenderer:
   serializedVersion: 2
