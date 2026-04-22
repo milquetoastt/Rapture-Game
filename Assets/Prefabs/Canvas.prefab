@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 8157127424020324896}
   - component: {fileID: 372878751023295311}
   m_Layer: 5
-  m_Name: BuffSynopsis
+  m_Name: BuffSynopsis1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4627,7 +4627,7 @@ GameObject:
   - component: {fileID: 5589885107241248923}
   - component: {fileID: 8120452630543396110}
   m_Layer: 5
-  m_Name: BuffDescription
+  m_Name: BuffDescription1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9976,7 +9976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8604365100516003760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12964,7 +12964,7 @@ GameObject:
   - component: {fileID: 4792077633353777056}
   - component: {fileID: 8623209330447885816}
   m_Layer: 5
-  m_Name: BuffName
+  m_Name: BuffName1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

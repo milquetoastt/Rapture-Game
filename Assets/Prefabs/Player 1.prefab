@@ -91,6 +91,7 @@ MonoBehaviour:
   moveSpeed: 77
   groundFriction: 120
   maxInputSpeed: 25
+  currentDungeonLayer: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 136
@@ -112,9 +113,6 @@ MonoBehaviour:
   currentLevel: 1
   xpForNextLevel: 6
   dropThroughTime: 0.4
-  slowDuration: 2
-  deathPanel: {fileID: 0}
-  canTakeDamage: 1
   invincibilityDuration: 0.4
 --- !u!114 &7231996908703183172
 MonoBehaviour:
@@ -524,21 +522,25 @@ MonoBehaviour:
     fireCooldown: 0.5
     windUp: 0.3
     spawnOffset: {x: 0, y: 0, z: 0}
+    manaDrainPerSecond: 2
   - name: Jetpack
     spellPrefab: {fileID: 6654714619607340153, guid: fc9bf926901ebb64486c6b21e8e25fb1, type: 3}
     fireCooldown: 0.5
     windUp: 0.2
     spawnOffset: {x: 0, y: 0, z: 0}
+    manaDrainPerSecond: 2
   - name: Ohm's Trespass
     spellPrefab: {fileID: 5484985200253611666, guid: e3f76a32efc994e4fa2630a5b2962adf, type: 3}
     fireCooldown: 2
     windUp: 0.1
     spawnOffset: {x: 0, y: 0, z: 0}
+    manaDrainPerSecond: 1.5
   - name: Surf
     spellPrefab: {fileID: 7216594197776988504, guid: d4968a16997de694a95a4dff924efca9, type: 3}
     fireCooldown: 0.5
     windUp: 0.1
     spawnOffset: {x: 0, y: 0, z: 0}
+    manaDrainPerSecond: 2
   currentSpell: 0
   proj: {fileID: 0}
   firePoint: {fileID: 2925792116259583604}

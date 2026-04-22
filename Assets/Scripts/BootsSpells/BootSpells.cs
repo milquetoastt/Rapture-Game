@@ -10,15 +10,15 @@ public class SpellDataB
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
     public Vector3 spawnOffset;
+    public float manaDrainPerSecond = 1f;
 }
 
 public class BootSpells : MonoBehaviour
 {
     public SpellDataB[] spells;
     public int currentSpell = 0;
-    
+
     public SpellStats proj;
-    
 
     private float lastInputX = 1f;
     private float nextCastTime = 0f;
@@ -28,10 +28,18 @@ public class BootSpells : MonoBehaviour
     public WindupRing ring;
     [SerializeField] private bool[] unlockedSpells;
 
+    private bool bootIsActive = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         LoadFromSave();
     }
+
     private void LoadFromSave()
     {
         SaveData data = GameDataManager.instance.CurrentSave;
@@ -39,6 +47,7 @@ public class BootSpells : MonoBehaviour
         unlockedSpells = data.bootUnlocked;
         currentSpell = data.currentBootSpell;
     }
+
     public bool IsSpellUnlocked(int index)
     {
         if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
@@ -46,6 +55,7 @@ public class BootSpells : MonoBehaviour
 
         return unlockedSpells[index];
     }
+
     public void UnlockSpell(int index)
     {
         if (unlockedSpells == null || index < 0 || index >= unlockedSpells.Length)
@@ -55,13 +65,15 @@ public class BootSpells : MonoBehaviour
         }
 
         unlockedSpells[index] = true;
-        GameDataManager.instance.CurrentSave.gloveUnlocked = unlockedSpells;
+        GameDataManager.instance.CurrentSave.bootUnlocked = unlockedSpells;
         GameDataManager.instance.SaveGame();
     }
+
     public void SwapSpellsFromUI(int i)
     {
         SwapSpells(i, false);
     }
+
     public void SwapSpells(int i, bool fromChest = false)
     {
         if (i < 0 || i >= spells.Length)
@@ -71,18 +83,15 @@ public class BootSpells : MonoBehaviour
             return;
 
         currentSpell = i;
-        GameDataManager.instance.CurrentSave.currentMantleSpell = currentSpell;
+        GameDataManager.instance.CurrentSave.currentBootSpell = currentSpell;
         GameDataManager.instance.SaveGame();
-    }
-    private void Awake()
-    {
-        instance = this;
     }
 
     void Update()
     {
         if (UIManager.instance.gameIsPaused)
             return;
+
         float inputX = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(inputX) > 0.01f)
@@ -92,34 +101,36 @@ public class BootSpells : MonoBehaviour
 
         Vector2 dir = new Vector2(lastInputX, 0f);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !PlayerController.instance.isCasting)
         {
-            Debug.Log("got boots input down");
-            //start windup
             CastBoots(dir);
         }
         else if (Input.GetKey(KeyCode.LeftShift) && proj != null)
         {
             proj.HoldBoot(dir);
+
+            SpellDataB spell = spells[currentSpell];
+            bool stillHasMana = ManaResource.instance.DrainManaOnly(
+                spell.manaDrainPerSecond * Time.unscaledDeltaTime
+            );
+
+            if (!stillHasMana)
+            {
+                StopBootSpell(dir);
+            }
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && proj != null)
         {
-            proj.EndBoot(dir);
-            Destroy(proj);
-            ring.End();
-            SpellDataB spell = spells[currentSpell];
-            nextCastTime = Time.time + spell.fireCooldown;
-            UIManager.instance.StartCooldown(2, spell.fireCooldown);
-            
+            PlayerController.instance.isCasting = false;
+            StopBootSpell(dir);
         }
     }
-
 
     public void CastBoots(Vector2 direction)
     {
         if (Time.time < nextCastTime) return;
         if (proj != null) return;
-
+        PlayerController.instance.isCasting = true;
         StartCoroutine(CastAfterWindup(direction));
     }
 
@@ -131,20 +142,40 @@ public class BootSpells : MonoBehaviour
         ring.Begin(spell.windUp);
         yield return new WaitForSecondsRealtime(spell.windUp);
 
-        Vector2 spawnPos = firePoint.transform.position + spell.spawnOffset;
+        Vector2 spawnPos = (Vector2)firePoint.position + (Vector2)spell.spawnOffset;
         GameObject bootSpellCasting = Instantiate(spell.spellPrefab, spawnPos, Quaternion.identity);
 
         proj = bootSpellCasting.GetComponent<SpellStats>();
         proj.CastBoot(direction);
+
+        bootIsActive = true;
         PlayerController.instance.isCasting = false;
     }
-    
+
+    private void StopBootSpell(Vector2 direction)
+    {
+        if (proj != null)
+        {
+            proj.EndBoot(direction);
+            Destroy(proj.gameObject);
+            proj = null;
+        }
+        ManaResource.instance.StopManaHold();
+        bootIsActive = false;
+        ring.End();
+
+        SpellDataB spell = spells[currentSpell];
+        nextCastTime = Time.time + spell.fireCooldown;
+        UIManager.instance.StartCooldown(3, spell.fireCooldown);
+    }
+
     public SpellDataB GetCurrentSpellData(int i = -1)
     {
         if (i != -1)
         {
             return spells[i];
         }
+
         return spells[currentSpell];
     }
 }

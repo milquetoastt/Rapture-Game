@@ -62,4 +62,50 @@ public class ManaResource : MonoBehaviour
 
         return matrixJustEnded;
     }
+    
+    public bool TryDrainMana(float amount)
+    {
+        if (heldSeconds >= maxHoldSeconds)
+        {
+            heldSeconds = maxHoldSeconds;
+            return false;
+        }
+
+        heldSeconds += amount;
+
+        if (heldSeconds >= maxHoldSeconds)
+        {
+            heldSeconds = maxHoldSeconds;
+            return false;
+        }
+
+        return true;
+    }
+    
+    public bool DrainManaOnly(float amount)
+    {
+        if (heldSeconds >= maxHoldSeconds)
+        {
+            heldSeconds = maxHoldSeconds;
+            isHolding = false;
+            return false;
+        }
+
+        isHolding = true;
+        heldSeconds += amount;
+        heldSeconds = Mathf.Min(heldSeconds, maxHoldSeconds);
+
+        if (heldSeconds >= maxHoldSeconds)
+        {
+            isHolding = false;
+            return false;
+        }
+
+        return true;
+    }
+    public void StopManaHold()
+    {
+        isHolding = false;
+        wasHolding = false;
+    }
 }

@@ -261,6 +261,7 @@ public class UIManager : MonoBehaviour
 
     public void WardrobeSequence(int which)
     {
+        currentWardrobeType = which;
         wardrobeUI.SetActive(true);
         gloveUI.SetActive(false);
         mantleUI.SetActive(false);
@@ -278,10 +279,10 @@ public class UIManager : MonoBehaviour
                 mantleUI.SetActive(true);
                 break;
             case 2:
-                hatUI.SetActive(true);
+                bootUI.SetActive(true);
                 break;
             case 3:
-                bootUI.SetActive(true);
+                hatUI.SetActive(true);
                 break;
         }
 
@@ -299,10 +300,11 @@ public class UIManager : MonoBehaviour
                 HandleSpellUI(mantleButtons, which);
                 break;
             case 2:
-                HandleSpellUI(hatButtons, which);
-                break;
-            case 3:
                 HandleSpellUI(bootButtons, which);
+                break;
+
+            case 3:
+                HandleSpellUI(hatButtons, which);
                 break;
         }
     }
@@ -323,10 +325,10 @@ public class UIManager : MonoBehaviour
                     unlocked = MantleSpells.instance.IsSpellUnlocked(i);
                     break;
                 case 2:
-                    unlocked = HatSpells.instance.IsSpellUnlocked(i);
+                    unlocked = BootSpells.instance.IsSpellUnlocked(i);
                     break;
                 case 3:
-                    unlocked = BootSpells.instance.IsSpellUnlocked(i);
+                    unlocked = HatSpells.instance.IsSpellUnlocked(i);
                     break;
             }
             

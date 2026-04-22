@@ -2893,9 +2893,6 @@ MonoBehaviour:
   rightRoom: {fileID: 0}
   roomType: 1
   distanceFromStart: -1
-  enemyPrefabs:
-  - {fileID: 5939110688914369939, guid: 03a2a1d751181b04b86b4d5aaec1c523, type: 3}
-  - {fileID: 3778892591722695944, guid: 3d532cf8cba71a94cb4182703c3bb9ed, type: 3}
   spawnPoints:
   - {fileID: 1753631051164620793}
   - {fileID: 2570793552598838145}
@@ -2906,6 +2903,10 @@ MonoBehaviour:
   - {fileID: 2510004562460124522}
   encounterStarted: 0
   roomCleared: 0
+  assignedEnemyPrefabs: []
+  enemyHpMultiplier: 1
+  enemyDamageMultiplier: 1
+  enemyExpMultiplier: 1
   supportsUp: 0
   supportsDown: 1
   supportsLeft: 1
@@ -2970,7 +2971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3047,7 +3048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3128,7 +3129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.z

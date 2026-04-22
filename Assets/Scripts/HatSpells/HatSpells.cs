@@ -91,7 +91,7 @@ public class HatSpells : MonoBehaviour
 
         Vector2 dir = new Vector2(lastInputX, 0f);
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !PlayerController.instance.isCasting)
         {
             Debug.Log("got hat input");
 
@@ -123,7 +123,7 @@ public class HatSpells : MonoBehaviour
         proj.CastHat(mouseWorld);
 
         nextCastTime = Time.time + spell.fireCooldown;
-        UIManager.instance.StartCooldown(3, spell.fireCooldown);
+        UIManager.instance.StartCooldown(2, spell.fireCooldown);
         PlayerController.instance.isCasting = false;
     }
     

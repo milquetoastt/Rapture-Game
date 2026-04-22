@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AirGrapple
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0.5
   joint: {fileID: 0}
+  grapplePrefab: {fileID: 3147895361954230406, guid: c1ed7b360e0961045af2f2c01cb8d057, type: 3}
   minDistance: 2
   maxDistance: 10

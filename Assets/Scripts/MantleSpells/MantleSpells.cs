@@ -92,7 +92,7 @@ public class MantleSpells : MonoBehaviour
 
         Vector2 dir = new Vector2(lastInputX, 0f);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayerController.instance.isCasting)
         {
             Debug.Log("got mantle input");
             CastMantle(dir);
@@ -125,7 +125,7 @@ public class MantleSpells : MonoBehaviour
         GameObject mantleSpellCasting = Instantiate(spell.spellPrefab,spawnPos, Quaternion.identity);
         SpellStats proj = mantleSpellCasting.GetComponent<SpellStats>();
         proj.CastMantle(gameObject, direction);
-        
+        PlayerController.instance.isCasting = false;
         ring.End();
         nextCastTime = Time.time + entry.fireCooldown;
         UIManager.instance.StartCooldown(1, spell.fireCooldown);

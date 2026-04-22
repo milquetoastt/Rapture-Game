@@ -2856,14 +2856,16 @@ MonoBehaviour:
   rightRoom: {fileID: 0}
   roomType: 3
   distanceFromStart: -1
-  enemyPrefabs:
-  - {fileID: 795434584756075116, guid: c9517268e5e27614ab09bb15ba879a1e, type: 3}
   spawnPoints:
   - {fileID: 2157281660572670718}
   portals:
   - {fileID: 2510004562460124522}
   encounterStarted: 0
   roomCleared: 0
+  assignedEnemyPrefabs: []
+  enemyHpMultiplier: 1
+  enemyDamageMultiplier: 1
+  enemyExpMultiplier: 1
   supportsUp: 1
   supportsDown: 0
   supportsLeft: 0
@@ -2928,7 +2930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 705016218868248599, guid: 404e4b49e3d5f3649a10421f92e3a2f7, type: 3}
       propertyPath: m_LocalPosition.z
