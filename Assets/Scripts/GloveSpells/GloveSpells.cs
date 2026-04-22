@@ -35,7 +35,6 @@ public class GloveSpells : MonoBehaviour
     private bool gloveCastInProgress = false;
     
     public static GloveSpells instance;
-    public CooldownIndicatorUI gloveCooldownUI;
     public WindupRing ring;
     private void Start()
     {
@@ -83,7 +82,7 @@ public class GloveSpells : MonoBehaviour
 
         if (!fromChest && !unlockedSpells[i])
             return;
-
+        Debug.Log("swapedglovespell");
         currentSpell = i;
         GameDataManager.instance.CurrentSave.currentGloveSpell = currentSpell;
         GameDataManager.instance.SaveGame();
@@ -143,7 +142,7 @@ public class GloveSpells : MonoBehaviour
         {
             ring.End();
             nextFireTime = Time.time + spell.fireCooldown;
-            gloveCooldownUI.StartCooldown(spell.fireCooldown);
+            UIManager.instance.StartCooldown(0, spell.fireCooldown);
             ShootAtMouse();
             ApplyRecoilFromMouse();
             EnterPostFirePause();
@@ -167,7 +166,7 @@ public class GloveSpells : MonoBehaviour
         EnterPostFirePause();
 
         nextFireTime = Time.time + spell.fireCooldown;
-        gloveCooldownUI.StartCooldown(spell.fireCooldown);
+        UIManager.instance.StartCooldown(0, spell.fireCooldown);
     }
 
     public void ApplyRecoilFromMouse()

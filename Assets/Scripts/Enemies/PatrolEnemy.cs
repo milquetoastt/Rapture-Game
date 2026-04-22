@@ -10,24 +10,27 @@ public class PatrolEnemy : MonoBehaviour
     public float wallCheckDistance = 0.1f;
     public LayerMask groundLayer;
     public bool stunned = false;
-    public bool doingSomethingElse;
+    public bool doingSomethingElse = false;
 
     private Rigidbody2D rb;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        if (doingSomethingElse)
+        if (rb == null)
+            return;
+
+        if (doingSomethingElse || stunned)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
 
-        if (stunned)
+        if (wallCheck == null || groundCheck == null)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
@@ -52,7 +55,7 @@ public class PatrolEnemy : MonoBehaviour
         rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
     }
 
-    void TurnAround()
+    public void TurnAround()
     {
         direction *= -1;
 
@@ -61,7 +64,7 @@ public class PatrolEnemy : MonoBehaviour
         transform.localScale = scale;
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (wallCheck != null)
         {

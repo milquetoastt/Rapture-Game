@@ -3,6 +3,7 @@ using UnityEngine;
 public class AirGrapple : SpellStats
 {
     public DistanceJoint2D joint;
+    public GameObject grapplePrefab;
 
     public float minDistance = 2f;
     public float maxDistance = 10f;
@@ -26,6 +27,7 @@ public class AirGrapple : SpellStats
 
     void HoldGrapple(Vector2 mouseWorld)
     {
+        
         Vector2 playerPos = PlayerController.instance.transform.position;
         Vector2 toMouse = mouseWorld - playerPos;
 

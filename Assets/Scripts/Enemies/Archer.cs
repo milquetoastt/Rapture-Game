@@ -9,7 +9,7 @@ public class Archer : EnemyBase
     public GameObject arrowPrefab;
     public WindupRing ring;
 
-    [Header("Attack Stuff")]
+    [Header("attack stuff")]
     public float attackCooldown;
     public float abilityTimer;
     private Coroutine attackRoutine;
@@ -17,17 +17,28 @@ public class Archer : EnemyBase
     public float windUp = 0.25f;
     private float nextAttackTime = 0f;
     private bool hasFiredAtCurrentSighting = false;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (patrolEnemy == null)
+            patrolEnemy = GetComponent<PatrolEnemy>();
+    }
+
     private void Update()
     {
-        patrolEnemy.stunned = stunned;
+        if (patrolEnemy != null)
+            patrolEnemy.stunned = stunned;
 
         if (stunned)
             return;
 
+        int facingDirection = GetFacingDirection();
+
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
-            Vector2.right * patrolEnemy.direction,
+            Vector2.right * facingDirection,
             lengthOfSight,
             playerLayer
         );
@@ -41,33 +52,49 @@ public class Archer : EnemyBase
 
         if (playerAhead && !hasFiredAtCurrentSighting && Time.time >= nextAttackTime && attackRoutine == null)
         {
-            patrolEnemy.doingSomethingElse = true;
-            attackRoutine = StartCoroutine(FireAfterWindup());
+            if (patrolEnemy != null)
+                patrolEnemy.doingSomethingElse = true;
+
+            attackRoutine = StartCoroutine(FireAfterWindup(facingDirection));
         }
     }
 
-    private IEnumerator FireAfterWindup()
+    private IEnumerator FireAfterWindup(int fireDirection)
     {
         try
         {
-            ring.Begin(windUp);
+            if (ring != null)
+                ring.Begin(windUp);
+
             yield return new WaitForSeconds(windUp);
 
             GameObject arrowObj = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
             Arrow arrow = arrowObj.GetComponent<Arrow>();
 
             if (arrow != null)
-                arrow.direction = patrolEnemy.direction;
+                arrow.direction = fireDirection;
 
             hasFiredAtCurrentSighting = true;
             nextAttackTime = Time.time + attackCooldown;
         }
         finally
         {
-            ring.End();
+            if (ring != null)
+                ring.End();
+
             attackRoutine = null;
-            patrolEnemy.doingSomethingElse = false;
+
+            if (patrolEnemy != null)
+                patrolEnemy.doingSomethingElse = false;
         }
+    }
+
+    private int GetFacingDirection()
+    {
+        if (patrolEnemy != null)
+            return patrolEnemy.direction;
+
+        return transform.localScale.x >= 0 ? 1 : -1;
     }
 
     protected override void OnStunStart()
@@ -77,13 +104,20 @@ public class Archer : EnemyBase
             StopCoroutine(attackRoutine);
             attackRoutine = null;
         }
-        ring.End();
-        patrolEnemy.doingSomethingElse = false;
-        patrolEnemy.stunned = true;
+
+        if (ring != null)
+            ring.End();
+
+        if (patrolEnemy != null)
+        {
+            patrolEnemy.doingSomethingElse = false;
+            patrolEnemy.stunned = true;
+        }
     }
 
     protected override void OnStunEnd()
     {
-        patrolEnemy.stunned = false;
+        if (patrolEnemy != null)
+            patrolEnemy.stunned = false;
     }
 }

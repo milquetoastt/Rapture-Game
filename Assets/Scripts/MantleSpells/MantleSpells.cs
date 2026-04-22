@@ -23,7 +23,6 @@ public class MantleSpells : MonoBehaviour
     private float lastInputX = 1f;
     private float nextCastTime = 0f;
     public Transform firePoint;
-    public CooldownIndicatorUI mantleCooldownUI;
     public static MantleSpells instance;
     
     public WindupRing ring;
@@ -129,7 +128,7 @@ public class MantleSpells : MonoBehaviour
         
         ring.End();
         nextCastTime = Time.time + entry.fireCooldown;
-        mantleCooldownUI.StartCooldown(spell.fireCooldown);
+        UIManager.instance.StartCooldown(1, spell.fireCooldown);
 
     }
     

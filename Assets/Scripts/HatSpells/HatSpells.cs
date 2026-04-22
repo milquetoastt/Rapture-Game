@@ -22,7 +22,6 @@ public class HatSpells : MonoBehaviour
     private float lastInputX = 1f;
     private float nextCastTime = 0f;
     public Transform firePoint;
-    public CooldownIndicatorUI hatCooldownUI;
 
     public static HatSpells instance;
     public WindupRing ring;
@@ -124,7 +123,7 @@ public class HatSpells : MonoBehaviour
         proj.CastHat(mouseWorld);
 
         nextCastTime = Time.time + spell.fireCooldown;
-        hatCooldownUI.StartCooldown(spell.fireCooldown);
+        UIManager.instance.StartCooldown(3, spell.fireCooldown);
         PlayerController.instance.isCasting = false;
     }
     

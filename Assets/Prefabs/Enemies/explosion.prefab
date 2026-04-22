@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0dc00fffa255b14491966d116a8704b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  damage: 30
+  damage: 25
   knockbackForce: 10
   stunTime: 1
 --- !u!58 &1860582210596111681

@@ -8,6 +8,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("cooldown")]
+    public CooldownIndicatorUI gloveCooldownUI;
+    public CooldownIndicatorUI mantleCooldownUI;
+    public CooldownIndicatorUI bootCooldownUI;
+    public CooldownIndicatorUI hatCooldownUI;
+    [Header("pausemenu")]
+    public GameObject pauseHUD;
+    
     [Header("seamstress")]
     public bool seamstressHasUnlockedASpell;
     public GameObject seamstressUI;
@@ -39,6 +47,7 @@ public class UIManager : MonoBehaviour
     [Header("wardrobe")] 
     public GameObject wardrobeUI;
 
+    public int currentWardrobeType;
     public GameObject gloveUI;
     public GameObject[] gloveButtons;
     
@@ -83,8 +92,8 @@ public class UIManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
         
+        pauseHUD.SetActive(false);
         seamstressUI.SetActive(false);
         levelUpHUD.SetActive(false);
         wardrobeUI.SetActive(false);
@@ -131,7 +140,7 @@ public class UIManager : MonoBehaviour
                     break;
             }
             //if current is unlocked, gray out buttons[i], uninteractable
-            if (currentUnlocked[i])
+            if (currentUnlocked[i] || seamstressHasUnlockedASpell)
             {
                 TextMeshProUGUI textUnlockedFlag = text.GetComponentInChildren<TextMeshProUGUI>();
                 textUnlockedFlag.enabled = true;
@@ -173,6 +182,7 @@ public class UIManager : MonoBehaviour
             }
             seamstressHasUnlockedASpell = true;
             FindObjectOfType<Seamstress>().hasUnlockedASpell = true;
+            CloseSeamstress();
         }
     }
 
@@ -233,8 +243,9 @@ public class UIManager : MonoBehaviour
 
     public void DoExitGate()
     {
-        Debug.Log("Slideout");
-        exitGateUI.GetComponent<PanelSlideUI>().SlideOut();
+        SaveData data = GameDataManager.instance.CurrentSave;
+        if(data.firstTimeExitGate)
+            exitGateUI.GetComponent<PanelSlideUI>().SlideOut();
         SceneHandler.instance.LoadSceneByIndex();
     }
 
@@ -728,5 +739,69 @@ public class UIManager : MonoBehaviour
     {
         PanelSlideUI slide = spellDropHUD.GetComponent<PanelSlideUI>();
         slide.SlideOut();
+    }
+
+    public void PauseSequence()
+    {
+        pauseHUD.SetActive(true);
+        PanelSlideUI slide = pauseHUD.GetComponent<PanelSlideUI>();
+        slide.SlideIn();
+    }
+    public void ClosePause()
+    {
+        PanelSlideUI slide = pauseHUD.GetComponent<PanelSlideUI>();
+        slide.SlideOut();
+    }
+    public void SwapSpellFromUI(int index)
+    {
+        if (PlayerController.instance == null)
+            return;
+
+        switch (currentWardrobeType)
+        {
+            case 0:
+                GloveSpells.instance.SwapSpellsFromUI(index);
+                break;
+
+            case 1:
+                MantleSpells.instance.SwapSpellsFromUI(index);
+                break;
+
+            case 2:
+                BootSpells.instance.SwapSpellsFromUI(index);
+                break;
+
+            case 3:
+                HatSpells.instance.SwapSpellsFromUI(index);
+                break;
+        }
+        CloseWardrobe();
+    }
+    
+    public void StartCooldown(int which, float cooldown)
+    {
+        switch (which)
+        {
+            case 0:
+                gloveCooldownUI.StartCooldown(cooldown);
+                break;
+
+            case 1:
+                mantleCooldownUI.StartCooldown(cooldown);
+                break;
+
+            case 2:
+                bootCooldownUI.StartCooldown(cooldown);
+                break;
+
+            case 3:
+                hatCooldownUI.StartCooldown(cooldown);
+                break;
+        }
+    }
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
     }
 }

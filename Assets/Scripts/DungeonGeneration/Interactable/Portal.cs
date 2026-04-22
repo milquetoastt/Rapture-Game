@@ -5,6 +5,7 @@ public class Portal : Interactable
     [Header("stats")]
     public bool unlocked = true;
 
+    public SpriteRenderer lockSprite;
     [Header("where to?")]
     public bool down;
     public bool up;
@@ -45,11 +46,13 @@ public class Portal : Interactable
 
     public void Lock()
     {
+        lockSprite.enabled = true;
         unlocked = false;
     }
 
     public void Unlock()
     {
+        lockSprite.enabled = false;
         unlocked = true;
     }
 }

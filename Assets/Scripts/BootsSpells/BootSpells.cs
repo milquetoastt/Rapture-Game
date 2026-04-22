@@ -24,7 +24,6 @@ public class BootSpells : MonoBehaviour
     private float nextCastTime = 0f;
     public Transform firePoint;
 
-    public CooldownIndicatorUI bootCooldownUI;
     public static BootSpells instance;
     public WindupRing ring;
     [SerializeField] private bool[] unlockedSpells;
@@ -110,7 +109,7 @@ public class BootSpells : MonoBehaviour
             ring.End();
             SpellDataB spell = spells[currentSpell];
             nextCastTime = Time.time + spell.fireCooldown;
-            bootCooldownUI.StartCooldown(spell.fireCooldown);
+            UIManager.instance.StartCooldown(2, spell.fireCooldown);
             
         }
     }

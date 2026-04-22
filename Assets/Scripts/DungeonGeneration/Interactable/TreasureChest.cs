@@ -10,6 +10,7 @@ public class TreasureChest : Interactable
     public int whichSpell;
     public float force;
     public bool rolled = false;
+    public bool tutorial = false;
 
     public override void Interact()
     {
@@ -17,16 +18,43 @@ public class TreasureChest : Interactable
         {
             return;
         }
+
         rolled = true;
-        //typeSpell 0=gloves,1=mantle,2=boots,3=hat
-        typeSpell = Random.Range(0, 4);
-        //whichSpell 0=wind,1=lightning,2=fire,3=water
-        whichSpell = Random.Range(0, 4);
-        Vector3 position = transform.position + new Vector3(0,1,0);
+        if (!tutorial)
+        {
+            do
+            {
+                // typeSpell 0=gloves,1=mantle,2=boots,3=hat
+                typeSpell = Random.Range(0, 4);
+
+                // whichSpell 0=wind,1=lightning,2=fire,3=water
+                whichSpell = Random.Range(0, 4);
+            } while (IsCurrentEquippedSpell(typeSpell, whichSpell));
+        }
+
+        Vector3 position = transform.position + new Vector3(0, 1, 0);
         GameObject spawned = Instantiate(spellPrefab, position, Quaternion.identity);
         Rigidbody2D rb = spawned.GetComponent<Rigidbody2D>();
-        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);   
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+
         SpellDrop pickup = spawned.GetComponent<SpellDrop>();
         pickup.SetSpell(typeSpell, whichSpell);
+    }
+
+    private bool IsCurrentEquippedSpell(int rolledType, int rolledSpell)
+    {
+        switch (rolledType)
+        {
+            case 0:
+                return GloveSpells.instance.currentSpell == rolledSpell;
+            case 1:
+                return MantleSpells.instance.currentSpell == rolledSpell;
+            case 2:
+                return BootSpells.instance.currentSpell == rolledSpell;
+            case 3:
+                return HatSpells.instance.currentSpell == rolledSpell;
+        }
+
+        return false;
     }
 }

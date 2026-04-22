@@ -4,7 +4,7 @@ using UnityEngine;
 public class ExitGate : Interactable
 {
     public bool firstTime = false;
-
+    public bool tutorial = false;
     private void Start()
     {
         SaveData data = GameDataManager.instance.CurrentSave;
@@ -13,6 +13,11 @@ public class ExitGate : Interactable
 
     public override void Interact()
     {
+        if (tutorial)
+        {
+            SceneHandler.instance.ReturnToMainMenu();
+            return;
+        }
         if (firstTime)
             UIManager.instance.ExitGateSequence();
         else

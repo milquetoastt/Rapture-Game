@@ -22,9 +22,21 @@ public class GameDataManager : MonoBehaviour
         SaveManager.SaveGame(CurrentSave);
     }
 
+    public void TurnOffFirstTimeGate()
+    {
+        CurrentSave.firstTimeExitGate = false;
+        SaveGame();
+    }
+
     public void ResetSave()
     {
         SaveManager.DeleteSave();
         CurrentSave = SaveManager.LoadGame();
+    }
+    
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
     }
 }

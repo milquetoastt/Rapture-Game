@@ -3,9 +3,9 @@ using System.Collections;
 
 public class BomberGuy : EnemyBase
 {
-
     public PatrolEnemy patrol;
     public WindupRing ring;
+
     [Header("attack")]
     public GameObject bomb;
     public Transform throwPoint;
@@ -20,26 +20,34 @@ public class BomberGuy : EnemyBase
     private Coroutine attackRoutine;
     private float nextAttackTime;
 
-    private void Awake()
+    protected override void Awake()
     {
-        windUp = Random.Range(windUp-.25f, windUp+.25f);
+        base.Awake();
+
+        if (patrol == null)
+            patrol = GetComponent<PatrolEnemy>();
+
+        windUp = Random.Range(windUp - .25f, windUp + .25f);
     }
+
     private void Update()
     {
         if (PlayerController.instance == null)
             return;
 
+        if (patrol != null)
+            patrol.stunned = stunned;
+
         if (stunned)
         {
             Debug.Log("stunned");
             CancelAttack();
-            patrol.stunned = true;
-            patrol.doingSomethingElse = false;
-            
+
+            if (patrol != null)
+                patrol.doingSomethingElse = false;
+
             return;
         }
-
-        patrol.stunned = false;
 
         //FacePlayer();
 
@@ -48,31 +56,40 @@ public class BomberGuy : EnemyBase
     }
 
     private IEnumerator AttackRoutine()
-    { 
-        patrol.doingSomethingElse = true;
+    {
+        if (patrol != null)
+            patrol.doingSomethingElse = true;
 
         //FacePlayer();
-        ring.Begin(windUp);
+        if (ring != null)
+            ring.Begin(windUp);
+
         yield return new WaitForSeconds(windUp);
 
         if (stunned)
         {
             attackRoutine = null;
-            patrol.doingSomethingElse = false;
-            ring.End();
+
+            if (patrol != null)
+                patrol.doingSomethingElse = false;
+
+            if (ring != null)
+                ring.End();
+
             yield break;
-            
         }
 
         //FacePlayer();
         ThrowBombAtPlayer();
 
         nextAttackTime = Time.time + attackCooldown;
-        
+
         attackRoutine = null;
-        
+
         yield return new WaitForSeconds(.5f);
-        patrol.doingSomethingElse = false;
+
+        if (patrol != null)
+            patrol.doingSomethingElse = false;
     }
 
     private void ThrowBombAtPlayer()
@@ -83,13 +100,14 @@ public class BomberGuy : EnemyBase
         GameObject spawnedBomb = Instantiate(bomb, startPos, Quaternion.identity);
         BombProjectile bomba = spawnedBomb.GetComponent<BombProjectile>();
         bomba.killExplosionDelay = killExplosionDelay;
-        
+
         Collider2D bombCol = spawnedBomb.GetComponent<Collider2D>();
         Collider2D playerCol = PlayerController.instance.GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(bombCol, playerCol);
-        
-        ring.End();
-        
+
+        if (ring != null)
+            ring.End();
+
         Rigidbody2D rb = spawnedBomb.GetComponent<Rigidbody2D>();
         rb.gravityScale = bombGravityScale;
         rb.linearVelocity = CalculateLaunchVelocity(startPos, targetPos, arcHeight, rb.gravityScale);
@@ -109,16 +127,7 @@ public class BomberGuy : EnemyBase
 
     private void FacePlayer()
     {
-        float playerX = PlayerController.instance.transform.position.x;
-        float myX = transform.position.x;
-
-        if (playerX < myX)
-            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
-        else if (playerX > myX)
-            transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
-
-
-        patrol.direction = transform.localScale.x < 0 ? -1 : 1;
+        
     }
 
     private void CancelAttack()
@@ -128,7 +137,26 @@ public class BomberGuy : EnemyBase
             StopCoroutine(attackRoutine);
             attackRoutine = null;
             nextAttackTime = Time.time + attackCooldown;
-            ring.End();
+
+            if (ring != null)
+                ring.End();
         }
+    }
+
+    protected override void OnStunStart()
+    {
+        CancelAttack();
+
+        if (patrol != null)
+        {
+            patrol.stunned = true;
+            patrol.doingSomethingElse = false;
+        }
+    }
+
+    protected override void OnStunEnd()
+    {
+        if (patrol != null)
+            patrol.stunned = false;
     }
 }

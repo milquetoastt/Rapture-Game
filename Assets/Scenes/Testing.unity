@@ -1156,9 +1156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Archer
   hp: 30
-  stunResist: 0
+  canBeStunned: 1
   myRoom: {fileID: 0}
   stunned: 0
+  experience: 1
   rb: {fileID: 0}
   patrolEnemy: {fileID: 454698699}
   playerLayer:
@@ -1166,6 +1167,7 @@ MonoBehaviour:
     m_Bits: 64
   lengthOfSight: 10
   arrowPrefab: {fileID: 334045212826174804, guid: a1bf27a7d1bafdd4abdff12e875a3642, type: 3}
+  ring: {fileID: 0}
   attackCooldown: 1
   abilityTimer: 0
   attackTimer: 1.5
@@ -1616,11 +1618,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &671990925 stripped
+--- !u!4 &671990925
 Transform:
+  m_ObjectHideFlags: 8
   m_CorrespondingSourceObject: {fileID: 1338707709925297225, guid: 8b79623f58833d84090610c043ef9688, type: 3}
   m_PrefabInstance: {fileID: 8900299828789113841}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0.0011960816, w: 0.9999993}
+  m_LocalPosition: {x: 121.8, y: 1.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.137}
 --- !u!1 &695201279
 GameObject:
   m_ObjectHideFlags: 3
@@ -1799,6 +1811,9 @@ MonoBehaviour:
   maxOffset: 4
   mouseInfluence: 0.35
   smoothTime: 0.01
+  shakeDuration: 0
+  shakeMagnitude: 0.2
+  shakeFrequency: 25
 --- !u!1 &1888330214
 GameObject:
   m_ObjectHideFlags: 0

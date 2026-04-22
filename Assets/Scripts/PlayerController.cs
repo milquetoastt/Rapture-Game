@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -74,6 +75,10 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.instance.gameIsPaused)
+        {
+            UIManager.instance.PauseSequence();
+        }
         if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isDroppingThrough)
         {
             StartCoroutine(DropThroughLedges());
@@ -239,12 +244,10 @@ public class PlayerController : MonoBehaviour
         UIManager.instance.DieSequence();
     }
 
-    public void ResetTimeScale()
+    public void StunRoutineWrapper(float stunTime)
     {
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
+        StartCoroutine(StunCoroutine(stunTime));
     }
-
     private IEnumerator StunCoroutine(float stunTime)
     {
         canInputMove = false;
@@ -278,5 +281,26 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreCollision(playerCol, ledgeCol, false);
 
         isDroppingThrough = false;
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        transform.position = Vector3.zero;
+    }
+    
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
     }
 }

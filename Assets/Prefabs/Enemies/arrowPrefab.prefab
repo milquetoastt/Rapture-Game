@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ea4e6d78c436449af78597ddfbd218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Arrow
-  damage: 10
+  damage: 15
   knockbackForce: 16
   stunTime: 0.7
   direction: 0

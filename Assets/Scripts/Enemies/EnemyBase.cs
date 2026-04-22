@@ -1,18 +1,16 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class EnemyBase : MonoBehaviour
 {
     [Header("stats")]
     public int hp = 30;
-    public bool canBeStunned=true;
+    public bool canBeStunned = true;
     public DungeonRoom myRoom;
     public bool stunned = false;
     public int experience = 1;
-    
 
-    private Coroutine stunRoutine;
+    protected Coroutine stunRoutine;
     public Rigidbody2D rb;
 
     protected virtual void Awake()
@@ -21,22 +19,28 @@ public class EnemyBase : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         SpellStats spell = collision.GetComponent<SpellStats>();
-        
+
         if (spell != null)
         {
             TakeHit(spell.damage, spell.knockback, collision.transform.position);
-            //if hit by rain or jetpack, ignore the hit juice
+
+            // if hit by rain or jetpack, ignore the hit juice
             CloudRain rain = collision.GetComponent<CloudRain>();
             Jetpack jetpack = collision.GetComponent<Jetpack>();
-            if (rain != null|| jetpack != null)
+            Droplet droplet = collision.GetComponent<Droplet>();
+
+            if (rain != null || jetpack != null || droplet != null)
             {
                 Debug.Log("hit by rain");
             }
             else
-                UIManager.instance.HitJuice();
+            {
+                if (UIManager.instance != null)
+                    UIManager.instance.HitJuice();
+            }
 
             if (spell.stunTime > 0f)
             {
@@ -45,15 +49,14 @@ public class EnemyBase : MonoBehaviour
 
                 stunRoutine = StartCoroutine(StunCoroutine(spell.stunTime));
             }
-            
         }
     }
-
 
     private IEnumerator StunCoroutine(float stunTime)
     {
         if (!canBeStunned)
             yield break;
+
         stunned = true;
         OnStunStart();
 
@@ -76,11 +79,14 @@ public class EnemyBase : MonoBehaviour
     {
         hp -= damage;
 
-        if (knockbackForce > 0f)
+        if (knockbackForce > 0f && rb != null)
         {
             Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
             knockDir.y = 0f;
             knockDir.Normalize();
+
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
         }
 
         if (hp <= 0)
@@ -89,12 +95,13 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Die()
     {
-        // keep commented during testing
         if (myRoom != null)
         {
             myRoom.EnemyDied(this);
         }
-        PlayerController.instance.GainExperience(experience);
+
+        if (PlayerController.instance != null)
+            PlayerController.instance.GainExperience(experience);
 
         Destroy(gameObject);
     }

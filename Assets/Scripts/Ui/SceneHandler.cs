@@ -22,6 +22,11 @@ public class SceneHandler : MonoBehaviour
         if(ManaResource.instance != null) ManaResource.instance.allowTimeControl = true;
     }
 
+    public void TurnOffFirstTimeGate()
+    {
+        GameDataManager.instance.TurnOffFirstTimeGate();
+    }
+    
     public void DoPanel(GameObject panel)
     {
         panel.SetActive(true);
@@ -39,6 +44,22 @@ public class SceneHandler : MonoBehaviour
     public void LoadSceneByName(string sceneName)
     {
         StartCoroutine(LoadSceneAsync(sceneName));
+    }
+    public void ReturnToMainMenu()
+    {
+        if (PlayerController.instance != null)
+            Destroy(PlayerController.instance.gameObject);
+
+        if (UIManager.instance != null)
+            Destroy(UIManager.instance.gameObject);
+
+        if (ManaResource.instance != null)
+            Destroy(ManaResource.instance.gameObject);
+
+        if (GameDataManager.instance != null)
+            Destroy(GameDataManager.instance.gameObject);
+
+        LoadSceneByName("MainMenu");
     }
     private IEnumerator LoadSceneAsync(string sceneName, bool byIndex = false)
     {
