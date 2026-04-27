@@ -116,6 +116,7 @@ public class HatSpells : MonoBehaviour
         ring.Begin(spell.windUp);
         yield return new WaitForSecondsRealtime(spell.windUp);
         ring.End();
+        JuiceManager.instance.CastJuice();
         Vector2 spawnPos = (Vector2)firePoint.position + (Vector2)spell.spawnOffset;
         GameObject hatSpellCasting = Instantiate(spell.spellPrefab, spawnPos, Quaternion.identity);
 

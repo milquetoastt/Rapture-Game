@@ -4,7 +4,7 @@ public class Downburst : SpellStats
 {
     public Rigidbody2D rb;
     
-    public float duration = 1.0f;  // total travel time before destroy
+    public float duration = 1.0f;
     public float speed = .5f;
     private Vector2 dir;
     private float age;

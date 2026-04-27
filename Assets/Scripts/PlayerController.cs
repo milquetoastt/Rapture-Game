@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 100;
     public bool showSpeed = false;
     public bool isCasting = false;
+    public bool wasCasting = false;
     public SpriteRenderer sr;
     [Header("move settings")]
     public float moveSpeed = 5f;
@@ -87,7 +88,10 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
         horizontalInput = Input.GetAxisRaw("Horizontal");
-
+        if (horizontalInput != 0)
+        {
+            sr.flipX = horizontalInput < 0;
+        }
         
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         if (showSpeed)
@@ -97,7 +101,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
- 
+
+        
+
         if (gloveSpells != null)
             gloveSpells.HandleInput();
         {

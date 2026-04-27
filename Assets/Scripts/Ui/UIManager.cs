@@ -21,10 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject seamstressUI;
     public Button[] buttons;
     
-    [Header("hit juice")]
-    public float hitJuiceDuration = .2f;
-    public float shakeDuration;
-    public float shakeMagnitude;
+    
     
     [Header("deathsequence")]
     public float slowDuration = 1f;
@@ -361,31 +358,7 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void HitJuice()
-    {
-        if (!gameIsPaused)
-        {
-            gameIsPaused = true;
-            StartCoroutine(HitJuiceCoroutine());
-        }
-    }
-
-    private IEnumerator HitJuiceCoroutine()
-    {
-        Time.timeScale = 0;
-        ManaResource.instance.allowTimeControl = false;
-        
-        float pauseEndTime = Time.realtimeSinceStartup + hitJuiceDuration;
-        while (Time.realtimeSinceStartup < pauseEndTime)
-        {
-            yield return 0;
-        }
-        FindObjectOfType<CinemachineMouseOffset2DD>().ShakeCamera(shakeDuration, shakeMagnitude);
-        Time.timeScale = 1;
-        gameIsPaused = false;
-        ManaResource.instance.allowTimeControl = true;
-        
-    }
+    
 
     public void LevelUpSequence()
     {

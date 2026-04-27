@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21dfc86b6381834f9739edbb666f6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BubbleBall
-  damage: 15
+  damage: 10
   knockback: 0
   stunTime: 0.5
   rb: {fileID: 5720781934923157642}

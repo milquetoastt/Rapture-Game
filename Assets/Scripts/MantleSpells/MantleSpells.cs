@@ -11,7 +11,8 @@ public class SpellDataM
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
     public Vector3 spawnOffset;
-    
+    public float shakeMagnitude = .1f;
+    public float shakeLength = .1f;
 }
 
 public class MantleSpells : MonoBehaviour
@@ -24,7 +25,7 @@ public class MantleSpells : MonoBehaviour
     private float nextCastTime = 0f;
     public Transform firePoint;
     public static MantleSpells instance;
-    
+    public bool wasCasting = false;
     public WindupRing ring;
 
     [SerializeField] private bool[] unlockedSpells;
@@ -127,6 +128,9 @@ public class MantleSpells : MonoBehaviour
         proj.CastMantle(gameObject, direction);
         PlayerController.instance.isCasting = false;
         ring.End();
+        
+        JuiceManager.instance.CastJuice();
+        
         nextCastTime = Time.time + entry.fireCooldown;
         UIManager.instance.StartCooldown(1, spell.fireCooldown);
 

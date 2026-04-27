@@ -110,9 +110,7 @@ public class BootSpells : MonoBehaviour
             proj.HoldBoot(dir);
 
             SpellDataB spell = spells[currentSpell];
-            bool stillHasMana = ManaResource.instance.DrainManaOnly(
-                spell.manaDrainPerSecond * Time.unscaledDeltaTime
-            );
+            bool stillHasMana = ManaResource.instance.DrainMana(spell.manaDrainPerSecond * Time.unscaledDeltaTime);
 
             if (!stillHasMana)
             {
@@ -121,8 +119,8 @@ public class BootSpells : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && proj != null)
         {
-            PlayerController.instance.isCasting = false;
             StopBootSpell(dir);
+            
         }
     }
 
@@ -147,20 +145,21 @@ public class BootSpells : MonoBehaviour
 
         proj = bootSpellCasting.GetComponent<SpellStats>();
         proj.CastBoot(direction);
-
+        JuiceManager.instance.CastJuice();
         bootIsActive = true;
-        PlayerController.instance.isCasting = false;
+        
     }
 
     private void StopBootSpell(Vector2 direction)
     {
+        PlayerController.instance.isCasting = false;
         if (proj != null)
         {
             proj.EndBoot(direction);
             Destroy(proj.gameObject);
             proj = null;
         }
-        ManaResource.instance.StopManaHold();
+        ManaResource.instance.StopManaUse();
         bootIsActive = false;
         ring.End();
 

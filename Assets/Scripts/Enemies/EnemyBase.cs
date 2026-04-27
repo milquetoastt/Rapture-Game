@@ -38,8 +38,12 @@ public class EnemyBase : MonoBehaviour
             }
             else
             {
-                if (UIManager.instance != null)
-                    UIManager.instance.HitJuice();
+                if (JuiceManager.instance != null)
+                {
+                    Vector2 location = new Vector2(transform.position.x, transform.position.y);
+                    JuiceManager.instance.HitJuice(location, spell.damage);
+                    
+                }
             }
 
             if (spell.stunTime > 0f)

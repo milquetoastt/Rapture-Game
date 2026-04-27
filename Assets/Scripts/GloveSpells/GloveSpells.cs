@@ -131,11 +131,7 @@ public class GloveSpells : MonoBehaviour
 
         if (manaResource != null)
         {
-            matrixJustEnded = manaResource.UpdateSlowTime(
-                wantsHold,
-                Time.time >= nextFireTime && !inPostFirePause,
-                !inPostFirePause
-            );
+            matrixJustEnded = manaResource.UpdateSlowTime(wantsHold, Time.time >= nextFireTime && !inPostFirePause);
         }
 
         if (matrixJustEnded && Time.time >= nextFireTime && manaResource.heldSeconds >= manaResource.maxHoldSeconds)

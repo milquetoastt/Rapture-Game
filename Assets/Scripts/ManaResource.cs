@@ -1,34 +1,106 @@
 using UnityEngine;
-using System.Collections;
-using Cinemachine;
 
 public class ManaResource : MonoBehaviour
 {
     public static ManaResource instance;
-    public float slowTimeScale = .2f;
-    public float maxHoldSeconds = 5f;
-    public float timeScaleLerpSpeed = 12f;
-    public float rechargeRate = 1f;
-    public bool allowTimeControl = true;
-    public float heldSeconds;
-    public bool isHolding;
-    private float defaultFixedDeltaTime;
 
+    [Header("mana")]
+    public float maxMana = 5f;
+    public float currentManaUsed = 0f;
+    public float rechargeRate = 1f;
+
+    [Header("recharge delay")]
+    public float normalRechargeDelay = 0.25f;
+    public float emptyRechargeDelay = 3f;
+
+    [Header("slow time")]
+    public float slowTimeScale = 0.2f;
+    public float timeScaleLerpSpeed = 12f;
+    public bool allowTimeControl = true;
+
+    public bool isHolding;
+
+    private float rechargeTimer;
+    private float defaultFixedDeltaTime;
     private bool wasHolding;
+
+    public float heldSeconds => currentManaUsed;
+    public float maxHoldSeconds => maxMana;
 
     private void Awake()
     {
-        //on start, remember real time
-        defaultFixedDeltaTime = Time.fixedDeltaTime;
         instance = this;
+        defaultFixedDeltaTime = Time.fixedDeltaTime;
+    }
+
+    private void Update()
+    {
+        RechargeMana();
     }
 
     public float GetManaPercent()
     {
-        return (maxHoldSeconds - heldSeconds) / maxHoldSeconds;
+        return 1f - (currentManaUsed / maxMana);
     }
-    
-    public bool UpdateSlowTime(bool wantsHold, bool canHold, bool canRecharge)
+
+    public bool HasMana()
+    {
+        return currentManaUsed < maxMana;
+    }
+
+    public bool DrainMana(float amount)
+    {
+        if (currentManaUsed >= maxMana)
+        {
+            currentManaUsed = maxMana;
+            StopManaUse();
+            rechargeTimer = emptyRechargeDelay;
+            return false;
+        }
+
+        isHolding = true;
+        currentManaUsed += amount;
+
+        if (currentManaUsed >= maxMana)
+        {
+            currentManaUsed = maxMana;
+            isHolding = false;
+            rechargeTimer = emptyRechargeDelay;
+            return false;
+        }
+
+        rechargeTimer = normalRechargeDelay;
+        return true;
+    }
+
+    public void StopManaUse()
+    {
+        if (!isHolding) return;
+
+        isHolding = false;
+
+        if (currentManaUsed >= maxMana)
+            rechargeTimer = emptyRechargeDelay;
+        else
+            rechargeTimer = normalRechargeDelay;
+    }
+
+    private void RechargeMana()
+    {
+        if (isHolding) return;
+        if (currentManaUsed <= 0f) return;
+
+        if (rechargeTimer > 0f)
+        {
+            rechargeTimer -= Time.unscaledDeltaTime;
+            return;
+        }
+
+        currentManaUsed -= rechargeRate * Time.unscaledDeltaTime;
+        currentManaUsed = Mathf.Max(currentManaUsed, 0f);
+    }
+
+    public bool UpdateSlowTime(bool wantsHold, bool canHold)
     {
         if (!allowTimeControl)
         {
@@ -36,76 +108,31 @@ public class ManaResource : MonoBehaviour
             wasHolding = false;
             return false;
         }
-        //wants to hold, mana not empty, and allowed to hold (off cooldown)
-        if (wantsHold && heldSeconds < maxHoldSeconds && canHold)
+
+        bool actuallyHolding = wantsHold && canHold && HasMana();
+
+        if (actuallyHolding)
         {
-            isHolding = true;
-            heldSeconds += Time.unscaledDeltaTime; // real-time countdown
+            DrainMana(Time.unscaledDeltaTime);
         }
         else
         {
-            isHolding = false;
+            StopManaUse();
         }
 
-        if (!wantsHold && heldSeconds > 0f && canRecharge)
-        {
-            heldSeconds -= rechargeRate * Time.unscaledDeltaTime;
-            heldSeconds = Mathf.Max(heldSeconds, 0f);
-        }
         float targetScale = isHolding ? slowTimeScale : 1f;
-        //smooth timescale changes
-        Time.timeScale = Mathf.Lerp(Time.timeScale, targetScale, Time.unscaledDeltaTime * timeScaleLerpSpeed);
+
+        Time.timeScale = Mathf.Lerp(
+            Time.timeScale,
+            targetScale,
+            Time.unscaledDeltaTime * timeScaleLerpSpeed
+        );
+
         Time.fixedDeltaTime = defaultFixedDeltaTime * Time.timeScale;
 
-        bool matrixJustEnded = wasHolding && !isHolding;
+        bool manaJustEnded = wasHolding && !isHolding;
         wasHolding = isHolding;
 
-        return matrixJustEnded;
-    }
-    
-    public bool TryDrainMana(float amount)
-    {
-        if (heldSeconds >= maxHoldSeconds)
-        {
-            heldSeconds = maxHoldSeconds;
-            return false;
-        }
-
-        heldSeconds += amount;
-
-        if (heldSeconds >= maxHoldSeconds)
-        {
-            heldSeconds = maxHoldSeconds;
-            return false;
-        }
-
-        return true;
-    }
-    
-    public bool DrainManaOnly(float amount)
-    {
-        if (heldSeconds >= maxHoldSeconds)
-        {
-            heldSeconds = maxHoldSeconds;
-            isHolding = false;
-            return false;
-        }
-
-        isHolding = true;
-        heldSeconds += amount;
-        heldSeconds = Mathf.Min(heldSeconds, maxHoldSeconds);
-
-        if (heldSeconds >= maxHoldSeconds)
-        {
-            isHolding = false;
-            return false;
-        }
-
-        return true;
-    }
-    public void StopManaHold()
-    {
-        isHolding = false;
-        wasHolding = false;
+        return manaJustEnded;
     }
 }

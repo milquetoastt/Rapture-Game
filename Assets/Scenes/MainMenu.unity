@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -454, y: 64}
+  m_AnchoredPosition: {x: -463.09967, y: 0}
   m_SizeDelta: {x: 768.73, y: 163.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &176976699
@@ -555,7 +555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &403289954
 RectTransform:
   m_ObjectHideFlags: 0
@@ -907,7 +907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 595, y: -357}
+  m_AnchoredPosition: {x: 595, y: -292}
   m_SizeDelta: {x: 535, y: 171.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889118865
@@ -1009,7 +1009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &945512002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1367,24 +1367,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Debug Build)
+  m_text: 'press l to unlock every spell
 
 
-    press l to unlock every spell
+    leftmouse click = glovespell
 
 
-    leftmouse click
-    = glovespell
-
-
-    leftcontrol = mantlespell
+    leftcontrol
+    = mantlespell
 
 
     leftshift = bootspell
 
 
-    rightmouse
-    click = hat spell'
+    rightmouse click = hat spell
+
+
+    "i
+    don''t have any references in video games" - clint stevens'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84521184bcdad5e4fb05f845578e3177, type: 2}
   m_sharedMaterial: {fileID: -4483984476361551025, guid: 84521184bcdad5e4fb05f845578e3177, type: 2}
@@ -1582,7 +1582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -570, y: -357}
+  m_AnchoredPosition: {x: -570, y: -292}
   m_SizeDelta: {x: 535, y: 171.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373367499
