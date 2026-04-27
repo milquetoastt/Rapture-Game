@@ -3940,9 +3940,6 @@ MonoBehaviour:
   - {fileID: 6172792353668886408}
   - {fileID: 5476937468974497504}
   - {fileID: 1021603820703734818}
-  hitJuiceDuration: 0.2
-  shakeDuration: 0.4
-  shakeMagnitude: 2.5
   slowDuration: 2
   deathPanel: {fileID: 1451279928674881885}
   exitGateUI: {fileID: 2234678817160388515}
@@ -10054,7 +10051,7 @@ MonoBehaviour:
   fillRect: {fileID: 7100429006766370861}
   baseWidth: 400
   widthPerHealth: 1
-  height: 100
+  height: 75
   leftInset: 2
   rightInset: 2
 --- !u!1 &5959146475086162620
@@ -11500,7 +11497,7 @@ MonoBehaviour:
   fillRect: {fileID: 2133391965655120536}
   baseWidth: 400
   widthPerMana: 1
-  height: 100
+  height: 75
   leftInset: 2
   rightInset: 2
 --- !u!1 &6932606527857163383

@@ -47,4 +47,4 @@ MonoBehaviour:
   hitJuiceDuration: 0.2
   shakeDuration: 0
   shakeMagnitude: 0
-  damageTextPrefab: {fileID: 0}
+  damageTextPrefab: {fileID: 4310684461641493770, guid: d428bffc76bf67144bf863be7fd7c84d, type: 3}

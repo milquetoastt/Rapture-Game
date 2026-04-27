@@ -485,10 +485,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: JuiceManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2307571719294956652, guid: 8f7bb208e245d4d47b74d4bd8af27b4c, type: 3}
-      propertyPath: damageTextPrefab
-      value: 
-      objectReference: {fileID: 4310684461641493770, guid: d428bffc76bf67144bf863be7fd7c84d, type: 3}
     - target: {fileID: 3093914516141041722, guid: 8f7bb208e245d4d47b74d4bd8af27b4c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 134.43578
@@ -894,6 +890,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b7a5dee8d2897469e55089d3ca29e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CooldownIndicatorUI
+--- !u!1001 &1692827124
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5540272727183889604, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_Name
+      value: Global Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.47119
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.84157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697030627959054908, guid: 508c5ebada25cce47809613372881955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 508c5ebada25cce47809613372881955, type: 3}
 --- !u!1 &1747052559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,3 +1259,4 @@ SceneRoots:
   - {fileID: 580353284}
   - {fileID: 1747052561}
   - {fileID: 605498615}
+  - {fileID: 1692827124}
