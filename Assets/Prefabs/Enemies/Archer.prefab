@@ -353,7 +353,7 @@ MonoBehaviour:
   canBeStunned: 1
   myRoom: {fileID: 0}
   stunned: 0
-  experience: 3
+  experience: 2
   rb: {fileID: 0}
   patrolEnemy: {fileID: 6049840256931048881}
   playerLayer:

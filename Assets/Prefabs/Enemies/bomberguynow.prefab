@@ -215,7 +215,7 @@ MonoBehaviour:
   canBeStunned: 1
   myRoom: {fileID: 0}
   stunned: 0
-  experience: 1
+  experience: 2
   rb: {fileID: 7061913612248243719}
   patrol: {fileID: 2166837941401255335}
   ring: {fileID: 2706887477997513274}

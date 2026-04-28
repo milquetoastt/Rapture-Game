@@ -87,6 +87,7 @@ MonoBehaviour:
   maxHealth: 100
   showSpeed: 0
   isCasting: 0
+  wasCasting: 0
   sr: {fileID: 6028272348771388358}
   moveSpeed: 77
   groundFriction: 120
@@ -126,12 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c69220ba659cc48b88c1a96880b1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManaResource
-  slowTimeScale: 0.2
-  maxHoldSeconds: 3
-  timeScaleLerpSpeed: 12
+  maxMana: 5
+  currentManaUsed: 0
   rechargeRate: 1
+  normalRechargeDelay: 0.25
+  emptyRechargeDelay: 3
+  slowTimeScale: 0.2
+  timeScaleLerpSpeed: 12
   allowTimeControl: 1
-  heldSeconds: 0
   isHolding: 0
 --- !u!232 &318273831096584902
 DistanceJoint2D:
@@ -422,23 +425,32 @@ MonoBehaviour:
     fireCooldown: 2.5
     windUp: 0.34
     spawnOffset: {x: 0, y: 2.8, z: 0}
+    shakeMagnitude: 0.1
+    shakeLength: 0.1
   - name: Meteor Kick
     spellPrefab: {fileID: 2965463002188847194, guid: f5e1b8c6bb9a9484093d379064c886c6, type: 3}
     fireCooldown: 4
     windUp: 0.4
     spawnOffset: {x: 0, y: 0, z: 0}
+    shakeMagnitude: 0.1
+    shakeLength: 0.1
   - name: Ball Lightning
     spellPrefab: {fileID: 6901905324446158329, guid: 213bb9f9b830b4348a2f22d0ebe8ae2b, type: 3}
     fireCooldown: 2.4
     windUp: 0.25
     spawnOffset: {x: 0, y: 0, z: 0}
+    shakeMagnitude: 0.1
+    shakeLength: 0.1
   - name: Water Cut
     spellPrefab: {fileID: 946602126484483413, guid: be7a427940233874ca55e9535fc3f85a, type: 3}
     fireCooldown: 3.5
     windUp: 0.25
     spawnOffset: {x: 0, y: 0, z: 0}
+    shakeMagnitude: 0.1
+    shakeLength: 0.1
   currentSpell: 0
   firePoint: {fileID: 2925792116259583604}
+  wasCasting: 0
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
 --- !u!1 &5148980153023852217
@@ -659,6 +671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4427473717072475119}
   - component: {fileID: 1193757793651380839}
+  - component: {fileID: 3660291987711066426}
   m_Layer: 6
   m_Name: GloveSpells
   m_TagString: Untagged
@@ -700,31 +713,62 @@ MonoBehaviour:
     projectilePrefab: {fileID: 5479827974953399587, guid: 163c1f8df0d67294da7640b3f34fc68d, type: 3}
     spawnOffset: 1
     windUp: 0.25
+    castParticleSprites:
+    - {fileID: 21300000, guid: 8dfc6c11bf6146f42be37150124a9c86, type: 3}
+    - {fileID: 21300000, guid: e162ab7acecc33340b9fe777acd30c10, type: 3}
+    - {fileID: 21300000, guid: 363a20a5d2e57b948a814ec3d531fc05, type: 3}
+    particleAmount: 15
   - name: Fire Cone
     recoil: 45
     fireCooldown: 3.5
     projectilePrefab: {fileID: 3914694173713708554, guid: 8b093467dc1681e4da4c5e07b69d5130, type: 3}
     spawnOffset: 5
     windUp: 0.5
+    castParticleSprites: []
+    particleAmount: 10
   - name: Lightning Bolt
     recoil: 0
     fireCooldown: 0.3
     projectilePrefab: {fileID: 5997699938792701978, guid: 167bb001de8ed8b4196c21b847517ea1, type: 3}
     spawnOffset: 10
     windUp: 0.1
+    castParticleSprites: []
+    particleAmount: 6
   - name: Bubble Ball
     recoil: 30
     fireCooldown: 3
     projectilePrefab: {fileID: 664156795286459248, guid: f49dc49b646fa9240a9c5f212f8179b5, type: 3}
     spawnOffset: 3
     windUp: 0.25
+    castParticleSprites:
+    - {fileID: 21300000, guid: 79418b3922bd89242a465b053f5b5020, type: 3}
+    particleAmount: 6
   currentSpell: 0
   postFirePause: 0.5
   cam: {fileID: 0}
   firePoint: {fileID: 1338707709925297225}
+  castParticles: {fileID: 3660291987711066426}
   manaResource: {fileID: 7231996908703183172}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
+--- !u!114 &3660291987711066426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504917112001192532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa1faa06743ced43967547cda795d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteParticleBurst
+  particlePrefab: {fileID: 8986061508915767672, guid: b7ce1ed09d47a3141ac0d9c861793c8d, type: 3}
+  possibleSprites: []
+  forceMin: 5
+  forceMax: 30
+  spreadAngle: 45
+  lifetime: 1.07
 --- !u!1 &9057747805802746491
 GameObject:
   m_ObjectHideFlags: 0

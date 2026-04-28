@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f52af200f7e9c64490e98bfcfc88729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Downburst
-  damage: 13
+  damage: 20
   knockback: 0
   stunTime: 0.6
   rb: {fileID: 0}

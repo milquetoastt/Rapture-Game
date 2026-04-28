@@ -29,9 +29,12 @@ public class Goob : EnemyBase
             myRoom.EnemyDied(this);
         }
 
-        if (PlayerController.instance != null)
+        if (PlayerController.instance != null && tutorial)
             PlayerController.instance.Level();
-
+        else
+        {
+            PlayerController.instance.GainExperience(experience);
+        }
         Destroy(gameObject);
     }
 }

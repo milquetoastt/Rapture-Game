@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f810c6ec12a49419cc182c54f9cc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallLightning
-  damage: 10
+  damage: 20
   knockback: 0
   stunTime: 0.8
   moveSpeed: 6

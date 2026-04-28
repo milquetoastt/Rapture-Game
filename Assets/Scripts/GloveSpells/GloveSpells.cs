@@ -11,15 +11,17 @@ public class SpellDataG
     public GameObject projectilePrefab;
     public float spawnOffset = 0f;
     public float windUp = 0f;
+    public Sprite[] castParticleSprites;
+    public int particleAmount = 6;
 }
 
 public class GloveSpells : MonoBehaviour
 {
-    [Header("Spell Settings")]
+    [Header("spell settings")]
     public SpellDataG[] spells;
     public int currentSpell;
 
-    [Header("Post-Fire Recovery")]
+    [Header("post-fire recovery")]
     public float postFirePause = 0.5f;
 
     private float postFireTimer;
@@ -30,6 +32,7 @@ public class GloveSpells : MonoBehaviour
 
     private float nextFireTime;
 
+    public SpriteParticleBurst castParticles;
     private Rigidbody2D rb;
     public ManaResource manaResource;
     private bool gloveCastInProgress = false;
@@ -205,6 +208,7 @@ public class GloveSpells : MonoBehaviour
 
         SpellStats proj = projGO.GetComponent<SpellStats>();
         proj.Fire(dir);
+        castParticles.Burst(firePoint.position, dir, spell.castParticleSprites, spell.particleAmount);
     }
 
     void EnterPostFirePause()
