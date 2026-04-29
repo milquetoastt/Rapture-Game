@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Squash
   rb: {fileID: 5720781934923157642}
   visual: {fileID: 8503500803778095667}
-  stretchAmount: 0.1
+  stretchAmount: 0.15
   speedNeededForMax: 12
   returnSpeed: 12
 --- !u!1 &3546216026796896864

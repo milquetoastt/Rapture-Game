@@ -10,7 +10,8 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
     public float maxOffset = 2.5f;
     public float mouseInfluence = 0.35f;
     public float smoothTime = 0.12f;
-
+    public float yMouseInfluence = 0.15f;
+    
     [Header("screen shake")]
     public float shakeDuration = 0f;
     public float shakeMagnitude = 0.2f;
@@ -66,7 +67,9 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
         Vector3 toMouse = mouseWorld - player.position;
 
         // base camera offset from mouse
-        Vector3 targetOffset = Vector3.ClampMagnitude(toMouse * mouseInfluence, maxOffset);
+        Vector3 targetOffset = new Vector3(toMouse.x * mouseInfluence, toMouse.y * yMouseInfluence, 0f);
+
+        targetOffset = Vector3.ClampMagnitude(targetOffset, maxOffset);
 
         // smooth toward mouse offset
         Vector3 smoothed = Vector3.SmoothDamp(
