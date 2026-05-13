@@ -30,7 +30,12 @@ public class PlayerController : MonoBehaviour
     public float upKnockback = 3f;
 
     public static PlayerController instance;
-
+    
+    [Header("snappy movement")]
+    public float acceleration = 80f;
+    public float deceleration = 100f;
+    public float turnAcceleration = 140f;
+    
     [Header("camera things")]
     public CinemachineVirtualCamera vcam;
     public float normalSize = 15f;
@@ -145,36 +150,44 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float vx = rb.linearVelocity.x;
+        Vector2 velocity = rb.linearVelocity;
 
-        if (horizontalInput != 0)
+        if (horizontalInput != 0 && canInputMove)
         {
+            float targetSpeed = horizontalInput * maxInputSpeed;
 
-            bool pushingRightAllowed = horizontalInput > 0f && vx < maxInputSpeed;
-            bool pushingLeftAllowed = horizontalInput < 0f && vx > -maxInputSpeed;
+            float accelToUse = acceleration;
 
-            if ((pushingRightAllowed || pushingLeftAllowed) && canInputMove)
+            // Extra snappy when switching directions
+            if (Mathf.Sign(velocity.x) != Mathf.Sign(horizontalInput) && Mathf.Abs(velocity.x) > 0.1f)
             {
-                rb.AddForce(Vector2.right * horizontalInput * moveSpeed, ForceMode2D.Force);
+                accelToUse = turnAcceleration;
             }
 
+            velocity.x = Mathf.MoveTowards(
+                velocity.x,
+                targetSpeed,
+                accelToUse * Time.fixedDeltaTime
+            );
+
+            rb.linearVelocity = velocity;
         }
         else if (isGrounded)
         {
-            Vector2 velocity = rb.linearVelocity;
             velocity.x = Mathf.MoveTowards(
                 velocity.x,
                 0f,
-                groundFriction * Time.fixedDeltaTime
+                deceleration * Time.fixedDeltaTime
             );
+
             rb.linearVelocity = velocity;
         }
 
         isGrounded = Physics2D.OverlapCircle(
-        groundCheck.position,
-        groundCheckRadius,
-        groundLayer);
-
+            groundCheck.position,
+            groundCheckRadius,
+            groundLayer
+        );
     }
     private void OnDrawGizmosSelected()
     {

@@ -1,0 +1,790 @@
+fileFormatVersion: 2
+guid: 021d8c09f2a7d5844b46a619002d250e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2759022488580991258
+    second: markerXploder_0
+  - first:
+      213: 401056689427534585
+    second: markerXploder_1
+  - first:
+      213: 658780493349015346
+    second: markerXploder_2
+  - first:
+      213: -8142852149397954677
+    second: markerXploder_3
+  - first:
+      213: 2380377035037375782
+    second: markerXploder_4
+  - first:
+      213: 1394385148296501943
+    second: markerXploder_5
+  - first:
+      213: 7043711670097254628
+    second: markerXploder_6
+  - first:
+      213: -4552309984546955971
+    second: markerXploder_7
+  - first:
+      213: 4841612132245478454
+    second: markerXploder_8
+  - first:
+      213: -3490679352672566344
+    second: markerXploder_9
+  - first:
+      213: 1407125622167639470
+    second: markerXploder_10
+  - first:
+      213: -2064136348021516322
+    second: markerXploder_11
+  - first:
+      213: -3305844789405728841
+    second: markerXploder_12
+  - first:
+      213: 6773386097105009937
+    second: markerXploder_13
+  - first:
+      213: 7426408707715970491
+    second: markerXploder_14
+  - first:
+      213: -4058905418153241702
+    second: markerXploder_15
+  - first:
+      213: -6155447082959331866
+    second: markerXploder_16
+  - first:
+      213: 9190927499054969888
+    second: markerXploder_17
+  - first:
+      213: -8276774060999948257
+    second: markerXploder_18
+  - first:
+      213: 1798068713399360995
+    second: markerXploder_19
+  - first:
+      213: 1630919948684676576
+    second: markerXploder_20
+  - first:
+      213: 3503400465602517931
+    second: markerXploder_21
+  - first:
+      213: -8319071011094652660
+    second: markerXploder_22
+  - first:
+      213: 4189177802965724189
+    second: markerXploder_23
+  - first:
+      213: -2251346816715563506
+    second: markerXploder_24
+  - first:
+      213: -8465685267289727419
+    second: markerXploder_25
+  - first:
+      213: 5630340549301090447
+    second: markerXploder_26
+  - first:
+      213: 1975403203851650151
+    second: markerXploder_27
+  - first:
+      213: 164347728576312066
+    second: markerXploder_28
+  - first:
+      213: 6860430623970525080
+    second: markerXploder_29
+  - first:
+      213: 3917430651921782549
+    second: markerXploder_30
+  - first:
+      213: 1218280468503279255
+    second: markerXploder_31
+  - first:
+      213: -4422728486387245573
+    second: markerXploder_32
+  - first:
+      213: 1945660516593952047
+    second: markerXploder_33
+  - first:
+      213: 5037021774254408601
+    second: markerXploder_34
+  - first:
+      213: -7561225333950135672
+    second: markerXploder_35
+  - first:
+      213: 3429220903120836494
+    second: markerXploder_36
+  - first:
+      213: 1365025817077760211
+    second: markerXploder_37
+  - first:
+      213: 2102870330752550785
+    second: markerXploder_38
+  - first:
+      213: 2958232226085712729
+    second: markerXploder_39
+  - first:
+      213: 2187868678990655687
+    second: markerXploder_40
+  - first:
+      213: 3155224876070808185
+    second: markerXploder_41
+  - first:
+      213: 5836463382889927673
+    second: markerXploder_42
+  - first:
+      213: 1169491249803272419
+    second: markerXploder_43
+  - first:
+      213: 2630654489377525488
+    second: markerXploder_44
+  - first:
+      213: 8012510118597664965
+    second: markerXploder_45
+  - first:
+      213: 5421414716924457526
+    second: markerXploder_46
+  - first:
+      213: -879365683103913201
+    second: markerXploder_47
+  - first:
+      213: -7631285756340412610
+    second: markerXploder_48
+  - first:
+      213: -8049648208831012425
+    second: markerXploder_49
+  - first:
+      213: 2012331606342631233
+    second: markerXploder_50
+  - first:
+      213: -6251651292045787294
+    second: markerXploder_51
+  - first:
+      213: -3909128702532705586
+    second: markerXploder_52
+  - first:
+      213: 1089587777714793089
+    second: markerXploder_53
+  - first:
+      213: 7083163338371093140
+    second: markerXploder_54
+  - first:
+      213: -2389455999745802122
+    second: markerXploder_55
+  - first:
+      213: 3244874364317683701
+    second: markerXploder_56
+  - first:
+      213: 3418016530259561007
+    second: markerXploder_57
+  - first:
+      213: 692206003679437029
+    second: markerXploder_58
+  - first:
+      213: -2699520374248777550
+    second: markerXploder_59
+  - first:
+      213: 7089428407569680789
+    second: markerXploder_60
+  - first:
+      213: -6057877178140720229
+    second: markerXploder_61
+  - first:
+      213: -3582210306581257073
+    second: markerXploder_62
+  - first:
+      213: 395187637632187429
+    second: markerXploder_63
+  - first:
+      213: 4469836376194130611
+    second: markerXploder_64
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: markerXploder_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a192f2fd5540a4620800000000000000
+      internalID: 2759022488580991258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f25f142fe6d09500800000000000000
+      internalID: 401056689427534585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23f460b4e55742900800000000000000
+      internalID: 658780493349015346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8fdb90ec17cefe80800000000000000
+      internalID: -8142852149397954677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62d76e43d4cc80120800000000000000
+      internalID: 2380377035037375782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ba1b4497e9d95310800000000000000
+      internalID: 1394385148296501943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e89b6cd17a40c160800000000000000
+      internalID: 7043711670097254628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3d5d9f2032f2d0c0800000000000000
+      internalID: -4552309984546955971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c96b2159cd03340800000000000000
+      internalID: 4841612132245478454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b349278f9d9e8fc0800000000000000
+      internalID: -3490679352672566344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea517af4c4d178310800000000000000
+      internalID: 1407125622167639470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed794308de6ba53e0800000000000000
+      internalID: -2064136348021516322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf35ecdda74f12d0800000000000000
+      internalID: -3305844789405728841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11d7384b4c6effd50800000000000000
+      internalID: 6773386097105009937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_14
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb537447f57ef0760800000000000000
+      internalID: 7426408707715970491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_15
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a935116f60fdba7c0800000000000000
+      internalID: -4058905418153241702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed9e72bd75739aa0800000000000000
+      internalID: -6155447082959331866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_17
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0247a816ddbbc8f70800000000000000
+      internalID: 9190927499054969888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: markerXploder_18
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f184eeff7ddf22d80800000000000000
+      internalID: -8276774060999948257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 27059821f0bfbb54fb17cf732bb65a83
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":22.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      markerXploder_0: 2759022488580991258
+      markerXploder_1: 401056689427534585
+      markerXploder_10: 1407125622167639470
+      markerXploder_11: -2064136348021516322
+      markerXploder_12: -3305844789405728841
+      markerXploder_13: 6773386097105009937
+      markerXploder_14: 7426408707715970491
+      markerXploder_15: -4058905418153241702
+      markerXploder_16: -6155447082959331866
+      markerXploder_17: 9190927499054969888
+      markerXploder_18: -8276774060999948257
+      markerXploder_2: 658780493349015346
+      markerXploder_3: -8142852149397954677
+      markerXploder_4: 2380377035037375782
+      markerXploder_5: 1394385148296501943
+      markerXploder_6: 7043711670097254628
+      markerXploder_7: -4552309984546955971
+      markerXploder_8: 4841612132245478454
+      markerXploder_9: -3490679352672566344
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

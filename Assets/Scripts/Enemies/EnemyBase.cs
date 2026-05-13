@@ -12,11 +12,25 @@ public class EnemyBase : MonoBehaviour
 
     protected Coroutine stunRoutine;
     public Rigidbody2D rb;
+    [Header("detection")]
+    public float detectionRadius = 6f;
+    public bool alerted = false;
 
     protected virtual void Awake()
     {
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
+    }
+    
+    protected virtual void CheckForPlayer()
+    {
+
+        float dist = Vector2.Distance(transform.position, PlayerController.instance.transform.position);
+
+        if (dist <= detectionRadius)
+        {
+            alerted = true;
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -113,7 +127,6 @@ public class EnemyBase : MonoBehaviour
     public virtual void ApplyDungeonScaling(float hpMult, float damageMult, float expMult)
     {
         hp = Mathf.RoundToInt(hp * hpMult);
-        //TODO damage mult here
         DoDamageMult(damageMult);
         experience = Mathf.RoundToInt(experience * expMult);
     }

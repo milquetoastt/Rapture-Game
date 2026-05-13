@@ -31,6 +31,7 @@ public class MantleSpells : MonoBehaviour
     [SerializeField] private bool[] unlockedSpells;
     private void Start()
     {
+        
         LoadFromSave();
     }
 
@@ -40,6 +41,7 @@ public class MantleSpells : MonoBehaviour
 
         unlockedSpells = data.mantleUnlocked;
         currentSpell = data.currentMantleSpell;
+        UIManager.instance.ReassignCooldownImages();
     }
     public bool IsSpellUnlocked(int index)
     {

@@ -46,6 +46,7 @@ public class BootSpells : MonoBehaviour
 
         unlockedSpells = data.bootUnlocked;
         currentSpell = data.currentBootSpell;
+        UIManager.instance.ReassignCooldownImages();
     }
 
     public bool IsSpellUnlocked(int index)

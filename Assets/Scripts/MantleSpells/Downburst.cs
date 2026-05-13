@@ -3,7 +3,8 @@ using UnityEngine;
 public class Downburst : SpellStats
 {
     public Rigidbody2D rb;
-    
+    private Animator anim;
+    public Collider2D downBurstCollider;
     public float duration = 1.0f;
     public float speed = .5f;
     private Vector2 dir;
@@ -27,9 +28,20 @@ public class Downburst : SpellStats
     {
         if (!rb) rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, duration);
+        anim = GetComponent<Animator>();
     }
     void FixedUpdate()
     {
         rb.linearVelocity = Vector2.down * speed;
+    }
+    
+    public void TurnOnCollider()
+    {
+        downBurstCollider.enabled = true;
+    }
+    
+    public void DestroyMarker()
+    {
+        Destroy(gameObject);
     }
 }

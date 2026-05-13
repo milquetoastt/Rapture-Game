@@ -21,7 +21,15 @@ public class UIManager : MonoBehaviour
     public GameObject seamstressUI;
     public Button[] buttons;
     
-    
+    [Header("cooldowns")]
+    public Image gloveCooldownImage;
+    public Image mantleCooldownImage;
+    public Image bootCooldownImage;
+    public Image hatCooldownImage;
+    public Sprite[] gloveImages;
+    public Sprite[] mantleImages;
+    public Sprite[] bootImages;
+    public Sprite[] hatImages;
     
     [Header("deathsequence")]
     public float slowDuration = 1f;
@@ -100,6 +108,14 @@ public class UIManager : MonoBehaviour
         bootUI.SetActive(false);
         spellDropHUD.SetActive(false);
         exitGateUI.SetActive(false);
+    }
+
+    public void ReassignCooldownImages()
+    {
+        gloveCooldownImage.sprite = gloveImages[GloveSpells.instance.currentSpell];
+        mantleCooldownImage.sprite = mantleImages[MantleSpells.instance.currentSpell];
+        bootCooldownImage.sprite = bootImages[BootSpells.instance.currentSpell];
+        hatCooldownImage.sprite = hatImages[HatSpells.instance.currentSpell];
     }
 
     public void SeamstressSequence(bool hasUnlockedASpell)
@@ -723,6 +739,7 @@ public class UIManager : MonoBehaviour
     public void CloseDropped()
     {
         PanelSlideUI slide = spellDropHUD.GetComponent<PanelSlideUI>();
+        ReassignCooldownImages();
         slide.SlideOut();
     }
 
@@ -760,6 +777,7 @@ public class UIManager : MonoBehaviour
                 HatSpells.instance.SwapSpellsFromUI(index);
                 break;
         }
+        ReassignCooldownImages();
         CloseWardrobe();
     }
     

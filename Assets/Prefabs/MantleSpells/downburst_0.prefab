@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8924364675637416465}
   - component: {fileID: 7089720469528674679}
   - component: {fileID: 1999380368847604451}
-  - component: {fileID: 1197757776950762606}
+  - component: {fileID: 6443282244312818444}
+  - component: {fileID: 8052177299170552525}
   m_Layer: 0
   m_Name: downburst_0
   m_TagString: Spell
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.2899995, y: 6.7804413, z: 2.2735963}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +51,8 @@ MonoBehaviour:
   damage: 20
   knockback: 0
   stunTime: 0.6
-  rb: {fileID: 0}
+  rb: {fileID: 1999380368847604451}
+  downBurstCollider: {fileID: 8052177299170552525}
   duration: 1
   speed: 0.5
   upForce: 50
@@ -103,7 +105,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e17f223791146e34a89f8831c0762660, type: 3}
+  m_Sprite: {fileID: -3338899675262479188, guid: 8c555252872817b4ca1dd1521a5f2b1b, type: 3}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -140,8 +142,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &1197757776950762606
-PolygonCollider2D:
+--- !u!95 &6443282244312818444
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396746949344887112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3800d9c6dd7b10409cb5b566b3389a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &8052177299170552525
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -178,18 +202,11 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 6, y: 2}
     newSize: {x: 4.9, y: 3.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.18, y: 1}
-      - {x: -0.45, y: -0.5}
-      - {x: -0.52, y: -1}
-      - {x: 0.62, y: -1}
-      - {x: 0.53, y: -0.4375}
-      - {x: 0.21, y: 1}
-  m_UseDelaunayMesh: 1
+  m_Size: {x: 5.6, y: 1.81}
+  m_EdgeRadius: 0

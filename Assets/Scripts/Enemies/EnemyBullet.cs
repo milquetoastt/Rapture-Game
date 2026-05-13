@@ -6,5 +6,4 @@ public class EnemyBullet : MonoBehaviour
     public float knockbackForce = 5f;
     public float stunTime = .5f;
 
-
 }

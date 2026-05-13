@@ -37,6 +37,7 @@ public class HatSpells : MonoBehaviour
 
         unlockedSpells = data.hatUnlocked;
         currentSpell = data.currentHatSpell;
+        UIManager.instance.ReassignCooldownImages();
     }
     public bool IsSpellUnlocked(int index)
     {

@@ -50,6 +50,7 @@ public class GloveSpells : MonoBehaviour
 
         unlockedSpells = data.gloveUnlocked;
         currentSpell = data.currentGloveSpell;
+        UIManager.instance.ReassignCooldownImages();
     }
 
     [SerializeField] private bool[] unlockedSpells;
