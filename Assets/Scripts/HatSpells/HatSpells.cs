@@ -12,6 +12,7 @@ public class SpellDataH
     public float fireCooldown = 1.5f;
     public float windUp = 0f;
     public Vector3 spawnOffset;
+    
 }
 
 public class HatSpells : MonoBehaviour

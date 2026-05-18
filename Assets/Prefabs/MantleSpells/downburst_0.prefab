@@ -51,6 +51,8 @@ MonoBehaviour:
   damage: 20
   knockback: 0
   stunTime: 0.6
+  element: 0
+  castType: 1
   rb: {fileID: 1999380368847604451}
   downBurstCollider: {fileID: 8052177299170552525}
   duration: 1
@@ -105,12 +107,12 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3338899675262479188, guid: 8c555252872817b4ca1dd1521a5f2b1b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: -1619485190075581147, guid: 90de64813c31cd84b8be9cfb1e75e386, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.9, y: 3.46}
+  m_Size: {x: 1.1875, y: 1.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -203,7 +205,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 6, y: 2}
-    newSize: {x: 4.9, y: 3.46}
+    newSize: {x: 1.1875, y: 1.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

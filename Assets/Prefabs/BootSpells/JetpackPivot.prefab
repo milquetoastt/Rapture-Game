@@ -47,7 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Jetpack
   damage: 10
   knockback: 0
-  freezeTarget: 0
+  stunTime: 0.5
+  element: 1
+  castType: 0
   initialForce: 8.11
   force: 7.04
   offset: {x: 0, y: -0.74}

@@ -182,6 +182,8 @@ MonoBehaviour:
   damage: 25
   knockback: 9.7
   stunTime: 0.8
+  element: 1
+  castType: 0
   rb: {fileID: 5974837020190646119}
   duration: 0.4
   speed: 3

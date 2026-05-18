@@ -13,6 +13,7 @@ public class SpellDataM
     public Vector3 spawnOffset;
     public float shakeMagnitude = .1f;
     public float shakeLength = .1f;
+    
 }
 
 public class MantleSpells : MonoBehaviour

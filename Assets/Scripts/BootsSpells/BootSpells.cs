@@ -11,6 +11,7 @@ public class SpellDataB
     public float windUp = 0f;
     public Vector3 spawnOffset;
     public float manaDrainPerSecond = 1f;
+    
 }
 
 public class BootSpells : MonoBehaviour

@@ -108,6 +108,7 @@ MonoBehaviour:
   damage: 10
   knockback: 0
   stunTime: 0
+  element: 3
   speedBoost: 50
   maxSpeedBoost: 5
   frictionDuringSurf: 5

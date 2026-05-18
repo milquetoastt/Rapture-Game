@@ -26,7 +26,7 @@ public class Droplet : MonoBehaviour
     {
         if (collision.tag == "Spell")
         {
-            Debug.Log("droplet collided with spell");
+            //Debug.Log("droplet collided with spell");
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))

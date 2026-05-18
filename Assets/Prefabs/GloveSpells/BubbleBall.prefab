@@ -50,6 +50,7 @@ MonoBehaviour:
   damage: 10
   knockback: 0
   stunTime: 0.5
+  element: 3
   rb: {fileID: 5720781934923157642}
   duration: 10
   launchForce: 17.38

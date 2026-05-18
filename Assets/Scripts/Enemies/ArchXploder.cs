@@ -35,42 +35,31 @@ public class ArchXploder : EnemyBase
 
     private IEnumerator CastSpell()
     {
-        Debug.Log("CastSpell started");
+        //Debug.Log("CastSpell started");
 
         for (int i = 0; i < numMarkers; i++)
         {
             yield return new WaitForSeconds(timeBetweenMarkers);
 
-            Debug.Log("spawning marker");
-
+            //Debug.Log("spawning marker");
             GameObject markerObj = Instantiate(marker, PlayerController.instance.transform.position, Quaternion.identity);
-
             MarkerXploder mark = markerObj.GetComponent<MarkerXploder>();
 
-            if (mark == null)
-            {
-                Debug.LogError("Marker prefab does NOT have MarkerXploder on the root object");
-            }
-            else
-            {
-                Debug.Log("marker added");
-                markers.Add(mark);
-            }
+            //Debug.Log("marker added");
+            markers.Add(mark);
         }
     
         yield return new WaitForSeconds(castExplodeTime);
-
-        Debug.Log("about to detonate markers: " + markers.Count);
     
         foreach (MarkerXploder mark in markers)
         {
             if (mark == null)
             {
-                Debug.LogError("marker in list is null");
+                //Debug.LogError("marker in list is null");
                 continue;
             }
 
-            Debug.Log("calling detonate");
+            //Debug.Log("calling detonate");
             mark.Detonate();
         }
 

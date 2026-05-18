@@ -49,10 +49,14 @@ MonoBehaviour:
   damage: 35
   knockback: 0
   stunTime: 1
+  element: 1
+  castType: 1
   upForce: 20
   fallingHorizontalSpeed: 30
   fallingVerticalSpeed: 50
   dashSpeed: 35
+  reboundForce: 10
+  reboundHorizontalForce: 10
 --- !u!212 &6034387757628089771
 SpriteRenderer:
   serializedVersion: 2

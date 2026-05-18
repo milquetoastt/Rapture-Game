@@ -6,7 +6,10 @@ public class SpellStats : MonoBehaviour
     public int damage = 10;
     public float knockback = 0f;
     public float stunTime = .5f;
-    
+    public int element;
+    //0 is wind, 1 is lightning, 2 is fire, 3 is water
+    public int castType;
+    //0 is glove, 1 is mantle, 2 is boots, 3 is hat
 
     public virtual void Fire(Vector2 dir) {
         Debug.Log("BASE SpellStats Fire called");

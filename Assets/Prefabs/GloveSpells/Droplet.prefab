@@ -63,6 +63,7 @@ MonoBehaviour:
   damage: 5
   knockback: 0
   stunTime: 0
+  element: 3
 --- !u!70 &5683852526729929087
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

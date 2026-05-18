@@ -108,6 +108,8 @@ MonoBehaviour:
   damage: 10
   knockback: 0
   stunTime: 0
+  element: 2
+  castType: 0
 --- !u!61 &-5612273231044245973
 BoxCollider2D:
   m_ObjectHideFlags: 0

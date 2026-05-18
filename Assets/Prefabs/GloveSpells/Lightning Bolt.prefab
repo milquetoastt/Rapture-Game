@@ -50,6 +50,8 @@ MonoBehaviour:
   damage: 7
   knockback: 0
   stunTime: 0
+  element: 2
+  castType: 0
   rb: {fileID: 2837792459529799427}
   duration: 0.1
 --- !u!212 &3130023082506815221

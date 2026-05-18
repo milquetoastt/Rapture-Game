@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class EnemyBase : MonoBehaviour
 
     protected Coroutine stunRoutine;
     public Rigidbody2D rb;
+    
     [Header("detection")]
     public float detectionRadius = 6f;
     public bool alerted = false;
+
+    public List<(int element, int castType)> hitElementList = new List<(int element, int castType)>();
 
     protected virtual void Awake()
     {
@@ -41,24 +45,18 @@ public class EnemyBase : MonoBehaviour
         {
             TakeHit(spell.damage, spell.knockback, collision.transform.position);
 
+            
+            if(hitElementList.Count == 0)
+                hitElementList.Add((spell.element, spell.castType));
+            else if (hitElementList[^1].castType != spell.castType)
+                hitElementList.Add((spell.element, spell.castType));
+            
             // if hit by rain or jetpack, ignore the hit juice
             CloudRain rain = collision.GetComponent<CloudRain>();
             Jetpack jetpack = collision.GetComponent<Jetpack>();
             Droplet droplet = collision.GetComponent<Droplet>();
 
-            if (rain != null || jetpack != null || droplet != null)
-            {
-                Debug.Log("hit by rain");
-            }
-            else
-            {
-                if (JuiceManager.instance != null)
-                {
-                    Vector2 location = new Vector2(transform.position.x, transform.position.y);
-                    JuiceManager.instance.HitJuice(location, spell.damage);
-                    
-                }
-            }
+            
 
             if (spell.stunTime > 0f)
             {
@@ -67,10 +65,24 @@ public class EnemyBase : MonoBehaviour
 
                 stunRoutine = StartCoroutine(StunCoroutine(spell.stunTime));
             }
+            
+            if (hitElementList.Count == 4)
+            {
+                Rapture.instance.DoRapture(hitElementList[^1].element, this);
+                hitElementList.Clear();
+                
+            }
         }
     }
 
-    private IEnumerator StunCoroutine(float stunTime)
+    private void EnemyBaseDoHitJuice(int damage)
+    {
+        Vector2 location = new Vector2(transform.position.x, transform.position.y);
+        JuiceManager.instance.HitJuice(location, damage);
+
+    }
+
+    public IEnumerator StunCoroutine(float stunTime)
     {
         if (!canBeStunned)
             yield break;
@@ -95,6 +107,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void TakeHit(int damage, float knockbackForce, Vector2 hitSourcePos)
     {
+        EnemyBaseDoHitJuice(damage);
         hp -= damage;
 
         if (knockbackForce > 0f && rb != null)
