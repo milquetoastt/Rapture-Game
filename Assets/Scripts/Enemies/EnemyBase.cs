@@ -10,22 +10,34 @@ public class EnemyBase : MonoBehaviour
     public DungeonRoom myRoom;
     public bool stunned = false;
     public int experience = 1;
+    public int element;
+	public Animator anim;
 
     protected Coroutine stunRoutine;
     public Rigidbody2D rb;
-    
+    private HashSet<SpellStats> spellsThatHitMe = new HashSet<SpellStats>();
     [Header("detection")]
     public float detectionRadius = 6f;
     public bool alerted = false;
-
-    public List<(int element, int castType)> hitElementList = new List<(int element, int castType)>();
+    public List<(int elementType, int castType)> hitElementList = new List<(int element, int castType)>();
+    private SpriteRenderer spr;
 
     protected virtual void Awake()
     {
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
     }
     
+    public bool spriteFacesRight = true;
+
+    protected void FaceDirection(float dirX)
+    {
+        if (spr == null || Mathf.Approximately(dirX, 0f)) return;
+
+        bool wantRight = dirX > 0f;
+        spr.flipX = (wantRight != spriteFacesRight);
+    }
     protected virtual void CheckForPlayer()
     {
 
@@ -43,8 +55,12 @@ public class EnemyBase : MonoBehaviour
 
         if (spell != null)
         {
+            if (spellsThatHitMe.Contains(spell))
+            {
+                return;
+            }
             TakeHit(spell.damage, spell.knockback, collision.transform.position);
-
+            spellsThatHitMe.Add(spell);
             
             if(hitElementList.Count == 0)
                 hitElementList.Add((spell.element, spell.castType));
@@ -68,7 +84,7 @@ public class EnemyBase : MonoBehaviour
             
             if (hitElementList.Count == 4)
             {
-                Rapture.instance.DoRapture(hitElementList[^1].element, this);
+                RaptureManager.instance.DoRapture(hitElementList[^1].elementType, this);
                 hitElementList.Clear();
                 
             }
@@ -99,6 +115,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void OnStunStart()
     {
+        
     }
 
     protected virtual void OnStunEnd()
@@ -133,8 +150,10 @@ public class EnemyBase : MonoBehaviour
 
         if (PlayerController.instance != null)
             PlayerController.instance.GainExperience(experience);
-
-        Destroy(gameObject);
+        
+        anim.SetTrigger("Die");
+        
+        //Destroy(gameObject);
     }
     
     public virtual void ApplyDungeonScaling(float hpMult, float damageMult, float expMult)

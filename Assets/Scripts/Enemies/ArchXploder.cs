@@ -13,6 +13,7 @@ public class ArchXploder : EnemyBase
     public float castCooldown = 3f;
     public bool isCasting = false;
     private float timer;
+    public Animator chargeAnim;
 
     public GameObject marker;
     private List<MarkerXploder> markers = new List<MarkerXploder>();
@@ -40,6 +41,7 @@ public class ArchXploder : EnemyBase
         for (int i = 0; i < numMarkers; i++)
         {
             yield return new WaitForSeconds(timeBetweenMarkers);
+            chargeAnim.SetTrigger("Charge");
 
             //Debug.Log("spawning marker");
             GameObject markerObj = Instantiate(marker, PlayerController.instance.transform.position, Quaternion.identity);
@@ -61,6 +63,7 @@ public class ArchXploder : EnemyBase
 
             //Debug.Log("calling detonate");
             mark.Detonate();
+            chargeAnim.SetTrigger("Detonate");
         }
 
         markers.Clear();

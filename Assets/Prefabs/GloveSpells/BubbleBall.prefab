@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2063687817561203946}
   - component: {fileID: 5720781934923157642}
   - component: {fileID: 2106163567429587426}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BubbleBall
   m_TagString: Spell
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MonoBehaviour:
   knockback: 0
   stunTime: 0.5
   element: 3
+  castType: 0
   rb: {fileID: 5720781934923157642}
   duration: 10
   launchForce: 17.38
@@ -131,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5733304067817878460}
   - component: {fileID: 6535360979748561513}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8503500803778095667}
   - component: {fileID: 3917015823104000150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

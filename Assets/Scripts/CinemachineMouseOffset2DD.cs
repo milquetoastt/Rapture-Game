@@ -1,5 +1,5 @@
 using UnityEngine;
-using Cinemachine;
+
 
 public class CinemachineMouseOffset2DD : MonoBehaviour
 {
@@ -17,8 +17,8 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
     public float shakeMagnitude = 0.2f;
     public float shakeFrequency = 25f;
 
-    private CinemachineVirtualCamera vcam;
-    private CinemachineFramingTransposer framing;
+    private Unity.Cinemachine.CinemachineVirtualCamera vcam;
+    private Unity.Cinemachine.CinemachineFramingTransposer framing;
     private Vector3 offsetVel;
 
     private float currentShakeTime;
@@ -26,8 +26,8 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
 
     void Awake()
     {
-        vcam = GetComponent<CinemachineVirtualCamera>();
-        framing = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        vcam = GetComponent<Unity.Cinemachine.CinemachineVirtualCamera>();
+        framing = vcam.GetCinemachineComponent<Unity.Cinemachine.CinemachineFramingTransposer>();
 
         if (mainCam == null)
         {
@@ -47,7 +47,7 @@ public class CinemachineMouseOffset2DD : MonoBehaviour
     void Start()
     {
         if (vcam == null)
-            vcam = GetComponent<CinemachineVirtualCamera>();
+            vcam = GetComponent<Unity.Cinemachine.CinemachineVirtualCamera>();
 
         if (vcam.Follow == null && PlayerController.instance != null)
         {

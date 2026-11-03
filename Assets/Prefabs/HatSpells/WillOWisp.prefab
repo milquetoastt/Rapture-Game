@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4362141955908459015}
   - component: {fileID: -7521803249917217624}
   - component: {fileID: -1586002597792322652}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WillOWisp
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,8 @@ MonoBehaviour:
   damage: 10
   knockback: 0
   stunTime: 0
+  element: 0
+  castType: 0
   rb: {fileID: 0}
   speed: 8
   lifeTime: 4

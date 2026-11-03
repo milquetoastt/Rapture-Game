@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using Cinemachine;
+
 
 [System.Serializable]
 public class SpellDataG

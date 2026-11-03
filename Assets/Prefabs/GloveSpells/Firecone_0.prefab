@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3185073567903871643}
   - component: {fileID: 683490404707646206}
   - component: {fileID: 5974837020190646119}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Firecone_0
   m_TagString: Spell
   m_Icon: {fileID: 0}

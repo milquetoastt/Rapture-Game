@@ -37,11 +37,11 @@ public class Surf : SpellStats
 
         originalMoveSpeed = PlayerController.instance.moveSpeed;
         originalMaxInputSpeed = PlayerController.instance.maxInputSpeed;
-        originalGroundFriction = PlayerController.instance.groundFriction;
+        //originalGroundFriction = PlayerController.instance.groundFriction;
 
         PlayerController.instance.moveSpeed += speedBoost;
         PlayerController.instance.maxInputSpeed += maxSpeedBoost;
-        PlayerController.instance.groundFriction = frictionDuringSurf;
+        //PlayerController.instance.groundFriction = frictionDuringSurf;
 
         surfDirection = Mathf.Sign(playerRb.linearVelocity.x);
         if (surfDirection == 0f)
@@ -78,7 +78,7 @@ public class Surf : SpellStats
     {
         PlayerController.instance.moveSpeed = originalMoveSpeed;
         PlayerController.instance.maxInputSpeed = originalMaxInputSpeed;
-        PlayerController.instance.groundFriction = originalGroundFriction;
+        //PlayerController.instance.groundFriction = originalGroundFriction;
 
         transform.SetParent(null);
 

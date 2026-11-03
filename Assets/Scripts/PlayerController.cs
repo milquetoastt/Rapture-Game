@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using Cinemachine;
+
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator anim;
     public int health = 100;
     public int maxHealth = 100;
     public bool showSpeed = false;
@@ -13,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sr;
     [Header("move settings")]
     public float moveSpeed = 5f;
-    public float groundFriction = 20f;
     public float maxInputSpeed = 8f;
     private float horizontalInput;
     private Rigidbody2D rb;
@@ -30,38 +31,40 @@ public class PlayerController : MonoBehaviour
     public float upKnockback = 3f;
 
     public static PlayerController instance;
-    
+
     [Header("snappy movement")]
     public float acceleration = 80f;
     public float deceleration = 100f;
     public float turnAcceleration = 140f;
-    
+
     [Header("camera things")]
-    public CinemachineVirtualCamera vcam;
+    public Unity.Cinemachine.CinemachineVirtualCamera vcam;
     public float normalSize = 15f;
     public float zoomedSize = 13f;
     public float zoomInSpeed = 8f;
     public float zoomOutSpeed = 5f;
     public GloveSpells gloveSpells;
     public ManaResource manaResource;
-    
+
     [Header("experience")]
     public int currentXp = 0;
     public int currentLevel = 1;
     public int xpForNextLevel = 6;
-    
+
     [Header("ledges")]
     public float dropThroughTime = 0.25f;
     private bool isDroppingThrough = false;
     private Collider2D playerCol;
-    
+
     [Header("i-frames")]
-    public float invincibilityDuration = 0.4f;
+    public float invincibilityDuration = 1f;
     private bool isInvincible = false;
     
+    private PlayerControls controls;
+
     private void Awake()
     {
-        
+
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -74,40 +77,46 @@ public class PlayerController : MonoBehaviour
 
         if (manaResource == null)
             manaResource = GetComponent<ManaResource>();
+
+        controls = new PlayerControls();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.instance.gameIsPaused)
+        if (controls.Player.Pause.WasPressedThisFrame() && !UIManager.instance.gameIsPaused)
         {
             UIManager.instance.PauseSequence();
         }
-        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isDroppingThrough && canInputMove)
+        if (controls.Player.DropThrough.WasPressedThisFrame() && isGrounded && !isDroppingThrough && canInputMove)
         {
             StartCoroutine(DropThroughLedges());
         }
-        if (currentInteractable != null && Input.GetKeyDown(KeyCode.E))
+        if (currentInteractable != null && controls.Player.Interact.WasPressedThisFrame())
         {
             Debug.Log("great optimization good job cheve very smart");
             currentInteractable.Interact();
         }
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        horizontalInput = controls.Player.Move.ReadValue<float>();
+        Debug.Log(horizontalInput);
+        anim.SetInteger("hInput", (int)rb.linearVelocity.magnitude);
         if (horizontalInput != 0)
         {
             sr.flipX = horizontalInput < 0;
         }
-        
+
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         if (showSpeed)
             Debug.Log(horizontalSpeed);
 
-        if (Input.GetKeyDown("space") && isGrounded)
+        if (controls.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
+            // set velocity directly so jump height is uniform regardless of mass
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
-        
+
 
         if (gloveSpells != null)
             gloveSpells.HandleInput();
@@ -134,7 +143,7 @@ public class PlayerController : MonoBehaviour
         currentXp += experience;
         Debug.Log("new experience: " + experience);
         Debug.Log("new experienceForNextLevel: " + xpForNextLevel);
-        
+
         if (currentXp >= xpForNextLevel)
         {
             Level();
@@ -195,7 +204,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
-    
+
     private Interactable currentInteractable;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -203,8 +212,9 @@ public class PlayerController : MonoBehaviour
         EnemyBullet hit = collision.GetComponent<EnemyBullet>();
         if (hit != null)
         {
-            Debug.Log("Player hit by something");
+            Debug.Log("player hit by something");
             TakeHit(hit.damage, hit.knockbackForce, collision.transform.position);
+            anim.SetTrigger("hurt");
             if (hit.stunTime > 0)
                 StartCoroutine(StunCoroutine(hit.stunTime));
             Destroy(hit.gameObject, .1f);
@@ -229,9 +239,10 @@ public class PlayerController : MonoBehaviour
             Die();
         }
         StartCoroutine(InvincibilityCoroutine());
-        Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
+        //Vector2 knockDir = ((Vector2)transform.position - hitSourcePos).normalized;
+        Vector2 knockDir = Vector2.left;
         rb.linearVelocity = Vector2.zero;
-        rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(knockDir * 15f, ForceMode2D.Impulse);
         rb.AddForce(Vector2.up * upKnockback, ForceMode2D.Impulse);
     }
 
@@ -286,7 +297,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("noledge collider");
             yield break;
         }
-        
+
         Debug.Log("ignoring collision between " + playerCol.name + " and " + ledgeCol.name);
         isDroppingThrough = true;
 
@@ -298,23 +309,25 @@ public class PlayerController : MonoBehaviour
 
         isDroppingThrough = false;
     }
-    
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        controls.Player.Enable();
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        controls.Player.Disable();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         transform.position = Vector3.zero;
-        vcam = FindFirstObjectByType<CinemachineVirtualCamera>();
+        vcam = FindFirstObjectByType<Unity.Cinemachine.CinemachineVirtualCamera>();
     }
-    
+
     private void OnDestroy()
     {
         if (instance == this)

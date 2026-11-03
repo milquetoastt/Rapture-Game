@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8428416837582828633}
   - component: {fileID: 5273994305981408690}
   - component: {fileID: 3011471920953107933}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Taser
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,5 +172,7 @@ MonoBehaviour:
   damage: 10
   knockback: 0
   stunTime: 0
+  element: 0
+  castType: 0
   lifeTime: 0.2
   enemyBulletTag: EnemyBullet

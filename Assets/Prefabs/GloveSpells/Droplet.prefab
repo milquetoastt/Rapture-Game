@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3826147511963643683}
   - component: {fileID: 5683852526729929087}
   - component: {fileID: 2557781200817710993}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Droplet
   m_TagString: Spell
   m_Icon: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   knockback: 0
   stunTime: 0
   element: 3
+  castType: 0
 --- !u!70 &5683852526729929087
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8258614816834454384}
   - component: {fileID: 3232862651211603172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3477304978687240618}
   - component: {fileID: 2549527592430200900}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

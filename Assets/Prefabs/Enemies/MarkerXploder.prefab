@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1213466383262851074}
   - component: {fileID: -6678064638549179846}
   - component: {fileID: 7462468082477163245}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MarkerXploder
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6354515161348559295
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2759022488580991258, guid: 021d8c09f2a7d5844b46a619002d250e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,6 +94,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!95 &1213466383262851074
 Animator:
   serializedVersion: 7
@@ -131,7 +132,9 @@ MonoBehaviour:
   damage: 10
   knockbackForce: 5
   stunTime: 0.5
+  element: 1
   explosionCollider: {fileID: 7462468082477163245}
+  lifetime: 5
 --- !u!61 &7462468082477163245
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8248292161253019418}
   - component: {fileID: 5873667541817435680}
   - component: {fileID: 1364089371552492950}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WaterCut
   m_TagString: Spell
   m_Icon: {fileID: 0}
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946602126484483413}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.70702815, w: 0.70718545}
-  m_LocalPosition: {x: 100.52, y: -6.97, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.85, y: 3.6000001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &8248292161253019418
 SpriteRenderer:
   serializedVersion: 2

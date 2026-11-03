@@ -18,8 +18,8 @@ TagManager:
   - Ledges
   - Enemy
   - EnemyBullet
-  - 
-  - 
+  - Spell
+  - EnemyHurtbox
   - 
   - 
   - 

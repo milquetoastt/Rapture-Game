@@ -133,6 +133,7 @@ Transform:
   - {fileID: 4543469517556440428}
   - {fileID: 2367617171220366219}
   - {fileID: 8969088960771842431}
+  - {fileID: 544686358049871026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.137}
 --- !u!50 &1090308425365507132
@@ -198,8 +199,8 @@ MonoBehaviour:
   deceleration: 100
   turnAcceleration: 140
   vcam: {fileID: 0}
-  normalSize: 15
-  zoomedSize: 12
+  normalSize: 17
+  zoomedSize: 14
   zoomInSpeed: 1
   zoomOutSpeed: 10
   gloveSpells: {fileID: 1193757793651380839}
@@ -208,7 +209,7 @@ MonoBehaviour:
   currentLevel: 1
   xpForNextLevel: 6
   dropThroughTime: 0.4
-  invincibilityDuration: 0.4
+  invincibilityDuration: 1
 --- !u!114 &7231996908703183172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,6 +744,60 @@ MonoBehaviour:
   firePoint: {fileID: 2925792116259583604}
   ring: {fileID: 3135101301938283657}
   unlockedSpells: 
+--- !u!1 &5817623182716582687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 544686358049871026}
+  - component: {fileID: 7482098147174396345}
+  m_Layer: 6
+  m_Name: Rapture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &544686358049871026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817623182716582687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1338707709925297225}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7482098147174396345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817623182716582687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d588368ce8cdf2541a8286f3bc9d24ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rapture
+  windSlashes: 3
+  windDamage: 4
+  windSlashStunTime: 0.3
+  fireDamage: 3
+  fireDuration: 6
+  tickRate: 0.5
+  lightningDamage: 4
+  lightningRadius: 15
+  waterDamage: 10
+  waterStunTime: 3
 --- !u!1 &6821373519440801359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1093,7 @@ MonoBehaviour:
     castParticleSprites:
     - {fileID: 21300000, guid: 79418b3922bd89242a465b053f5b5020, type: 3}
     particleAmount: 6
-  currentSpell: 0
+  currentSpell: 3
   postFirePause: 0.5
   cam: {fileID: 0}
   firePoint: {fileID: 1338707709925297225}

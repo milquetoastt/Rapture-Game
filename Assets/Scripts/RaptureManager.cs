@@ -3,28 +3,33 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Rapture : MonoBehaviour
+public class RaptureManager : MonoBehaviour
 {
     [Header("wind stats")]
     public int windSlashes = 3;
     public int windDamage = 4;
     public float windSlashStunTime = .3f;
     
+    [Header("fire stats")]
+    public int fireDamage = 2;
+    public float fireDuration = 2f;
+    public float tickRate = .5f;
+    
     [Header("lightning stats")]
     public int lightningDamage = 4;
     public float lightningRadius = 15f;
     
-    [Header("fire stats")]
-    public int fireDamage = 2;
-    public float fireDuration = 2f;
+    [Header("water stats")]
+    public int waterDamage = 4;
+    public float waterStunTime = 2f;
     
-    public static Rapture instance;
+    public static RaptureManager instance;
     
     public void Start()
     {
         instance = this;
     }
-
+    
     public void DoRapture(int spellElement, EnemyBase enemy)
     {
         Debug.Log("called DoRapture");
@@ -39,6 +44,10 @@ public class Rapture : MonoBehaviour
         //lightning element = 2
         else if (spellElement == 2)
             StartCoroutine(LightningRapture(enemy));
+
+        // water element = 3
+        else
+            StartCoroutine(WaterRapture(enemy));
     }
     
     private IEnumerator WindRapture(EnemyBase enemy)
@@ -53,6 +62,24 @@ public class Rapture : MonoBehaviour
             //JuiceManager.instance.doWindRapture slash juice
             
             yield return new WaitForSeconds(windSlashStunTime);
+        }
+    }
+    
+    private IEnumerator FireRapture(EnemyBase enemy)
+    {
+        //DOT 
+        yield return new WaitForSeconds(.2f);
+        float timer = 0f;
+        float tickRate = .5f;
+        
+        while (timer < fireDuration)
+        {
+            //do damage
+            if (enemy == null)
+                yield break;
+            enemy.TakeHit(fireDamage, 0.0f, Vector3.zero);
+            yield return new WaitForSeconds(tickRate);
+            timer += tickRate;
         }
     }
 
@@ -83,16 +110,15 @@ public class Rapture : MonoBehaviour
         }
     }
 
-    private IEnumerator FireRapture(EnemyBase enemy)
+    private IEnumerator WaterRapture(EnemyBase enemy)
     {
-        //DOT 
+        // deal a chunk of damage
+        // stun the enemy (if they can be stunned)
         yield return new WaitForSeconds(.2f);
-        bool ticking = true;
-        while (ticking)
-        {
-            //do damage
-            //wait
-            //if timer has passed, stop
-        }
+        if(enemy.canBeStunned)
+            enemy.StunCoroutine(waterStunTime);
+        enemy.TakeHit(waterDamage,0.0f, Vector3.zero);
     }
+    
+    
 }

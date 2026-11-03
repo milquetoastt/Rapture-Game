@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7443732055715859588}
   - component: {fileID: 2909522016965576329}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 9171992595669644399}
   - component: {fileID: 7189550963224802204}
   - component: {fileID: 7916248611221765747}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WindBurst
   m_TagString: Spell
   m_Icon: {fileID: 0}
@@ -141,6 +141,8 @@ MonoBehaviour:
   damage: 15
   knockback: 0
   stunTime: 0.3
+  element: 0
+  castType: 0
   rb: {fileID: 7916248611221765747}
   duration: 0.6
   startSpeed: 65.5
@@ -252,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2918388320677515254}
   - component: {fileID: 1007914207704679313}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6177110531105052653}
   - component: {fileID: 1936022805363060161}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

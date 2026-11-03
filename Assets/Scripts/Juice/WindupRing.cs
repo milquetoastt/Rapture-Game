@@ -30,6 +30,7 @@ public class WindupRing : MonoBehaviour
     public WindupRingVisual[] ringVisuals;
 
     public AnimationCurve scaleCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    public Animator anim;
 
     [Header("finish ring")]
     public FinishRingVisual[] finishRings;
@@ -84,7 +85,7 @@ public class WindupRing : MonoBehaviour
             ring.ringVisual.localScale = ring.startScale;
             ring.ringVisual.localEulerAngles = ring.startRotation;
         }
-
+        anim.SetTrigger("Cast");
         float timer = 0f;
 
         while (timer < duration)

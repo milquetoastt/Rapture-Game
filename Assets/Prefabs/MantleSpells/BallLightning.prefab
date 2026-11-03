@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8557059416503750999}
   - component: {fileID: 8571043307944188343}
   - component: {fileID: 6661190278683032372}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BallLightning
   m_TagString: Spell
   m_Icon: {fileID: 0}

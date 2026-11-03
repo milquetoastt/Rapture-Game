@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1999380368847604451}
   - component: {fileID: 6443282244312818444}
   - component: {fileID: 8052177299170552525}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: downburst_0
   m_TagString: Spell
   m_Icon: {fileID: 0}

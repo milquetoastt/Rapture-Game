@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6851172858461542298}
   - component: {fileID: 6034387757628089771}
   - component: {fileID: 6269431367216249569}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MeteorKick
   m_TagString: Spell
   m_Icon: {fileID: 0}
