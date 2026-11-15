@@ -120,6 +120,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   detectionRadius: 30
   alerted: 0
+  spriteFacesRight: 1
   timeBetweenMarkers: 0.75
   numMarkers: 1
   castExplodeTime: 0.75
@@ -211,7 +212,7 @@ Animator:
   m_GameObject: {fileID: 2442007998707873752}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1121e94eef7cb4547b7dbe55146f31c3, type: 2}
+  m_Controller: {fileID: 9100000, guid: ffac8142db10fa848a0ce1faa574921e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

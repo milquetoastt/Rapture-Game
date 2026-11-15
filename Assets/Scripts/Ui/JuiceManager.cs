@@ -52,11 +52,9 @@ public class JuiceManager : MonoBehaviour
         pauseRoutine = null;
     }
     
-    
-
     private bool hitJuiceRunning = false;
 
-    public void HitJuice(Vector2 location, int damage, float pauseLength = .5f)
+    public void HitJuice(Vector2 location, int damage, float hitJuiceDuration = .2f)
     {
         // always show damage text
         GameObject textObj = Instantiate(damageTextPrefab, location, Quaternion.identity);
@@ -69,7 +67,7 @@ public class JuiceManager : MonoBehaviour
         // only one actual pause
         if (!hitJuiceRunning)
         {
-            StartCoroutine(HitJuiceCoroutine(pauseLength));
+            StartCoroutine(HitJuiceCoroutine(hitJuiceDuration));
         }
     }
 

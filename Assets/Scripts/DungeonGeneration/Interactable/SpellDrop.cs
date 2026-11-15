@@ -15,6 +15,7 @@ public class SpellDrop : Interactable
     {
         typeSpell = type;
         whichSpell = which;
+        Debug.Log(typeSpell + whichSpell);
     }
     
     public override void Interact()

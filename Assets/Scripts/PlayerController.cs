@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.1f;
     public bool isGrounded;
+    private bool lastGroundedCheck;
 
     public bool canCast = true;
     public float jumpForce = 10f;
@@ -60,7 +61,14 @@ public class PlayerController : MonoBehaviour
     public float invincibilityDuration = 1f;
     private bool isInvincible = false;
     
+    [Header("particles")]
+    public ParticleSystem trailParticle;
+    public ParticleSystem jumpDustParticle;
     private PlayerControls controls;
+    private bool flipped = false;
+    public ParticleSystem jumpParticle;
+    public float jumpParticleDuration = 0.4f;
+    private Coroutine jumpParticleRoutine;
 
     private void Awake()
     {
@@ -98,13 +106,21 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(heldSeconds);
         // -1 = left, +1 = right
         horizontalInput = controls.Player.Move.ReadValue<float>();
-        Debug.Log(horizontalInput);
+        //Debug.Log(horizontalInput);
         anim.SetInteger("hInput", (int)rb.linearVelocity.magnitude);
         if (horizontalInput != 0)
         {
+            
             sr.flipX = horizontalInput < 0;
+            
         }
-
+        
+        var emission = trailParticle.emission;
+        var renderr = trailParticle.GetComponent<ParticleSystemRenderer>();
+        float flipp = horizontalInput != 0 ? -1.0f : 1.0f;
+        renderr.flip = new Vector3(flipp, 0f, 0f);
+        emission.enabled = horizontalInput != 0 && isGrounded;
+        
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         if (showSpeed)
             Debug.Log(horizontalSpeed);
@@ -112,10 +128,17 @@ public class PlayerController : MonoBehaviour
         if (controls.Player.Jump.WasPressedThisFrame() && isGrounded)
         {
             anim.SetTrigger("jump");
+            jumpDustParticle.Play();
             // set velocity directly so jump height is uniform regardless of mass
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            if (jumpParticleRoutine != null) StopCoroutine(jumpParticleRoutine);
+            jumpParticleRoutine = StartCoroutine(JumpParticleCoroutine());
         }
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            trailParticle.Play();
+        }
 
 
         if (gloveSpells != null)
@@ -137,7 +160,23 @@ public class PlayerController : MonoBehaviour
             );
         }
     }
+    
+    private IEnumerator JumpParticleCoroutine()
+    {
+        jumpParticle.Play();
 
+        float timer = 0f;
+        while (timer < jumpParticleDuration && rb.linearVelocity.y > 0.1f)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // stop emitting new particles but let existing ones fade out naturally
+        jumpParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        jumpParticleRoutine = null;
+    }
+    
     public void GainExperience(int experience)
     {
         currentXp += experience;
@@ -188,7 +227,7 @@ public class PlayerController : MonoBehaviour
                 0f,
                 deceleration * Time.fixedDeltaTime
             );
-
+            
             rb.linearVelocity = velocity;
         }
 
@@ -197,6 +236,11 @@ public class PlayerController : MonoBehaviour
             groundCheckRadius,
             groundLayer
         );
+        if (isGrounded && !lastGroundedCheck)
+        {
+            jumpDustParticle.Play();
+        }
+        lastGroundedCheck = isGrounded;
     }
     private void OnDrawGizmosSelected()
     {
