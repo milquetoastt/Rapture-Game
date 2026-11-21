@@ -19,7 +19,7 @@ public class DressingAnimations : MonoBehaviour
     [Tooltip("Max rotation in degrees either side of the starting rotation")]
     public float wobbleAngle = 10f;
     [Tooltip("How fast the noise changes (higher = jittery, lower = lazy sway)")]
-    public float wobbleSpeed = 1.5f;
+    public float wobbleSpeed = .2f;
     [Tooltip("Adds a second, faster noise layer for a less uniform motion")]
     [Range(0f, 1f)] public float noiseDetail = 0.3f;
     public bool randomizeSeed = true;

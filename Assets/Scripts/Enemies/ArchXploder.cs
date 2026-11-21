@@ -18,11 +18,6 @@ public class ArchXploder : EnemyBase
     public GameObject marker;
     private List<MarkerXploder> markers = new List<MarkerXploder>();
     
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         timer += Time.deltaTime;

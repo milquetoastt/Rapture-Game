@@ -41,7 +41,7 @@ public class EnemyBase : MonoBehaviour
     protected virtual void CheckForPlayer()
     {
 
-        float dist = Vector2.Distance(transform.position, PlayerController.instance.transform.position);
+        float dist = Vector2.Distance(transform.position, WraithController.instance.transform.position);
 
         if (dist <= detectionRadius)
         {

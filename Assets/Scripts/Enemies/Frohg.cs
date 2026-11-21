@@ -27,7 +27,7 @@ public class Frohg : EnemyBase
 
         if (alerted && !stunned && timer >= castCooldown && !isJumping)
         {
-            dirToPlayer = PlayerController.instance.transform.position.x - transform.position.x;
+            dirToPlayer = WraithController.instance.transform.position.x - transform.position.x;
             FaceDirection(dirToPlayer);
             isJumping = true;
             timer = 0f;
@@ -42,7 +42,7 @@ public class Frohg : EnemyBase
         airborne = true;
         airTimer = 0f;
 
-        float dir = Mathf.Sign(PlayerController.instance.transform.position.x - transform.position.x);
+        float dir = Mathf.Sign(WraithController.instance.transform.position.x - transform.position.x);
 
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         rb.AddForce(new Vector2(dir * SideForce, UpForce), ForceMode2D.Impulse);
@@ -72,7 +72,7 @@ public class Frohg : EnemyBase
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
         // flip now to face the player
-        float dirToPlayer = PlayerController.instance.transform.position.x - transform.position.x;
+        float dirToPlayer = WraithController.instance.transform.position.x - transform.position.x;
         FaceDirection(dirToPlayer);
 
         anim.SetTrigger("Landed");
